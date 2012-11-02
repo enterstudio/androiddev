@@ -25,5 +25,25 @@
             android:name=".ForgotPasswordActivity"
             android:label="Forgot Password" >
         </activity>
-    </application>
+        <activity 
+            android:name=".UserActivity"
+ 			android:label="MYiCLUBonline" >
+ 		</activity>        
+        <activity 
+            android:name=".user.AccountActivity"
+ 			android:label="Account" >
+ 		</activity>
+        <activity 
+            android:name=".user.CalendarActivity"
+ 			android:label="Calendar" >
+ 		</activity>
+        <activity 
+            android:name=".user.EventsActivity"
+ 			android:label="Events" >
+ 		</activity>
+        <activity 
+            android:name=".user.BarcodeActivity"
+ 			android:label="Barcode" >
+ 		</activity> 		
+	</application>
 </manifest>

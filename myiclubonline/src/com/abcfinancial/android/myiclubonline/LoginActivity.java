@@ -1,5 +1,8 @@
 package com.abcfinancial.android.myiclubonline;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.abcfinancial.android.myiclubonline.common.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 
@@ -47,8 +50,16 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 	
-	public void requestFinished(String response) {
-	}
+/*	public void requestFinished(String response) {
+        JSONObject jsonResponse;
+		try {
+			jsonResponse = new JSONObject(response);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+		Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+		startActivity(intent);
+	}*/
 	
 	private class WebServiceTask extends AsyncTask<String, String, String>{
 		
@@ -68,8 +79,11 @@ public class LoginActivity extends Activity {
 
 	    @Override
 	    protected void onPostExecute(String result) {
-	        super.onPostExecute(result);
-	        LoginActivity.this.requestFinished(result);
+
+	    	Intent intent = new Intent(LoginActivity.this,UserActivity.class);
+	    	LoginActivity.this.startActivity(intent);
+ //	        super.onPostExecute(result);
+//	        LoginActivity.this.requestFinished(result);
 	    }	
 	}	
 }
