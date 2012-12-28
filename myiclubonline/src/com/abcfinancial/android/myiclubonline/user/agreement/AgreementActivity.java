@@ -1,22 +1,22 @@
-package com.abcfinancial.android.myiclubonline.user;
-
-import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.user.agreement.AgreementActivity;
-import com.abcfinancial.android.myiclubonline.user.checkin.CheckInHistoryDatePickerActivity;
-import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
+package com.abcfinancial.android.myiclubonline.user.agreement;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class AccountActivity extends ListActivity {
-	static final String[] ACTIONS = new String[] { "Agreement", "Billing",
-			"Check-In" };
+import com.abcfinancial.android.myiclubonline.R;
+import com.abcfinancial.android.myiclubonline.user.account.clubinfo.ClubInfoActivity;
+import com.abcfinancial.android.myiclubonline.user.checkin.CheckInHistoryDatePickerActivity;
+import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
+
+public class AgreementActivity extends ListActivity {
+	static final String[] ACTIONS = new String[] { "Agreement Info", "Personal Info",
+			"Club Info" };
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,9 +31,9 @@ public class AccountActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (position == 0) {
-					Intent intent = new Intent(getParent(), AgreementActivity.class);
-					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
-					parentActivity.startChildActivity("Agreement", intent);
+					Intent intent = new Intent(getApplicationContext(),
+							CheckInHistoryDatePickerActivity.class);
+					startActivity(intent);
 				}
 				if (position == 1) {
 					Intent intent = new Intent(getApplicationContext(),
@@ -41,9 +41,9 @@ public class AccountActivity extends ListActivity {
 					startActivity(intent);
 				}
 				if (position == 2) {
-					Intent intent = new Intent(getParent(), CheckInHistoryDatePickerActivity.class);
+					Intent intent = new Intent(getParent(), ClubInfoActivity.class);
 					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
-					parentActivity.startChildActivity("CheckIn", intent);
+					parentActivity.startChildActivity("ClubInfo", intent);
 				}
 			}
 		});

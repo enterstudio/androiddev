@@ -6,6 +6,8 @@ import com.abcfinancial.android.myiclubonline.user.AccountActivity;
 import com.abcfinancial.android.myiclubonline.user.BarcodeActivity;
 import com.abcfinancial.android.myiclubonline.user.CalendarActivity;
 import com.abcfinancial.android.myiclubonline.user.EventsActivity;
+import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
+import com.abcfinancial.android.myiclubonline.usergroups.MainGroupActivity;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -21,12 +23,16 @@ public class UserActivity extends TabActivity {
  
         TabHost tabHost = getTabHost();
  
-        TabSpec accountSpec = tabHost.newTabSpec("Account");
+        tabHost.addTab(tabHost.newTabSpec("Account")
+        .setIndicator("Account")
+        .setContent(new Intent(this, AccountGroupActivity.class)));
+        
+//        TabSpec accountSpec = tabHost.newTabSpec("Account");
         // setting Title and Icon for the Tab
-        accountSpec.setIndicator("Account");
+//        accountSpec.setIndicator("Account");
 //        photospec.setIndicator("Photos", getResources().getDrawable(R.drawable.icon_photos_tab));
-        Intent accountIntent = new Intent(this, AccountActivity.class);
-        accountSpec.setContent(accountIntent);
+//        Intent accountIntent = new Intent(this, AccountActivity.class);
+//        accountSpec.setContent(accountIntent);
  
         TabSpec calendarSpec = tabHost.newTabSpec("Calendar");
         calendarSpec.setIndicator("Calendar");
@@ -44,7 +50,7 @@ public class UserActivity extends TabActivity {
         barcodeSpec.setContent(barcodeIntent);
         
         // Adding all TabSpec to TabHost
-        tabHost.addTab(accountSpec);
+//        tabHost.addTab(accountSpec);
         tabHost.addTab(calendarSpec);
         tabHost.addTab(eventsSpec);
         tabHost.addTab(barcodeSpec);

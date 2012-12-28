@@ -12,6 +12,8 @@
     <application
         android:label="MYiCLUBOnline"
         android:theme="@style/AppTheme" >
+        
+        <!-- Top level activities -->
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
@@ -29,6 +31,8 @@
             android:name=".UserActivity"
  			android:label="MYiCLUBonline" >
  		</activity>        
+
+        <!-- Tab level activities -->
         <activity 
             android:name=".user.AccountActivity"
  			android:label="Account" >
@@ -44,6 +48,26 @@
         <activity 
             android:name=".user.BarcodeActivity"
  			android:label="Barcode" >
- 		</activity> 		
-	</application>
+ 		</activity> 
+
+        <!-- Account level activities -->
+        <activity 
+            android:name=".user.checkin.CheckInHistoryDatePickerActivity"
+ 			android:label="Check In Date Select" >
+ 		</activity> 
+ 		<activity 
+            android:name=".user.agreement.AgreementActivity"
+ 			android:label="Agreement Info" >
+ 		</activity> 
+ 		<activity 
+            android:name=".user.account.clubinfo.ClubInfoActivity"
+ 			android:label="Club Info" >
+ 		</activity>
+ 		
+ 		<!-- Group activities -->
+ 		<activity 
+            android:name=".usergroups.AccountGroupActivity"
+ 			android:label="Account Group" >
+ 		</activity> 
+ 	</application>
 </manifest>
