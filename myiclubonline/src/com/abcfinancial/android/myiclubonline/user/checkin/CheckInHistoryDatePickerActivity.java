@@ -1,15 +1,16 @@
 package com.abcfinancial.android.myiclubonline.user.checkin;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.common.DatePickerCustomDialog;
 import com.abcfinancial.android.myiclubonline.common.DatePickerCustomDialog.OnDateSelectedListener;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,14 +22,14 @@ public class CheckInHistoryDatePickerActivity extends FragmentActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.account_checkin_date_picker);
+		setContentView(R.layout.account_checkin_datepicker);
 
-		TextView loginButton = (TextView) findViewById(R.id.btnSearch);
+		TextView searchButton = (TextView) findViewById(R.id.btnSearch);
 		EditText startDate = (EditText) findViewById(R.id.checkInStartDate);
 		startDate.setInputType(InputType.TYPE_NULL);
 		EditText endDate = (EditText) findViewById(R.id.checkInEndDate);
 		endDate.setInputType(InputType.TYPE_NULL);
-		loginButton.setOnClickListener(new View.OnClickListener() {
+		searchButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 			}
@@ -45,10 +46,29 @@ public class CheckInHistoryDatePickerActivity extends FragmentActivity
 		});
 	}
 
-	public void showDatePickerDialog(View v, int whichDate) {
-		DialogFragment dialogFragment = new DatePickerCustomDialog(whichDate);
-		dialogFragment.show(getSupportFragmentManager(), "datePicker");
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		DatePickerDialog dialog = new DatePickerDialog(getApplicationContext(),
+				mDateSetListener, 2001, 12, 12);
+		return dialog;
 	}
+
+	protected DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+
+		}
+	};
+
+	public void showDatePickerDialog(View view, int whichDate) {
+		DatePickerDialog dialog = new DatePickerDialog(CheckInHistoryDatePickerActivity.this, mDateSetListener, 2001, 12, 12);
+		dialog.show();
+	}
+	
+//	public void showDatePickerDialog(View v, int whichDate) {
+//		DialogFragment dialogFragment = new DatePickerCustomDialog(whichDate);
+//		dialogFragment.show(getSupportFragmentManager(), "datePicker");
+//	}
 
 	public void onDateSelected(String selectedDate, int whichDate) {
 		switch (whichDate) {

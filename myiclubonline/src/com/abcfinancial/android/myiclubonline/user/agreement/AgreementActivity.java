@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.user.account.clubinfo.ClubInfoActivity;
 import com.abcfinancial.android.myiclubonline.user.checkin.CheckInHistoryDatePickerActivity;
 import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
 
@@ -22,7 +21,7 @@ public class AgreementActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		setListAdapter(new ArrayAdapter<String>(this,
-				R.layout.tab_activity_account, ACTIONS));
+				R.layout.account_agreement, ACTIONS));
 
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
@@ -43,7 +42,7 @@ public class AgreementActivity extends ListActivity {
 				if (position == 2) {
 					Intent intent = new Intent(getParent(), ClubInfoActivity.class);
 					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
-					parentActivity.startChildActivity("ClubInfo", intent);
+					parentActivity.startChildActivity(ACTIONS[2], intent);
 				}
 			}
 		});

@@ -6,7 +6,7 @@
   android:layout_height="match_parent">
   
   <!-- Screen Design for Photos -->
-  <TextView android:text="PHOTOS HERE"
+  <TextView android:text="CALENDAR HERE"
   			android:padding="15dip"
   			android:textSize="18dip"
   			android:layout_width="fill_parent"

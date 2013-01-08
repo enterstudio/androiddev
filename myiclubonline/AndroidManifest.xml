@@ -57,17 +57,37 @@
  		</activity> 
  		<activity 
             android:name=".user.agreement.AgreementActivity"
- 			android:label="Agreement Info" >
+ 			android:label="Agreement Options" >
+ 		</activity>
+ 		<activity 
+            android:name=".user.billing.BillingActivity"
+ 			android:label="Billing Options" >
  		</activity> 
  		<activity 
-            android:name=".user.account.clubinfo.ClubInfoActivity"
+            android:name=".user.agreement.ClubInfoActivity"
  			android:label="Club Info" >
  		</activity>
+ 		<activity 
+            android:name=".user.classes.PickLocationActivity"
+ 			android:label="Pick Location" >
+ 		</activity> 		
  		
  		<!-- Group activities -->
  		<activity 
             android:name=".usergroups.AccountGroupActivity"
  			android:label="Account Group" >
  		</activity> 
+ 		<activity 
+            android:name=".usergroups.CalendarGroupActivity"
+ 			android:label="Calendar Group" >
+ 		</activity>
+ 		<activity 
+            android:name=".usergroups.EventsGroupActivity"
+ 			android:label="Events Group" >
+ 		</activity> 
+ 		<activity 
+            android:name=".usergroups.BarcodeGroupActivity"
+ 			android:label="Barcode Group" >
+ 		</activity>  		
  	</application>
 </manifest>

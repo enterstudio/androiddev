@@ -7,6 +7,8 @@ import com.abcfinancial.android.myiclubonline.user.BarcodeActivity;
 import com.abcfinancial.android.myiclubonline.user.CalendarActivity;
 import com.abcfinancial.android.myiclubonline.user.EventsActivity;
 import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
+import com.abcfinancial.android.myiclubonline.usergroups.CalendarGroupActivity;
+import com.abcfinancial.android.myiclubonline.usergroups.EventsGroupActivity;
 import com.abcfinancial.android.myiclubonline.usergroups.MainGroupActivity;
 
 import android.app.TabActivity;
@@ -27,32 +29,16 @@ public class UserActivity extends TabActivity {
         .setIndicator("Account")
         .setContent(new Intent(this, AccountGroupActivity.class)));
         
-//        TabSpec accountSpec = tabHost.newTabSpec("Account");
-        // setting Title and Icon for the Tab
-//        accountSpec.setIndicator("Account");
-//        photospec.setIndicator("Photos", getResources().getDrawable(R.drawable.icon_photos_tab));
-//        Intent accountIntent = new Intent(this, AccountActivity.class);
-//        accountSpec.setContent(accountIntent);
+        tabHost.addTab(tabHost.newTabSpec("Calendar")
+        .setIndicator("Calendar")
+        .setContent(new Intent(this, CalendarGroupActivity.class)));
  
-        TabSpec calendarSpec = tabHost.newTabSpec("Calendar");
-        calendarSpec.setIndicator("Calendar");
-        Intent calendarIntent = new Intent(this, CalendarActivity.class);
-        calendarSpec.setContent(calendarIntent);
+        tabHost.addTab(tabHost.newTabSpec("Events")
+        .setIndicator("Events")
+        .setContent(new Intent(this, EventsGroupActivity.class)));
  
-        TabSpec eventsSpec = tabHost.newTabSpec("Events");
-        eventsSpec.setIndicator("Events");
-        Intent eventsIntent = new Intent(this, EventsActivity.class);
-        eventsSpec.setContent(eventsIntent);
- 
-        TabSpec barcodeSpec = tabHost.newTabSpec("Barcode");
-        barcodeSpec.setIndicator("Barcode");
-        Intent barcodeIntent = new Intent(this, BarcodeActivity.class);
-        barcodeSpec.setContent(barcodeIntent);
-        
-        // Adding all TabSpec to TabHost
-//        tabHost.addTab(accountSpec);
-        tabHost.addTab(calendarSpec);
-        tabHost.addTab(eventsSpec);
-        tabHost.addTab(barcodeSpec);
+        tabHost.addTab(tabHost.newTabSpec("Barcode")
+        .setIndicator("Barcode")
+        .setContent(new Intent(this, BarcodeActivity.class)));
     }
 }

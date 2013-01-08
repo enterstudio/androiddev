@@ -2,6 +2,8 @@ package com.abcfinancial.android.myiclubonline.common;
 
 import java.util.Calendar;
 
+import com.abcfinancial.android.myiclubonline.user.checkin.CheckInHistoryDatePickerActivity;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -27,11 +29,11 @@ public class DatePickerCustomDialog extends DialogFragment implements
 		final Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-		return new DatePickerDialog(getActivity(), this, year, month, day);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);;
+		
+		return new DatePickerDialog(getActivity() , this, year, month, day);
 	}
-
+	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		this.selectedDate = (month+1) + "/" + day + "/" + year;
 		activityListener.onDateSelected(this.selectedDate, this.whichDate);
