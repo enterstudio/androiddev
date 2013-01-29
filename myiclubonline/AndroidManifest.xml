@@ -71,7 +71,19 @@
             android:name=".user.classes.PickLocationActivity"
  			android:label="Pick Location" >
  		</activity> 		
- 		
+ 		<activity 
+            android:name=".user.classes.PickClassActivity"
+ 			android:label="Pick Class" >
+ 		</activity> 
+ 		<activity 
+            android:name=".user.classes.PickClassTimeActivity"
+ 			android:label="Pick Class Time" >
+ 		</activity> 
+ 		<activity 
+            android:name=".user.appointments.PickAppointmentActivity"
+ 			android:label="Pick Appointment" >
+ 		</activity> 
+ 				 		 		
  		<!-- Group activities -->
  		<activity 
             android:name=".usergroups.AccountGroupActivity"

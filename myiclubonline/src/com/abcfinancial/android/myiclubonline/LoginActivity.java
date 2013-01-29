@@ -68,6 +68,7 @@ public class LoginActivity extends Activity {
 			editor.putString("mobileHomeClub", mobileHomeClub.toString());
 			editor.putString("mobileLoginClubs", mobileLoginClubs.toString());
 			editor.putString("mobileLoginBookableAppointments", mobileLoginBookableAppointments.toString());
+			editor.putString("memberId", mobileLoginMember.getString("memberId"));
 			editor.commit();
 			
 			Intent intent = new Intent(LoginActivity.this, UserActivity.class);

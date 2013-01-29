@@ -1,6 +1,7 @@
 package com.abcfinancial.android.myiclubonline.user;
 
 import com.abcfinancial.android.myiclubonline.R;
+import com.abcfinancial.android.myiclubonline.user.appointments.PickAppointmentActivity;
 import com.abcfinancial.android.myiclubonline.user.classes.PickLocationActivity;
 import com.abcfinancial.android.myiclubonline.usergroups.EventsGroupActivity;
 
@@ -26,8 +27,12 @@ public class EventsActivity extends ListActivity {
 		listView.setTextFilterEnabled(true);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (position == 0) {
+					Intent intent = new Intent(getParent(), PickAppointmentActivity.class);
+					EventsGroupActivity parentActivity = (EventsGroupActivity) getParent();
+					parentActivity.startChildActivity(ACTIONS[0], intent);
+				}
 				if (position == 1) {
 					Intent intent = new Intent(getParent(), PickLocationActivity.class);
 					EventsGroupActivity parentActivity = (EventsGroupActivity) getParent();
