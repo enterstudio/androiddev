@@ -87,7 +87,15 @@
             android:name=".user.appointments.PickAppointmentActivity"
  			android:label="Pick Appointment" >
  		</activity> 
-
+		<activity 
+            android:name=".user.appointments.PickTrainerActivity"
+ 			android:label="Pick Trainer" >
+ 		</activity>
+		<activity 
+            android:name=".user.appointments.PickAppointmentDateActivity"
+ 			android:label="Pick Appointment Date" >
+ 		</activity>
+ 		
  		<!-- Purchase level activities -->
         <activity 
             android:name=".user.purchase.PurchaseActivity"

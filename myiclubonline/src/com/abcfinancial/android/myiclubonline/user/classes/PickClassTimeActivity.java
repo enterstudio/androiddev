@@ -11,11 +11,14 @@ import org.json.JSONObject;
 
 import com.abcfinancial.android.myiclubonline.R;
 import com.abcfinancial.android.myiclubonline.adapters.SectionedAdapter;
+import com.abcfinancial.android.myiclubonline.common.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.Utils;
+import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 import com.abcfinancial.android.myiclubonline.usergroups.EventsGroupActivity;
 
 import android.app.ExpandableListActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,11 +33,11 @@ public class PickClassTimeActivity extends ExpandableListActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Bundle extras = getIntent().getExtras();
-		String classScheduleObject = extras.getString("CLASS_SCHEDULE");
-
-		List<String> calendarDates = new ArrayList<String>();
 		try {
+			Bundle extras = getIntent().getExtras();
+			String classScheduleObject = extras.getString("CLASS_SCHEDULE");
+			
+			List<String> calendarDates = new ArrayList<String>();
 			JSONObject json = new JSONObject(classScheduleObject);
 			JSONArray classSchedule = json.getJSONArray("mobileClassSchedule");
 			for (int i = 0; i < classSchedule.length(); i++) {
@@ -73,7 +76,6 @@ public class PickClassTimeActivity extends ExpandableListActivity {
 			listView.setAdapter(adapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					System.out.println("POSITION: " + position);
 					int totalCount = 0;
 					JSONObject selectedClass = null;
 					for(int i=0; i<sectionSizeCount.size(); i++) {
@@ -84,8 +86,18 @@ public class PickClassTimeActivity extends ExpandableListActivity {
 						totalCount += sectionSizeCount.get(i);
 					}
 					try {
+						System.out.println("POSITION: " + selectedClass);
 						if("0".equals(selectedClass.getString("isFree")) && !selectedClass.getBoolean("alreadyEnrolled")){
-							// Call "isServiceAvailable"
+							
+	/*						
+						    [request addPostValue:self.selectedClub forKey:@"club"];
+						    [request addPostValue:memberId forKey:@"memberId"]; 
+						    [request addPostValue:eventDate forKey:@"eventDate"];
+						    [request addPostValue:[eventData objectForKey:@"eventTypeId"] forKey:@"eventTypeId"];
+						    [request addPostValue:[eventData objectForKey:@"levelId"] forKey:@"levelId"];
+	*/					    
+						    
+//							new WebServiceTask().execute("isserviceavailable", memberId, clubNumber, selectedClass.getString("eventDate"), selectedClass.getString("")));
 						} else {
 							Intent intent = new Intent(getParent(), ClassEnrollDetailActivity.class);
 							intent.putExtra("CLASS_DETAIL", selectedClass.toString());
@@ -102,4 +114,34 @@ public class PickClassTimeActivity extends ExpandableListActivity {
 			// TODO: throw error dialog
 		}
 	}
+	
+	private class WebServiceTask extends AsyncTask<String, String, String> {
+
+		@Override
+		protected String doInBackground(String... uri) {
+			WebServiceClient client = new WebServiceClient(uri[0]);
+			try {
+				client.addParameter("memberId", uri[1]);
+				client.addParameter("club", uri[2]);
+				JSONObject classInfo = new JSONObject(uri[3]);
+				client.addParameter("bookingWindowHours", classInfo.getString("bookingHourStart"));
+				client.addParameter("eventTypeId", classInfo.getString("eventTypeId"));
+				client.addHeader("Authorization", "Basic cWE6dGVzdA==");
+				client.execute(RequestMethod.POST);
+			} catch (JSONException exception) {
+				exception.printStackTrace();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+			return client.getResponse();
+		}
+
+		@Override
+		protected void onPostExecute(String response) {
+			Intent intent = new Intent(getParent(), PickClassTimeActivity.class);
+			intent.putExtra("CLASS_SCHEDULE", response);
+			EventsGroupActivity parentActivity = (EventsGroupActivity) getParent();
+			parentActivity.startChildActivity("PickClassTimeActivity", intent);
+		}
+	}	
 }
