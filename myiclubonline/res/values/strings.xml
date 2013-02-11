@@ -25,6 +25,7 @@
     <string name="label_eventEmployeeName">Trainer</string>
     <string name="label_eventLocation">Location</string>
     <string name="label_eventEnrollment">Enrolled</string>
+    <string name="label_select_date">Select a date to search for available times</string>
     
     <!-- ******* -->
     <!-- BUTTONS -->
@@ -34,6 +35,7 @@
     <string name="button_reset">Reset Password</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_search">Search</string>
+    <string name="button_pick_date">Select Date</string>
     
     <!-- **** -->
     <!-- TEXT -->

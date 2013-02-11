@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.user.agreement.ClubInfoActivity;
+import com.abcfinancial.android.myiclubonline.common.SearchTypes;
 import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
 
 public class BillingActivity extends ListActivity {
@@ -29,23 +29,19 @@ public class BillingActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (position == 0) {
 					Intent intent = new Intent(getParent(), HistoryDatePickerActivity.class);
+					intent.putExtra("SEARCH_TYPE", SearchTypes.PAYMENT.getId());
 					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
 					parentActivity.startChildActivity("PaymentHistory", intent);
 				}
 				if (position == 1) {
 					Intent intent = new Intent(getParent(), HistoryDatePickerActivity.class);
+					intent.putExtra("SEARCH_TYPE", SearchTypes.PURCHASE.getId());
 					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
 					parentActivity.startChildActivity("PurchaseHistory", intent);
 				}
 				if (position == 2) {
-					Intent intent = new Intent(getParent(), ClubInfoActivity.class);
-					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
-					parentActivity.startChildActivity("MakePayment", intent);
 				}
 				if (position == 3) {
-					Intent intent = new Intent(getParent(), ClubInfoActivity.class);
-					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
-					parentActivity.startChildActivity("UpdatePayment", intent);
 				}				
 			}
 		});

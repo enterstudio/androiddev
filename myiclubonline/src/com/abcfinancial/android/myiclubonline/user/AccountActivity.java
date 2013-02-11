@@ -1,9 +1,10 @@
 package com.abcfinancial.android.myiclubonline.user;
 
 import com.abcfinancial.android.myiclubonline.R;
+import com.abcfinancial.android.myiclubonline.common.SearchTypes;
 import com.abcfinancial.android.myiclubonline.user.agreement.AgreementActivity;
 import com.abcfinancial.android.myiclubonline.user.billing.BillingActivity;
-import com.abcfinancial.android.myiclubonline.user.checkin.CheckInHistoryDatePickerActivity;
+import com.abcfinancial.android.myiclubonline.user.billing.HistoryDatePickerActivity;
 import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
 
 import android.app.ListActivity;
@@ -40,7 +41,8 @@ public class AccountActivity extends ListActivity {
 					parentActivity.startChildActivity(ACTIONS[1], intent);
 				}
 				if (position == 2) {
-					Intent intent = new Intent(getParent(), CheckInHistoryDatePickerActivity.class);
+					Intent intent = new Intent(getParent(), HistoryDatePickerActivity.class);
+					intent.putExtra("SEARCH_TYPE", SearchTypes.CHECK_IN.getId());
 					AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
 					parentActivity.startChildActivity(ACTIONS[2], intent);
 				}

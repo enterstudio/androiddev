@@ -52,9 +52,9 @@
 
         <!-- Account level activities -->
         <activity 
-            android:name=".user.checkin.CheckInHistoryDatePickerActivity"
- 			android:label="Check In Date Select" >
- 		</activity> 
+            android:name=".user.billing.HistoryDatePickerActivity"
+ 			android:label="History Date Select" >
+ 		</activity>  		
  		<activity 
             android:name=".user.agreement.AgreementActivity"
  			android:label="Agreement Options" >
