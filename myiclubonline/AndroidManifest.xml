@@ -55,7 +55,11 @@
             android:name=".user.billing.HistoryDatePickerActivity"
  			android:label="History Date Select" >
  		</activity>  		
- 		<activity 
+        <activity 
+            android:name=".user.billing.HistoryDisplayActivity"
+ 			android:label="History Display" >
+ 		</activity>  		
+        <activity 
             android:name=".user.agreement.AgreementActivity"
  			android:label="Agreement Options" >
  		</activity>
