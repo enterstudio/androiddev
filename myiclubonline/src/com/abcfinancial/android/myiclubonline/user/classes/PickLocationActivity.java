@@ -44,7 +44,7 @@ public class PickLocationActivity extends ListActivity {
 					clubNumbers.add(club.getString("number"));
 				}
 			}
-			setListAdapter(new ArrayAdapter<String>(this, R.layout.events_class_picklocation, locations));
+			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_simple, locations));
 
 			ListView listView = getListView();
 			listView.setTextFilterEnabled(true);

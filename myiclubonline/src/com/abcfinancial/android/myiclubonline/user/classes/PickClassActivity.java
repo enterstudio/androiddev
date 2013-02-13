@@ -43,7 +43,7 @@ public class PickClassActivity extends ListActivity {
 				clubClass = mobileClubClasses.getJSONObject(i);
 				classes.add(clubClass.getString("eventTypeName") + " (Level: " + clubClass.getString("levelName") + ")");
 			}
-			setListAdapter(new ArrayAdapter<String>(this, R.layout.events_class_pickclass, classes));
+			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_simple, classes));
 
 			ListView listView = getListView();
 			listView.setTextFilterEnabled(true);

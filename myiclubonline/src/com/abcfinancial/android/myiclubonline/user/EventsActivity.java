@@ -21,7 +21,7 @@ public class EventsActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.tab_activity_events, ACTIONS));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_simple, ACTIONS));
 
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);

@@ -20,7 +20,7 @@ public class BillingActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.account_billing, ACTIONS));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_simple, ACTIONS));
 
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);

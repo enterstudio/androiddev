@@ -39,7 +39,7 @@ public class PickTrainerActivity extends ListActivity {
 				trainers.add(employee.getString("employeeName"));
 				trainerIds.add(employee.getString("employeeId"));
 			}
-			setListAdapter(new ArrayAdapter<String>(this, R.layout.events_class_picklocation, trainers));
+			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_simple, trainers));
 
 			ListView listView = getListView();
 			listView.setTextFilterEnabled(true);
