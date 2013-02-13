@@ -72,6 +72,10 @@
  			android:label="Club Info" >
  		</activity>
  		<activity 
+            android:name=".user.agreement.PersonalInfoActivity"
+ 			android:label="Personal Info" >
+ 		</activity> 		
+ 		<activity 
             android:name=".user.classes.PickLocationActivity"
  			android:label="Pick Location" >
  		</activity> 		
