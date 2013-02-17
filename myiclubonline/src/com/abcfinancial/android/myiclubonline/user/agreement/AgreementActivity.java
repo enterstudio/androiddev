@@ -22,6 +22,7 @@ import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;
 public class AgreementActivity extends ListActivity {
 	static final String[] ACTIONS = new String[] { "Agreement Info", "Personal Info", "Club Info" };
 	private String memberId = "", memberNumber = "", club;
+	private int selectedPosition;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,9 +39,10 @@ public class AgreementActivity extends ListActivity {
 			ListView listView = getListView();
 			listView.setTextFilterEnabled(true);
 			listView.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					selectedPosition = position;
 					if (position == 0) {
+						new WebServiceTask().execute("membershiplookup", memberId, memberNumber, club);
 					}
 					if (position == 1) {
 						new WebServiceTask().execute("personallookup", memberId, memberNumber, club);
@@ -80,8 +82,14 @@ public class AgreementActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(String response) {
-			Intent intent = new Intent(getParent(), PersonalInfoActivity.class);
-			intent.putExtra("PERSONAL", response);
+			Intent intent = null;
+			if( selectedPosition == 0 ) {
+				intent = new Intent(getParent(), AgreementInfoActivity.class);
+				intent.putExtra("AGREEMENT", response);
+			} else if (selectedPosition == 1) {
+				intent = new Intent(getParent(), PersonalInfoActivity.class);
+				intent.putExtra("PERSONAL", response);
+			}
 			AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
 			parentActivity.startChildActivity("PersonalInfoActivity", intent);
 		}

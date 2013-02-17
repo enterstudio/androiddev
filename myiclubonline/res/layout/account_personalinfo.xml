@@ -31,6 +31,18 @@
             android:textColor="#372c24" />
 
         <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_contact_info"
+            android:textColor="#372c24" />
+        
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#372c24" />
+        
+        <TextView
             android:id="@+id/homePhone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -38,12 +50,6 @@
 
         <TextView
             android:id="@+id/mobilePhone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#372c24" />
-
-        <TextView
-            android:id="@+id/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="#372c24" />

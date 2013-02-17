@@ -23,25 +23,33 @@ public class ClubInfoActivity extends Activity {
 			String clubNameValue = json.getString("name");
 			String address1Value = json.getString("address1");
 			String address2Value = json.getString("address2");
-			String cityValue = json.getString("city");
-			String stateValue = json.getString("state");
-			String zipValue = json.getString("zip");
+			String cityValue = "", city = json.getString("city");
+			String stateValue = "", state = json.getString("state");
+			String zipValue = "", zip = json.getString("zip");
 			String phoneValue = json.getString("phoneNumber");
 			String phoneExtValue = json.getString("phoneNumberExt");
+
+			if( city != null && !"".equals(city)) {
+				cityValue = city;
+			}
+			if( state != null && !"".equals(state)) {
+				stateValue = ", " + state;
+			}
+			if( zip != null && !"".equals(zip)) {
+				zipValue = " " + zip;
+			}
+			String cityStateZip = cityValue + stateValue + zipValue;			
+			
 			TextView clubName = (TextView) findViewById(R.id.clubInfoName);
 			TextView address1 = (TextView) findViewById(R.id.address1);
 			TextView address2 = (TextView) findViewById(R.id.address2);
-			TextView city = (TextView) findViewById(R.id.city);
-			TextView state = (TextView) findViewById(R.id.state);
-			TextView zip = (TextView) findViewById(R.id.zip);
+			TextView cityStateZipLabel = (TextView) findViewById(R.id.cityStateZip);
 			TextView clubPhone = (TextView) findViewById(R.id.clubPhone);
 			TextView clubPhoneExt = (TextView) findViewById(R.id.clubPhoneExt);
 			clubName.setText(clubNameValue);
 			address1.setText(address1Value);
 			address2.setText(address2Value);
-			city.setText(cityValue);
-			state.setText(stateValue);
-			zip.setText(zipValue);
+			cityStateZipLabel.setText(cityStateZip);
 			clubPhone.setText(phoneValue);
 			clubPhoneExt.setText(phoneExtValue);
 		} catch (Exception exception) {

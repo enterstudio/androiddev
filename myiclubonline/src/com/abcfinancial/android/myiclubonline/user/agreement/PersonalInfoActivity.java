@@ -18,7 +18,6 @@ public class PersonalInfoActivity extends Activity {
 		try {
 			Bundle extras = getIntent().getExtras();
 			String personal = extras.getString("PERSONAL");
-			System.out.println("RESPONSE: " + personal);
 			JSONObject personalInfo = new JSONObject(personal);
 			JSONObject personalData = personalInfo.getJSONObject("personal");
 			

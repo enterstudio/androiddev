@@ -76,6 +76,10 @@
  			android:label="Personal Info" >
  		</activity> 		
  		<activity 
+            android:name=".user.agreement.AgreementInfoActivity"
+ 			android:label="Agreement Info" >
+ 		</activity> 
+ 		<activity 
             android:name=".user.classes.PickLocationActivity"
  			android:label="Pick Location" >
  		</activity> 		

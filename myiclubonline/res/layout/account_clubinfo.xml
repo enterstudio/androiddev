@@ -31,19 +31,7 @@
             android:textColor="#372c24" />
 
         <TextView
-            android:id="@+id/city"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#372c24" />
-
-        <TextView
-            android:id="@+id/state"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#372c24" />
-
-        <TextView
-            android:id="@+id/zip"
+            android:id="@+id/cityStateZip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="#372c24" />
