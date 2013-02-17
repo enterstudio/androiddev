@@ -42,17 +42,15 @@
             android:singleLine="true" />
 
         <Button
+            style="@style/ButtonText"
+			android:background="@drawable/regular_button"
             android:id="@+id/btnLogin"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
             android:text="@string/button_login" />
 
         <Button
+            style="@style/ButtonText"
+			android:background="@drawable/regular_button"
             android:id="@+id/btnForgotPassword"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
             android:text="@string/button_forgot" />
     </LinearLayout>
 

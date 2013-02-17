@@ -17,17 +17,15 @@
         android:textColor="#372c24" />
 
     <Button
+        style="@style/ButtonText"
+		android:background="@drawable/regular_button"
         android:id="@+id/pickDate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:text="@string/button_pick_date" />
 
     <Button
+        style="@style/ButtonText"
+		android:background="@drawable/regular_button"
         android:id="@+id/searchByDate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:text="@string/button_search" />
 
 </LinearLayout>

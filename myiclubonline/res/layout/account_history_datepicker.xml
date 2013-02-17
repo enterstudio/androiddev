@@ -50,10 +50,9 @@
             android:onClick="showDatePickerDialog" />
 
         <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
+            style="@style/ButtonText"
+			android:background="@drawable/regular_button"
+			android:id="@+id/btnSearch"
             android:text="@string/button_search" />
     </LinearLayout>
 </ScrollView>
