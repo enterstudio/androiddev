@@ -52,14 +52,11 @@ public class WebServiceClient {
 		this.fullUrl = URL + operation;
 		params = new ArrayList<NameValuePair>();
 		headers = new ArrayList<NameValuePair>();
+		headers.add(new BasicNameValuePair("Authorization", "Basic cWE6dGVzdA=="));
 	}
 
 	public void addParameter(String name, String value) {
 		params.add(new BasicNameValuePair(name, value));
-	}
-
-	public void addHeader(String name, String value) {
-		headers.add(new BasicNameValuePair(name, value));
 	}
 
 	public void execute(RequestMethod method) throws Exception {

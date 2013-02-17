@@ -18,7 +18,6 @@ public class AgreementInfoActivity extends Activity {
 		try {
 			Bundle extras = getIntent().getExtras();
 			String agreement = extras.getString("AGREEMENT");
-			System.out.println("AGREEMENT: " + agreement);
 			JSONObject agreementInfo = new JSONObject(agreement);
 			JSONObject agreementData = agreementInfo.getJSONObject("member");
 			

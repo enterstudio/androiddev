@@ -94,7 +94,6 @@ public class PickAppointmentDateActivity extends Activity {
 				client.addParameter("employeeId", uri[3]);
 				client.addParameter("duration", appointment.getString("duration"));
 				client.addParameter("bookingHourStart", appointment.getString("bookingHourStart"));
-				client.addHeader("Authorization", "Basic cWE6dGVzdA==");
 				client.execute(RequestMethod.POST);
 			} catch (Exception exception) {
 				exception.printStackTrace();

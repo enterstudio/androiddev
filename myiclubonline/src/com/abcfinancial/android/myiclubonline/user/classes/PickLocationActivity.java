@@ -66,7 +66,6 @@ public class PickLocationActivity extends ListActivity {
 			WebServiceClient client = new WebServiceClient(uri[0]);
 			client.addParameter("memberId", uri[1]);
 			client.addParameter("club", uri[2]);
-			client.addHeader("Authorization", "Basic cWE6dGVzdA==");
 			try {
 				client.execute(RequestMethod.POST);
 			} catch (Exception e) {

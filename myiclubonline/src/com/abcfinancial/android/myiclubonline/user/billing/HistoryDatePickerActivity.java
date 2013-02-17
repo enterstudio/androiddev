@@ -149,7 +149,6 @@ public class HistoryDatePickerActivity extends Activity {
 				client.addParameter("club", uri[2]);
 				client.addParameter("lowDate", uri[3]);
 				client.addParameter("highDate", uri[4]);
-				client.addHeader("Authorization", "Basic cWE6dGVzdA==");
 				client.execute(RequestMethod.POST);
 			} catch (Exception exception) {
 				// TODO: throw error dialog

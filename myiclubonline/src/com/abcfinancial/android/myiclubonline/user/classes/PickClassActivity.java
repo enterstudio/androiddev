@@ -72,7 +72,6 @@ public class PickClassActivity extends ListActivity {
 				JSONObject classInfo = new JSONObject(uri[3]);
 				client.addParameter("bookingWindowHours", classInfo.getString("bookingHourStart"));
 				client.addParameter("eventTypeId", classInfo.getString("eventTypeId"));
-				client.addHeader("Authorization", "Basic cWE6dGVzdA==");
 				client.execute(RequestMethod.POST);
 			} catch (JSONException exception) {
 				exception.printStackTrace();

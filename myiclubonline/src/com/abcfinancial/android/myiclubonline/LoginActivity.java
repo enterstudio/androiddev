@@ -85,7 +85,6 @@ public class LoginActivity extends Activity {
 			WebServiceClient client = new WebServiceClient(uri[0]);
 			client.addParameter("username", uri[1]);
 			client.addParameter("password", uri[2]);
-			client.addHeader("Authorization", "Basic cWE6dGVzdA==");
 			try {
 				client.execute(RequestMethod.POST);
 			} catch (Exception e) {

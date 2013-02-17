@@ -72,7 +72,6 @@ public class AgreementActivity extends ListActivity {
 					client.addParameter("memberId", uri[1]);
 				}
 				client.addParameter("club", uri[3]);
-				client.addHeader("Authorization", "Basic cWE6dGVzdA==");
 				client.execute(RequestMethod.POST);
 			} catch (Exception exception) {
 				exception.printStackTrace();
