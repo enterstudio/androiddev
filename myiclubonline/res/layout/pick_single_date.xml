@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
+        style="@style/LabelText"        
         android:text="@string/label_select_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

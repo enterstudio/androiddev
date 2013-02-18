@@ -31,6 +31,7 @@
             android:textColor="#372c24" />
 
         <TextView
+            style="@style/LabelText"            
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/label_contact_info"

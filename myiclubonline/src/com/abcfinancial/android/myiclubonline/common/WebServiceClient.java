@@ -22,9 +22,10 @@ import org.apache.http.protocol.HTTP;
 import com.abcfinancial.android.myiclubonline.http.CustomHttpClient;
 
 public class WebServiceClient {
-	private static final String URL = "https://wstest.abcfinancial.com/mobile/orchestrate/";
-	public static final String USERNAME = "qa";
-	public static final String PASSWORD = "test";
+	private static final String DEV_URL = "https://wstest.abcfinancial.com/mobile/orchestrate/";
+	private static final String DEV_AUTHORIZATION = "Basic cWE6dGVzdA==";
+	private static final String URL = "https://mobile.abcfinancial.com/mobile/orchestrate/";
+	private static final String AUTHORIZATION = "Basic Y29sbGluLmNvbTpRYXp3c3gwOTg3";
 	
 	private ArrayList<NameValuePair> params;
 	private ArrayList<NameValuePair> headers;
@@ -52,7 +53,7 @@ public class WebServiceClient {
 		this.fullUrl = URL + operation;
 		params = new ArrayList<NameValuePair>();
 		headers = new ArrayList<NameValuePair>();
-		headers.add(new BasicNameValuePair("Authorization", "Basic cWE6dGVzdA=="));
+		headers.add(new BasicNameValuePair("Authorization", AUTHORIZATION));
 	}
 
 	public void addParameter(String name, String value) {

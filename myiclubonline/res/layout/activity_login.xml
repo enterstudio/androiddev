@@ -13,6 +13,7 @@
         android:padding="10dip" >
 
         <TextView
+            style="@style/LabelText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/label_username"
@@ -28,6 +29,7 @@
             android:inputType="text"/>
 
         <TextView
+            style="@style/LabelText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/label_password"

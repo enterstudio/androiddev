@@ -11,17 +11,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
-	EditText username;
-	EditText password;
+	private EditText username;
+	private EditText password;
+//	private ProgressDialog progressDialog;
+//	private boolean stopBlocking;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,25 +37,19 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.userPassword);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				new WebServiceTask().execute("lookup", username.getText()
-						.toString(), password.getText().toString());
+//				stopBlocking = false;
+//				new LoadViewTask().execute();
+				new WebServiceTask().execute("lookup", username.getText().toString(), password.getText().toString());
 			}
 		});
 
 		TextView forgotPasswordScreen = (TextView) findViewById(R.id.btnForgotPassword);
 		forgotPasswordScreen.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(),
-						ForgotPasswordActivity.class);
+				Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
 				startActivity(intent);
 			}
 		});
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_login, menu);
-		return true;
 	}
 
 	public void requestFinished(String response) {
@@ -62,7 +60,7 @@ public class LoginActivity extends Activity {
 			JSONArray mobileLoginClubs = json.getJSONArray("mobileLoginClubs");
 			JSONArray mobileLoginBookableAppointments = json.getJSONArray("mobileLoginBookableAppointments");
 
-			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);  
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("mobileLoginMember", mobileLoginMember.toString());
 			editor.putString("mobileHomeClub", mobileHomeClub.toString());
@@ -70,16 +68,23 @@ public class LoginActivity extends Activity {
 			editor.putString("mobileLoginBookableAppointments", mobileLoginBookableAppointments.toString());
 			editor.putString("memberId", mobileLoginMember.getString("memberId"));
 			editor.commit();
-			
-			Intent intent = new Intent(LoginActivity.this, UserActivity.class);
-			LoginActivity.this.startActivity(intent);
 		} catch (JSONException e1) {
+			new AlertDialog.Builder(this).setTitle("Login")
+					.setMessage("The username or password you entered is incorrect")
+					.setNeutralButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+								}
+							}).show();
 			e1.printStackTrace();
+			return;
 		}
-	}	
-	
-	private class WebServiceTask extends AsyncTask<String, String, String> {
+		Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+		LoginActivity.this.startActivity(intent);
+	}
 
+	private class WebServiceTask extends AsyncTask<String, String, String> {
 		@Override
 		protected String doInBackground(String... uri) {
 			WebServiceClient client = new WebServiceClient(uri[0]);
@@ -95,9 +100,37 @@ public class LoginActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String response) {
-	    	Intent intent = new Intent(LoginActivity.this,UserActivity.class);
-	    	LoginActivity.this.startActivity(intent);
-	        LoginActivity.this.requestFinished(response);
+//			stopBlocking = true;
+			LoginActivity.this.requestFinished(response);
 		}
 	}
+
+/*	private class LoadViewTask extends AsyncTask<Void, Integer, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+				while (!stopBlocking) {
+					this.wait(850);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		protected void onPreExecute() {
+			progressDialog = ProgressDialog.show(LoginActivity.this,
+					"Loading...", "Loading application View, please wait...",
+					false, false);
+		}
+
+		protected void onProgressUpdate(Integer... values) {
+			progressDialog.setProgress(values[0]);
+		}
+
+		protected void onPostExecute(Void result) {
+			progressDialog.dismiss();
+		}
+	}*/
 }
