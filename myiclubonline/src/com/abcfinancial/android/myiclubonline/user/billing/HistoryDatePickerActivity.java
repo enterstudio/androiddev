@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -75,14 +76,16 @@ public class HistoryDatePickerActivity extends Activity {
 									.getText().toString());
 				}
 			});
-			startDate.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
+			startDate.setOnTouchListener(new View.OnTouchListener() {
+				public boolean onTouch(View v, MotionEvent event) {
 					showDialog(DATE_DIALOG_START);
+					return false;
 				}
 			});
-			endDate.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
+			endDate.setOnTouchListener(new View.OnTouchListener() {
+				public boolean onTouch(View v, MotionEvent event) {
 					showDialog(DATE_DIALOG_END);
+					return false;
 				}
 			});
 		} catch (Exception exception) {

@@ -55,15 +55,17 @@ public class PickAppointmentActivity extends ListActivity {
 				apptInfo = new LinkedList<Map<String,?>>();
 				for( int i=0; i<json.length(); i++) {
 					JSONObject appointment = json.getJSONObject(i);
-					available = appointment.getString("available");
-					if( "Free".equals(available) ) {
-						available = "Sessions are free";
-					} else {
-						available += " available to use";
+					if( name.equals(appointment.getString("clubName"))) {
+						available = appointment.getString("available");
+						if( "Free".equals(available) ) {
+							available = "Sessions are free";
+						} else {
+							available += " available to use";
+						}
+				        apptInfo.add(Utils.createItem(appointment.getString("eventName") + " (Level: " + appointment.getString("levelName") + ")", available));
+						orderedAppointmentList.add(appointment);
+						elementCount++;
 					}
-			        apptInfo.add(Utils.createItem(appointment.getString("eventName") + " (Level: " + appointment.getString("levelName") + ")", available));
-					orderedAppointmentList.add(appointment);
-					elementCount++;
 				}
 				sectionSizeCount.add(elementCount);
 				adapter.addSection(name, new SimpleAdapter(this, apptInfo, R.layout.list_complex, new String[] { Utils.ITEM_TITLE, Utils.ITEM_CAPTION }, new int[] { R.id.list_complex_title, R.id.list_complex_caption }));  
