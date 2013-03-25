@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.common.RequestMethod;
+import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 import com.abcfinancial.android.myiclubonline.usergroups.EventsGroupActivity;
 

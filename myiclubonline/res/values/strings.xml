@@ -37,7 +37,12 @@
     <string name="label_membership_status">Membership Status</string>
     <string name="label_membership_type">Membership Type</string>
     <string name="label_membership">Membership</string>
-
+    <string name="label_select_payment_method">Select Payment Method</string>
+    <string name="label_past_due">Past Due</string>
+    <string name="label_next_payment">Next Payment</string>
+    <string name="label_next_payment_due">Next Payment Due</string>
+    <string name="label_stored_payment_method">Stored Payment Method</string>
+        
     <!-- ******* -->
     <!-- BUTTONS -->
     <!-- ******* -->
@@ -47,7 +52,9 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_search">Search</string>
     <string name="button_pick_date">Select Date</string>
-
+    <string name="button_credit_card">Credit Card</string>
+    <string name="button_bank_account">Bank Account</string>
+        
     <!-- **** -->
     <!-- TEXT -->
     <!-- **** -->

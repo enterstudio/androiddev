@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/storedPaymentLabel"
+            style="@style/LabelText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_stored_payment_method"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/updatePaymentInfoLabel"
+            style="@style/LabelText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/pastDueLabel"
+            style="@style/LabelText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_past_due"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/pastDue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/nextPaymentLabel"
+            style="@style/LabelText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_next_payment"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/nextPayment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/nextPaymentDueLabel"
+            style="@style/LabelText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_next_payment_due"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/nextPaymentDue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#372c24" />
+
+        <TextView
+            android:id="@+id/selectPaymentMethodoLabel"
+            style="@style/LabelText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_select_payment_method"
+            android:textColor="#372c24" />
+
+        <Button
+            android:id="@+id/pickCreditCard"
+            style="@style/ButtonText"
+            android:background="@drawable/regular_button"
+            android:text="@string/button_credit_card" />
+
+        <Button
+            android:id="@+id/pickBankAccount"
+            style="@style/ButtonText"
+            android:background="@drawable/regular_button"
+            android:text="@string/button_bank_account" />
+
+        <Button
+            android:id="@+id/pickOnFile"
+            style="@style/ButtonText"
+            android:background="@drawable/regular_button" />
+    </LinearLayout>
+
+</ScrollView>

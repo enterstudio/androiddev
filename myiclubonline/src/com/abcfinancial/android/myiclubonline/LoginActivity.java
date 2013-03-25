@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.abcfinancial.android.myiclubonline.common.RequestMethod;
+import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 
 import android.os.AsyncTask;

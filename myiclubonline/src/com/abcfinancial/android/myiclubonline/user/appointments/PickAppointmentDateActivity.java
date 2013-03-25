@@ -5,7 +5,7 @@ import java.util.Calendar;
 import org.json.JSONObject;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.common.RequestMethod;
+import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.Utils;
 import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 

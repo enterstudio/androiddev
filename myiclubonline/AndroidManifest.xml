@@ -60,6 +60,10 @@
  			android:label="History Display" >
  		</activity>  		
         <activity 
+            android:name=".user.billing.PaymentInfoActivity"
+ 			android:label="Make Payment Info" >
+ 		</activity>
+        <activity 
             android:name=".user.agreement.AgreementActivity"
  			android:label="Agreement Options" >
  		</activity>

@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.common.RequestMethod;
+import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.Utils;
 import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 import com.abcfinancial.android.myiclubonline.usergroups.AccountGroupActivity;

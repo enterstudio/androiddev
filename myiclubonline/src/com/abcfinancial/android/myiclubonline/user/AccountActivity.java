@@ -1,7 +1,7 @@
 package com.abcfinancial.android.myiclubonline.user;
 
 import com.abcfinancial.android.myiclubonline.R;
-import com.abcfinancial.android.myiclubonline.common.SearchTypes;
+import com.abcfinancial.android.myiclubonline.common.Enums.SearchTypes;
 import com.abcfinancial.android.myiclubonline.user.agreement.AgreementActivity;
 import com.abcfinancial.android.myiclubonline.user.billing.BillingActivity;
 import com.abcfinancial.android.myiclubonline.user.billing.HistoryDatePickerActivity;

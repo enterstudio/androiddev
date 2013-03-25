@@ -19,6 +19,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
+import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
 import com.abcfinancial.android.myiclubonline.http.CustomHttpClient;
 
 public class WebServiceClient {
@@ -50,10 +51,10 @@ public class WebServiceClient {
 	}
 
 	public WebServiceClient(String operation) {
-		this.fullUrl = URL + operation;
+		this.fullUrl = DEV_URL + operation;
 		params = new ArrayList<NameValuePair>();
 		headers = new ArrayList<NameValuePair>();
-		headers.add(new BasicNameValuePair("Authorization", AUTHORIZATION));
+		headers.add(new BasicNameValuePair("Authorization", DEV_AUTHORIZATION));
 	}
 
 	public void addParameter(String name, String value) {
