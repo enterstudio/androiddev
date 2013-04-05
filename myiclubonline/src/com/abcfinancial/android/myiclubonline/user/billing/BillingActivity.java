@@ -1,5 +1,6 @@
 package com.abcfinancial.android.myiclubonline.user.billing;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.abcfinancial.android.myiclubonline.R;
+import com.abcfinancial.android.myiclubonline.common.BillingInfo;
 import com.abcfinancial.android.myiclubonline.common.Enums;
 import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
 import com.abcfinancial.android.myiclubonline.common.Enums.SearchTypes;
@@ -71,7 +73,14 @@ public class BillingActivity extends ListActivity {
 	}
 
 	private class WebServiceTask extends AsyncTask<String, String, String> {
-
+//		ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute() {
+//			progressDialog = ProgressDialog.show(BillingActivity.this, "", "Loading billing info...");
+			super.onPreExecute();
+		}		
+		
 		@Override
 		protected String doInBackground(String... uri) {
 			WebServiceClient client = new WebServiceClient(uri[0]);
@@ -87,7 +96,10 @@ public class BillingActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(String response) {
-			String intentName = "";
+/*			if (progressDialog != null) {
+				progressDialog.dismiss();
+			}
+*/			String intentName = "";
 			Intent intent = null;
 			switch (Enums.PaymentActions.valueOf(paymentAction)) {
 				case MAKE_PAYMENT:
@@ -99,12 +111,38 @@ public class BillingActivity extends ListActivity {
 					intentName = "UpdatePaymentInfoActivity";
 					break;
 				default:
+					// TODO: throw error dialog
 					break;
 			}
-			intent.putExtra("BILLING_INFO", response);
+			intent.putExtra("BILLING_INFO", processBillingInfo(response));
 			intent.putExtra("PAYMENT_ACTION", paymentAction);
 			AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
 			parentActivity.startChildActivity(intentName, intent);			
+		}
+		
+		private String processBillingInfo(String response) {
+			BillingInfo billingInfo = new BillingInfo();
+			try {
+				JSONObject json = new JSONObject(response);
+				billingInfo.setFirstName(json.getString("firstName"));
+				billingInfo.setLastName(json.getString("lastName"));
+				billingInfo.setPaymentMethod(Enums.PaymentMethods.fromName(json.getString("paymentMethod")));
+				billingInfo.setBankAccountNumber(json.getString("bankAccountNumber"));
+				billingInfo.setBankRoutingNumber(json.getString("bankRoutingNumber"));
+				billingInfo.setBankAccountType(Enums.BankAccountTypes.fromName(json.getString("bankAccountType")));
+				billingInfo.setCreditCardNumber(json.getString("creditCardNumber"));
+				billingInfo.setCreditCardType(Enums.CreditCardTypes.fromName(json.getString("creditCardType")));
+				billingInfo.setCreditCardExpMonth(json.getString("creditCardExpMonth"));
+				billingInfo.setCreditCardExpYear(json.getString("creditCardExpYear"));
+				billingInfo.setNextDueDate(json.getString("nextDueDate"));
+				billingInfo.setNextPaymentAmount(json.getString("nextPaymentAmount"));
+				billingInfo.setLateFeeAmount(json.getString("lateFeeAmount"));
+				billingInfo.setLatePaymentAmount(json.getString("latePaymentAmount"));
+				billingInfo.setTotalPastDue(json.getString("totalPastDue"));
+			} catch (JSONException exception) {
+				// TODO: throw error dialog
+			}
+			return billingInfo.toString();
 		}
 	}
 }

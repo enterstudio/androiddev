@@ -2,10 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true" >
+    android:fillViewport="true" 
+    android:background="@drawable/background_color">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -23,7 +23,8 @@
             style="@style/LabelText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24" 
+            android:textIsSelectable="true"/>
 
         <TextView
             android:id="@+id/pastDueLabel"
@@ -37,7 +38,8 @@
             android:id="@+id/pastDue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24" 
+            android:textIsSelectable="true"/>
 
         <TextView
             android:id="@+id/nextPaymentLabel"
@@ -51,7 +53,8 @@
             android:id="@+id/nextPayment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24" 
+            android:textIsSelectable="true"/>
 
         <TextView
             android:id="@+id/nextPaymentDueLabel"
@@ -65,7 +68,8 @@
             android:id="@+id/nextPaymentDue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24" 
+            android:textIsSelectable="true"/>
 
         <TextView
             android:id="@+id/selectPaymentMethodoLabel"

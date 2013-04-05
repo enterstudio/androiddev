@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_check_in_search"
+            android:text="@string/label_check_in_search"
             android:textColor="#372c24" />
         
         <TextView

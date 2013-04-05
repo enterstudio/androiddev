@@ -24,8 +24,6 @@ public class LoginActivity extends Activity {
 
 	private EditText username;
 	private EditText password;
-//	private ProgressDialog progressDialog;
-//	private boolean stopBlocking;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,6 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.userPassword);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-//				stopBlocking = false;
-//				new LoadViewTask().execute();
 				new WebServiceTask().execute("lookup", username.getText().toString(), password.getText().toString());
 			}
 		});
@@ -69,14 +65,13 @@ public class LoginActivity extends Activity {
 			editor.putString("memberId", mobileLoginMember.getString("memberId"));
 			editor.commit();
 		} catch (JSONException e1) {
-			new AlertDialog.Builder(this).setTitle("Login")
-					.setMessage("The username or password you entered is incorrect")
-					.setNeutralButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-								}
-							}).show();
+			AlertDialog.Builder adb = new AlertDialog.Builder(this);
+			adb.setMessage("Do you want to exit?").setCancelable(false).setNegativeButton("No", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.dismiss();
+						}
+					});
+			adb.create();			
 			e1.printStackTrace();
 			return;
 		}
@@ -85,6 +80,14 @@ public class LoginActivity extends Activity {
 	}
 
 	private class WebServiceTask extends AsyncTask<String, String, String> {
+		ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute() {
+			progressDialog = ProgressDialog.show(LoginActivity.this, "", "Logging in...");
+			super.onPreExecute();
+		}		
+		
 		@Override
 		protected String doInBackground(String... uri) {
 			WebServiceClient client = new WebServiceClient(uri[0]);
@@ -100,37 +103,10 @@ public class LoginActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String response) {
-//			stopBlocking = true;
+			if (progressDialog != null) {
+				progressDialog.dismiss();
+			}
 			LoginActivity.this.requestFinished(response);
 		}
 	}
-
-/*	private class LoadViewTask extends AsyncTask<Void, Integer, Void> {
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			try {
-				while (!stopBlocking) {
-					this.wait(850);
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(LoginActivity.this,
-					"Loading...", "Loading application View, please wait...",
-					false, false);
-		}
-
-		protected void onProgressUpdate(Integer... values) {
-			progressDialog.setProgress(values[0]);
-		}
-
-		protected void onPostExecute(Void result) {
-			progressDialog.dismiss();
-		}
-	}*/
 }

@@ -6,7 +6,23 @@
     <string name="app_name">myiclubonline</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_login">MYiCLUBonline</string>
+    <string name="bank_account_type_prompt">Bank Account Type</string>
+    <string name="credit_card_type_prompt">Credit Card Type</string>
 
+    <!-- **************** -->
+    <!-- SPINNER OBPTIONS -->
+    <!-- **************** -->
+    <string-array name="credit_cards_arrays">
+        <item>Master Card</item>
+        <item>Visa</item>
+        <item>American Express</item>
+        <item>Discover</item>
+    </string-array>
+    <string-array name="bank_accout_types_arrays">
+        <item>Checking</item>
+        <item>Savings</item>
+    </string-array>
+    
     <!-- ****** -->
     <!-- LABELS -->
     <!-- ****** -->
@@ -42,7 +58,15 @@
     <string name="label_next_payment">Next Payment</string>
     <string name="label_next_payment_due">Next Payment Due</string>
     <string name="label_stored_payment_method">Stored Payment Method</string>
-        
+    <string name="label_check_in_search">Please, select start and end date to do search</string>
+    <string name="label_firstName">First Name</string>
+    <string name="label_lastName">Last Name</string>
+    <string name="label_bankAccountNumber">Account Number</string>
+    <string name="label_bankRoutingNumber">Routing Number</string>
+    <string name="label_bankAccountType">Account Type</string>
+    <string name="label_paymentAmount">Amount</string>
+    <string name="label_storePayment">Store Payment Method</string>
+    
     <!-- ******* -->
     <!-- BUTTONS -->
     <!-- ******* -->
@@ -54,10 +78,5 @@
     <string name="button_pick_date">Select Date</string>
     <string name="button_credit_card">Credit Card</string>
     <string name="button_bank_account">Bank Account</string>
-        
-    <!-- **** -->
-    <!-- TEXT -->
-    <!-- **** -->
-    <string name="text_check_in_search">Please, select start and end date to do search</string>
 
 </resources>

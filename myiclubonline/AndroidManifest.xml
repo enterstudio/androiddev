@@ -1,139 +1,84 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.abcfinancial.android.myiclubonline"
-    android:versionCode="1"
-    android:versionName="1.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest android:versionCode="1" android:versionName="1.0" package="com.abcfinancial.android.myiclubonline" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>    
+    <uses-permission android:name="android.permission.INTERNET"/>    
     
-    <application
-        android:label="MYiCLUBOnline"
-        android:theme="@style/AppTheme" >
+    <application android:label="MYiCLUBOnline" android:name="com.newrelic.agent.android.NewRelicApplication" android:theme="@style/AppTheme" android:allowBackup="true">
         
         <!-- Top level activities -->
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+        <activity android:label="@string/title_activity_login" android:name=".LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ForgotPasswordActivity"
-            android:label="Forgot Password" >
+        <activity android:label="Forgot Password" android:name=".ForgotPasswordActivity">
         </activity>
-        <activity 
-            android:name=".UserActivity"
- 			android:label="MYiCLUBonline" >
+        <activity android:label="MYiCLUBonline" android:name=".UserActivity">
  		</activity>        
 
         <!-- Tab level activities -->
-        <activity 
-            android:name=".user.AccountActivity"
- 			android:label="Account" >
+        <activity android:label="Account" android:name=".user.AccountActivity">
  		</activity>
-        <activity 
-            android:name=".user.CalendarActivity"
- 			android:label="Calendar" >
+        <activity android:label="Calendar" android:name=".user.CalendarActivity">
  		</activity>
-        <activity 
-            android:name=".user.EventsActivity"
- 			android:label="Events" >
+        <activity android:label="Events" android:name=".user.EventsActivity">
  		</activity>
-        <activity 
-            android:name=".user.BarcodeActivity"
- 			android:label="Barcode" >
+        <activity android:label="Barcode" android:name=".user.BarcodeActivity">
  		</activity> 
 
         <!-- Account level activities -->
-        <activity 
-            android:name=".user.billing.HistoryDatePickerActivity"
- 			android:label="History Date Select" >
+ 		<activity android:label="Billing Options" android:name=".user.billing.BillingActivity">
+ 		</activity> 
+        <activity android:label="History Date Select" android:name=".user.billing.HistoryDatePickerActivity">
  		</activity>  		
-        <activity 
-            android:name=".user.billing.HistoryDisplayActivity"
- 			android:label="History Display" >
+        <activity android:label="History Display" android:name=".user.billing.HistoryDisplayActivity">
  		</activity>  		
-        <activity 
-            android:name=".user.billing.PaymentInfoActivity"
- 			android:label="Make Payment Info" >
+        <activity android:label="Make Payment Info" android:name=".user.billing.PaymentInfoActivity">
  		</activity>
-        <activity 
-            android:name=".user.agreement.AgreementActivity"
- 			android:label="Agreement Options" >
+ 		<activity android:label="Bank Account Info" android:name=".user.billing.BankAccountInfoActivity">
+ 		</activity>  		
+ 		<activity android:label="Credit Card Info" android:name=".user.billing.CreditCardInfoActivity">
+ 		</activity>  		
+ 		<activity android:label="Agreement Options" android:name=".user.agreement.AgreementActivity">
  		</activity>
- 		<activity 
-            android:name=".user.billing.BillingActivity"
- 			android:label="Billing Options" >
- 		</activity> 
- 		<activity 
-            android:name=".user.agreement.ClubInfoActivity"
- 			android:label="Club Info" >
+ 		<activity android:label="Club Info" android:name=".user.agreement.ClubInfoActivity">
  		</activity>
- 		<activity 
-            android:name=".user.agreement.PersonalInfoActivity"
- 			android:label="Personal Info" >
+ 		<activity android:label="Personal Info" android:name=".user.agreement.PersonalInfoActivity">
  		</activity> 		
- 		<activity 
-            android:name=".user.agreement.AgreementInfoActivity"
- 			android:label="Agreement Info" >
+ 		<activity android:label="Agreement Info" android:name=".user.agreement.AgreementInfoActivity">
  		</activity> 
- 		<activity 
-            android:name=".user.classes.PickLocationActivity"
- 			android:label="Pick Location" >
+ 		<activity android:label="Pick Location" android:name=".user.classes.PickLocationActivity">
  		</activity> 		
- 		<activity
-            android:name=".user.classes.PickClassActivity"
- 			android:label="Pick Class" >
+ 		<activity android:label="Pick Class" android:name=".user.classes.PickClassActivity">
  		</activity> 
- 		<activity 
-            android:name=".user.classes.PickClassTimeActivity"
- 			android:label="Pick Class Time" >
+ 		<activity android:label="Pick Class Time" android:name=".user.classes.PickClassTimeActivity">
  		</activity> 
- 		<activity 
-            android:name=".user.classes.ClassEnrollDetailActivity"
- 			android:label="Class Enroll Detail" >
+ 		<activity android:label="Class Enroll Detail" android:name=".user.classes.ClassEnrollDetailActivity">
  		</activity> 
-		<activity 
-            android:name=".user.appointments.PickAppointmentActivity"
- 			android:label="Pick Appointment" >
+		<activity android:label="Pick Appointment" android:name=".user.appointments.PickAppointmentActivity">
  		</activity> 
-		<activity 
-            android:name=".user.appointments.PickTrainerActivity"
- 			android:label="Pick Trainer" >
+		<activity android:label="Pick Trainer" android:name=".user.appointments.PickTrainerActivity">
  		</activity>
-		<activity 
-            android:name=".user.appointments.PickAppointmentDateActivity"
- 			android:label="Pick Appointment Date" >
+		<activity android:label="Pick Appointment Date" android:name=".user.appointments.PickAppointmentDateActivity">
  		</activity>
  		
  		<!-- Purchase level activities -->
-        <activity 
-            android:name=".user.purchase.PurchaseActivity"
- 			android:label="Purchase Main" >
+        <activity android:label="Purchase Main" android:name=".user.purchase.PurchaseActivity">
  		</activity> 
  			 		
  		<!-- Group activities -->
- 		<activity 
-            android:name=".usergroups.AccountGroupActivity"
- 			android:label="Account Group" >
+ 		<activity android:label="Account Group" android:name=".usergroups.AccountGroupActivity">
  		</activity> 
- 		<activity 
-            android:name=".usergroups.CalendarGroupActivity"
- 			android:label="Calendar Group" >
+ 		<activity android:label="Calendar Group" android:name=".usergroups.CalendarGroupActivity">
  		</activity>
- 		<activity 
-            android:name=".usergroups.EventsGroupActivity"
- 			android:label="Events Group" >
+ 		<activity android:label="Events Group" android:name=".usergroups.EventsGroupActivity">
  		</activity> 
- 		<activity 
-            android:name=".usergroups.BarcodeGroupActivity"
- 			android:label="Barcode Group" >
+ 		<activity android:label="Barcode Group" android:name=".usergroups.BarcodeGroupActivity">
  		</activity>  		
  	</application>
 </manifest>

@@ -51,10 +51,12 @@ public class WebServiceClient {
 	}
 
 	public WebServiceClient(String operation) {
-		this.fullUrl = DEV_URL + operation;
+//		this.fullUrl = DEV_URL + operation;
+		this.fullUrl = URL + operation;
 		params = new ArrayList<NameValuePair>();
 		headers = new ArrayList<NameValuePair>();
-		headers.add(new BasicNameValuePair("Authorization", DEV_AUTHORIZATION));
+//		headers.add(new BasicNameValuePair("Authorization", DEV_AUTHORIZATION));
+		headers.add(new BasicNameValuePair("Authorization", AUTHORIZATION));
 	}
 
 	public void addParameter(String name, String value) {
