@@ -98,7 +98,7 @@ public class PaymentInfoActivity extends Activity {
 		creditCardButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(getParent(), CreditCardInfoActivity.class);
-				intent.putExtra("BILLING_INFO", billingInfo.toString());
+				intent.putExtra("BILLING_INFO", billing);
 				intent.putExtra("PAYMENT_ACTION", paymentAction);
 				intent.putExtra("USE_ON_FILE", false);
 				AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();
@@ -108,7 +108,7 @@ public class PaymentInfoActivity extends Activity {
 		bankAccountButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(getParent(), BankAccountInfoActivity.class);
-				intent.putExtra("BILLING_INFO", billingInfo.toString());
+				intent.putExtra("BILLING_INFO", billing);
 				intent.putExtra("PAYMENT_ACTION", paymentAction);
 				intent.putExtra("USE_ON_FILE", false);
 				AccountGroupActivity parentActivity = (AccountGroupActivity) getParent();

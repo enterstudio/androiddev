@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
-
+	private ProgressDialog progressDialog;
 	private EditText username;
 	private EditText password;
 
@@ -75,12 +75,14 @@ public class LoginActivity extends Activity {
 			e1.printStackTrace();
 			return;
 		}
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
 		Intent intent = new Intent(LoginActivity.this, UserActivity.class);
 		LoginActivity.this.startActivity(intent);
 	}
 
 	private class WebServiceTask extends AsyncTask<String, String, String> {
-		ProgressDialog progressDialog;
 		
 		@Override
 		protected void onPreExecute() {
@@ -103,9 +105,6 @@ public class LoginActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String response) {
-			if (progressDialog != null) {
-				progressDialog.dismiss();
-			}
 			LoginActivity.this.requestFinished(response);
 		}
 	}

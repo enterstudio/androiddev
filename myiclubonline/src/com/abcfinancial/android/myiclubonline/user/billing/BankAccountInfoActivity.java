@@ -1,8 +1,11 @@
 package com.abcfinancial.android.myiclubonline.user.billing;
 
+import java.util.Calendar;
+
 import org.json.JSONObject;
 
 import com.abcfinancial.android.myiclubonline.R;
+import com.abcfinancial.android.myiclubonline.common.BillingInfo;
 import com.abcfinancial.android.myiclubonline.common.Enums;
 import com.abcfinancial.android.myiclubonline.common.WebServiceClient;
 import com.abcfinancial.android.myiclubonline.common.Enums.RequestMethod;
@@ -21,8 +24,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class BankAccountInfoActivity extends Activity {
+	private ProgressDialog progressDialog;
 	private Spinner bankAccountTypes;
-	private String loadMessage = "", club, memberNumber, firstName, lastName;
+	private String loadMessage = "", club, memberNumber, methodName = "";
+	
+	public EditText bankFirstName;
+	public EditText bankLastName;
+	public EditText bankAccountNumber;
+	public EditText bankAccountRouting;
+	public EditText paymentAmount;	
+	public EditText processingDate;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,49 +47,48 @@ public class BankAccountInfoActivity extends Activity {
 			memberNumber = loginMember.getString("memberNumber");
 			
 			Bundle extras = getIntent().getExtras();
-			String billingInfo = extras.getString("BILLING_INFO");
+			String billing = extras.getString("BILLING_INFO");
 			String paymentAction = extras.getString("PAYMENT_ACTION");
 			boolean usePaymentOnFile = extras.getBoolean("USE_ON_FILE");
-			JSONObject json = new JSONObject(billingInfo);
-			firstName = json.getString("firstName");
-			lastName = json.getString("lastName");
-			
-			EditText bankFirstName = (EditText) findViewById(R.id.bankFirstName);
-			EditText bankLastName = (EditText) findViewById(R.id.bankLastName);
-			EditText bankAccountNumber = (EditText) findViewById(R.id.bankAccountNumber);
-			EditText bankAccountRouting = (EditText) findViewById(R.id.bankRoutingNumber);
+			BillingInfo billingInfo = new BillingInfo(billing);
+
+			bankFirstName = (EditText) findViewById(R.id.bankFirstName);
+			bankLastName = (EditText) findViewById(R.id.bankLastName);
+			bankAccountNumber = (EditText) findViewById(R.id.bankAccountNumber);
+			bankAccountRouting = (EditText) findViewById(R.id.bankRoutingNumber);
 			bankAccountTypes = (Spinner) findViewById(R.id.bankAccountType);
 
 			TextView paymentAmountLabel = (TextView) findViewById(R.id.paymentAmountLabel);
-			EditText paymentAmount = (EditText) findViewById(R.id.paymentAmount);
+			paymentAmount = (EditText) findViewById(R.id.paymentAmount);
 			String buttonText = "", processingDateText = "";
-			//int selectedBankAccountType = BankAccountTypes.valueOf(json.getString("bankAccountType")).equals(BankAccountTypes.CHECKING) ? 0 : 1;
-			int selectedBankAccountType = 1;
 			
 			switch (Enums.PaymentActions.valueOf(paymentAction)) {
 				case MAKE_PAYMENT:
 					buttonText = "Make Payment";
 					processingDateText = "Draft Date";
 					loadMessage = "Making payment...";
+					methodName = "makepayment";
 					if( usePaymentOnFile ) {
-						bankFirstName.setText(firstName);
-						bankLastName.setText(lastName);
-						bankAccountNumber.setText(json.getString("bankAccountNumber"));
-						bankAccountRouting.setText(json.getString("bankRoutingNumber"));
-						bankAccountTypes.setSelection(selectedBankAccountType);
+						bankFirstName.setText(billingInfo.getFirstName());
+						bankLastName.setText(billingInfo.getLastName());
+						bankAccountNumber.setText("xxxx-" + billingInfo.getBankAccountNumber());
+						bankAccountRouting.setText(billingInfo.getBankRoutingNumber());
+						bankAccountTypes.setSelection(billingInfo.getBankAccountType().getOrder());
 					} 
 					break;
 				case UPDATE_PAYMENT:
 					buttonText = "Update Payment Method";
 					processingDateText = "Effective Date";
 					loadMessage = "Updating payment method...";
+					methodName = "updatepaymentmethod";
 					paymentAmount.setVisibility(View.GONE);
 					paymentAmountLabel.setVisibility(View.GONE);
-					bankFirstName.setText(firstName);
-					bankLastName.setText(lastName);
-					bankAccountNumber.setText(json.getString("bankAccountNumber"));
-					bankAccountRouting.setText(json.getString("bankRoutingNumber"));
-					bankAccountTypes.setSelection(selectedBankAccountType);
+					
+					bankFirstName.setText(billingInfo.getFirstName());
+					bankLastName.setText(billingInfo.getLastName());
+					bankAccountNumber.setText("xxxx-" + billingInfo.getBankAccountNumber());
+					bankAccountRouting.setText(billingInfo.getBankRoutingNumber());
+					bankAccountTypes.setSelection(billingInfo.getBankAccountType().getOrder());
 					break;
 				default:
 					// TODO: throw error dialog
@@ -86,13 +96,19 @@ public class BankAccountInfoActivity extends Activity {
 			}
 			TextView processingDateLabel = (TextView) findViewById(R.id.processDateLabel);
 			processingDateLabel.setText(processingDateText);
-			EditText processingDate = (EditText) findViewById(R.id.processDate);
-			processingDate.setText("01/01/1900");
+			processingDate = (EditText) findViewById(R.id.processDate);
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH) + 1;
+			int day = c.get(Calendar.DAY_OF_MONTH);			
+			processingDate.setText(month+ "/" + day + "/" + year);
 			Button paymentActionButton = (Button) findViewById(R.id.paymentActionButton);
 			paymentActionButton.setText(buttonText);
 			paymentActionButton.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
-					new WebServiceTask().execute("makepayment", club, memberNumber);
+					new WebServiceTask(loadMessage).execute(methodName, club, memberNumber, bankFirstName.getText().toString(),
+							bankLastName.getText().toString(), bankAccountNumber.getText().toString(), String.valueOf(bankAccountTypes.getSelectedItemPosition()),
+							bankAccountRouting.getText().toString(), processingDate.getText().toString());
 				}
 			});			
 		} catch (Exception exception) {
@@ -101,8 +117,19 @@ public class BankAccountInfoActivity extends Activity {
 		}
 	}
 	
+	public void requestFinished(String response) {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+//		super.onBackPressed();
+	}
+	
 	private class WebServiceTask extends AsyncTask<String, String, String> {
-		ProgressDialog progressDialog;
+		private String loadMessage;
+		public WebServiceTask(String message) {
+			super();
+			this.loadMessage = message;
+		}
 		
 		@Override
 		protected void onPreExecute() {
@@ -113,21 +140,30 @@ public class BankAccountInfoActivity extends Activity {
 		@Override
 		protected String doInBackground(String... uri) {
 			WebServiceClient client = new WebServiceClient(uri[0]);
+			client.addParameter("club", uri[1]);
+			client.addParameter("memberNumber", uri[2]);
+			client.addParameter("firstName", uri[3]);
+			client.addParameter("lastName", uri[4]);
+			client.addParameter("bankAccountNumber", uri[5]);
+			client.addParameter("bankAccountType", uri[6]);
+			client.addParameter("bankRoutingNumber", uri[7]);
+			client.addParameter("creditCardNumber", "");
+			client.addParameter("creditCardType", "");
+			client.addParameter("creditCardExpMonth", "");
+			client.addParameter("creditCardExpYear", "");
+			client.addParameter("paymentMethod", "EFT");
+			client.addParameter("effectiveDate", uri[8]);			
 			try {
-				client.addParameter("memberNumber", uri[1]);
-				client.addParameter("club", uri[2]);
 				client.execute(RequestMethod.POST);
-			} catch (Exception exception) {
-				// TODO: throw error dialog
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			return client.getResponse();
 		}
 
 		@Override
 		protected void onPostExecute(String response) {
-			if (progressDialog != null) {
-				progressDialog.dismiss();
-			}
+			BankAccountInfoActivity.this.requestFinished(response);
 		}
-	}	
+	}
 }

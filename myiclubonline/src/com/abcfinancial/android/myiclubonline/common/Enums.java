@@ -47,12 +47,14 @@ public class Enums {
 	}
 
 	public enum BankAccountTypes {
-		CHECKING("Checking"), SAVINGS("Savings");
+		CHECKING("Checking", 0), SAVINGS("Savings", 1);
 
 		private String name;
+		private int order;
 
-		BankAccountTypes(String name) {
+		BankAccountTypes(String name, int order) {
 			this.name = name;
+			this.order = order;
 		}
 
 		public static BankAccountTypes fromName(String name) {
@@ -66,6 +68,10 @@ public class Enums {
 		
 		public String getName() {
 			return name;
+		}
+		
+		public int getOrder() {
+			return order;
 		}
 	}
 	
