@@ -23,7 +23,8 @@
             android:id="@+id/agreementNumber"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24" 
+            android:textIsSelectable="true"/>
 
         <TextView
             style="@style/LabelText"            
@@ -36,7 +37,8 @@
             android:id="@+id/agreementBegan"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>
 
         <TextView
             style="@style/LabelText"            
@@ -49,7 +51,8 @@
             android:id="@+id/downPayment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>
 
         <TextView
             style="@style/LabelText"            
@@ -62,7 +65,8 @@
             android:id="@+id/agreementType"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>
 
         <TextView
             style="@style/LabelText"            
@@ -75,7 +79,8 @@
             android:id="@+id/autoRenew"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>            
 
         <TextView
             style="@style/LabelText"            
@@ -95,7 +100,8 @@
             android:id="@+id/memberSince"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>            
 
         <TextView
             style="@style/LabelText"           
@@ -108,7 +114,8 @@
             android:id="@+id/membershipStatus"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>            
 
         <TextView
             style="@style/LabelText"            
@@ -121,7 +128,8 @@
             android:id="@+id/membershipType"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#372c24" />
+            android:textColor="#372c24"
+            android:textIsSelectable="true"/>
     </LinearLayout>
 
 </ScrollView>

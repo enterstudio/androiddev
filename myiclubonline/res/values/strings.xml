@@ -13,8 +13,8 @@
     <!-- SPINNER OBPTIONS -->
     <!-- **************** -->
     <string-array name="credit_cards_arrays">
-        <item>Master Card</item>
         <item>Visa</item>
+        <item>Master Card</item>
         <item>American Express</item>
         <item>Discover</item>
     </string-array>
@@ -61,11 +61,13 @@
     <string name="label_check_in_search">Please, select start and end date to do search</string>
     <string name="label_firstName">First Name</string>
     <string name="label_lastName">Last Name</string>
-    <string name="label_bankAccountNumber">Account Number</string>
+    <string name="label_accountNumber">Account Number</string>
     <string name="label_bankRoutingNumber">Routing Number</string>
     <string name="label_bankAccountType">Account Type</string>
     <string name="label_paymentAmount">Amount</string>
     <string name="label_storePayment">Store Payment Method</string>
+    <string name="label_expirationDate">Expiration Date</string>
+    <string name="label_creditCardType">Credit Card Type</string>
     
     <!-- ******* -->
     <!-- BUTTONS -->

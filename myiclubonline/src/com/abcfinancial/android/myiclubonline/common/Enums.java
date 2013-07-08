@@ -76,11 +76,13 @@ public class Enums {
 	}
 	
 	public enum CreditCardTypes {
-		VISA("Visa"), MASTERCARD("Master Card"), AMERICAN_EXPRESS("American Express"), DISCOVERY("Discovery");
+		VISA("Visa", 0), MASTERCARD("Master Card", 1), AMERICAN_EXPRESS("American Express", 2), DISCOVERY("Discovery", 3);
 		private String name;
+		private int order;
 
-		CreditCardTypes(String name) {
+		CreditCardTypes(String name, int order) {
 			this.name = name;
+			this.order = order;
 		}
 
 		public static CreditCardTypes fromName(String name) {
@@ -94,6 +96,10 @@ public class Enums {
 		
 		public String getName() {
 			return name;
-		}		
+		}
+		
+		public int getOrder() {
+			return order;
+		}
 	}	
 }

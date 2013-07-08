@@ -56,6 +56,10 @@ public class BillingInfo {
 				+ latePaymentAmount + "," + totalPastDue;
 	}
 
+	public String getCreditCardExpirationForDisplay() {
+		return creditCardExpMonth + "/" + creditCardExpYear;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
