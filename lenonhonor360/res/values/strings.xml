@@ -4,5 +4,6 @@
     <string name="app_name">Lenon Honor 360</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="splash_screen">Splash SCreen</string>
+    
 </resources>
