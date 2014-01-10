@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lh360White"
+    android:background="@color/lh360Silver"
     android:orientation="vertical" >
 
     <ProgressBar
@@ -21,7 +21,7 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:text="@string/splash_screen"
-        android:textColor="@color/lh360White"
+        android:textColor="@color/lh360Black"
         android:textSize="12sp" />
 
 </LinearLayout>

@@ -66,7 +66,6 @@ public class SplashScreenActivity extends BaseActivity {
 				showSingleErrorDialog("appUnavailable");
 			}
 		}
-
 	}
 
 	@Override

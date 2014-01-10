@@ -3,8 +3,8 @@ package com.tihonchik.lenonhonor360.ui.user;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.ui.BaseActivity;
-
 
 public class MainActivity extends BaseActivity {
 
@@ -38,4 +38,9 @@ public class MainActivity extends BaseActivity {
     public void onPause() {
     	super.onPause();
     }
+    
+	@Override
+	protected int getContentLayoutId() {
+		return R.layout.activity_main;
+	}
 }
