@@ -1,6 +1,12 @@
 package com.tihonchik.lenonhonor360.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -28,5 +34,11 @@ public class AppUtils {
 
 	public static int getPopupWidth() {
 		return mScreenWidth - 40;
+	}
+
+	public static Drawable getImageFromURL(String url)
+			throws MalformedURLException, IOException {
+		return Drawable.createFromStream(
+				((InputStream) new URL(url).getContent()), "image");
 	}
 }
