@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lh360Silver"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".BlogDetailActivity" >
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/BlueButton"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="315dp"
+        android:minWidth="10dp"
+        android:text="Notifications" />
+
+    <TextView
+        android:id="@+id/rowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Lorem ipsum dolor sit amet, sale adipisci ius an. Deleniti gubergren sit ad. Purto posse paulo qui in. Oportere ocurreret adolescens his id.
+
+Consulatu democritum at ius, no malis liber ceteros pri. Ut iudico fabellas partiendo est, pro debet graece singulis ei. Verear recteque accusamus duo ea, ne mazim verear voluptatibus usu. Nec quas possim an, no evertitur sententiae pri. Esse vocibus duo ne. In sint adhuc partem duo, mutat virtute luptatum mea ad, sit te solet mollis. Vitae quaerendum mediocritatem sea te.
+
+At his etiam dissentiunt accommodare, ut regione fuisset detraxit eos. Perfecto consequat qui an. Ferri malis sit ad. Id sea ceteros dolores patrioque, vim mollis vituperata referrentur ne, cu sit nonumes democritum consectetuer."
+        android:textColor="@color/lh360Black"
+        android:textSize="16sp" />
+
+</RelativeLayout>
