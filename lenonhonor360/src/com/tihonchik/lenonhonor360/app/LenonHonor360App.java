@@ -2,6 +2,7 @@ package com.tihonchik.lenonhonor360.app;
 
 import java.text.DecimalFormat;
 
+import com.testflightapp.lib.TestFlight;
 import com.tihonchik.lenonhonor360.BuildConfig;
 
 import android.app.Application;
@@ -69,8 +70,7 @@ public class LenonHonor360App extends Application {
 							+ new DecimalFormat().format(Runtime.getRuntime()
 									.maxMemory() / 1048576.0));
 		}
-		// TestFlight.takeOff(this, "bfea4610-6739-4def-9a90-77ee738f1fbd");
-		// Lenon Honor 360 - "cbc22cee-8dbc-4215-b30d-747b115aca29"
+		TestFlight.takeOff(this, "cbc22cee-8dbc-4215-b30d-747b115aca29");
 	}
 
 	public static LenonHonor360App getInstance() {
