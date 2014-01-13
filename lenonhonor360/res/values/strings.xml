@@ -3,9 +3,10 @@
     <string name="blank"></string>
     <string name="app_name">Lenon Honor 360</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="blog_title">Blog Title</string>
     <string name="splash_screen">Splash Screen</string>
     <string name="splash_screen_2">(anything on this screen is optional, technically, screen is optional too, except in iOS, but I thought it will give a nice touch)</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, civibus mediocrem adipiscing ad duo, pri brute sanctus at, et viris erroribus tincidunt est. Ei ocurreret deterruisset usu. Ad ius intellegam disputationi. No nec cetero deserunt. Fastidii signiferumque ne vix, id purto corpora his, ex nam solum adversarium reprehendunt.</string>
 	<string name="read_more">Read more...</string>
+	<string name="older_blogs">Older Blogs</string>
 </resources>

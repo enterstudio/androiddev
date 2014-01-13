@@ -21,11 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="270dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/lorem_ipsum"
         android:textColor="@color/lh360Black"
-        android:textSize="16sp" 
-        android:maxLines="2"
-        android:ellipsize="end"/>
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_login"
@@ -40,5 +40,36 @@
         android:layout_height="1dp"
         android:layout_marginTop="375dp"
         android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/older_posts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="385dp"
+        android:text="@string/older_blogs"
+        android:textColor="@color/lh360Asbestos"
+        android:textSize="26sp"
+        android:textStyle="bold|italic" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/older_posts"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/view1"
+        android:layout_below="@+id/older_posts" >
+
+        <include
+            android:id="@+id/row1"
+            layout="@layout/table_row" />
+
+        <include
+            android:id="@+id/row2"
+            layout="@layout/table_row" />
+
+        <include
+            android:id="@+id/row3"
+            layout="@layout/table_row" />
+    </TableLayout>
 
 </RelativeLayout>
