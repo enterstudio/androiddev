@@ -16,4 +16,20 @@
         <item name="android:cacheColorHint">@android:color/transparent</item>
     </style>
 
+    <style name="BlueButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:contentDescription">@string/blank</item>
+        <item name="android:background">@drawable/draw_blue_button</item>
+        <item name="android:textColor">@drawable/draw_blue_button_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:shadowColor">#006991</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
 </resources>
