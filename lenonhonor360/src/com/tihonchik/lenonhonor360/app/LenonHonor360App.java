@@ -70,7 +70,7 @@ public class LenonHonor360App extends Application {
 							+ new DecimalFormat().format(Runtime.getRuntime()
 									.maxMemory() / 1048576.0));
 		}
-		TestFlight.takeOff(this, "cbc22cee-8dbc-4215-b30d-747b115aca29");
+		TestFlight.takeOff(this, "b92686fa-ebf1-4c82-ae6f-81d82ed6c3cb");
 	}
 
 	public static LenonHonor360App getInstance() {
