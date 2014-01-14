@@ -1,36 +1,32 @@
 package com.tihonchik.lenonhonor360.ui;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tihonchik.lenonhonor360.AppConfig;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
-import com.tihonchik.lenonhonor360.util.AppUtils;
 
 public class SplashScreenActivity extends BaseActivity {
 	private long splashDelay = AppConfig.SPLASHSCREENDELAY;
 	private long startTimestamp;
 
-	class getContentTask extends AsyncTask<String, String, Boolean> {
+	class loadContentTask extends AsyncTask<String, String, Boolean> {
 		TextView progressText;
 
 		@Override
 		protected Boolean doInBackground(String... args) {
-            startTimestamp = System.currentTimeMillis();
-            try {
-            	Thread.sleep(3000);
-            } catch (InterruptedException exception) {
-            	Log.d("LH360", " > Exception: " + exception);
-            }
+			startTimestamp = System.currentTimeMillis();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException exception) {
+				Log.d("LH360", " > Exception: " + exception);
+			}
 			return true;
 		}
 
@@ -86,19 +82,6 @@ public class SplashScreenActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setBackgroundDrawable(null);
-		
-		ImageView splashImage = (ImageView) findViewById(R.id.splash_image);
-		try {
-			int sdk = android.os.Build.VERSION.SDK_INT;
-			if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-				splashImage.setBackgroundDrawable(AppUtils.getImageFromURL("http://placehold.it/320x400"));
-			} else {
-				splashImage.setBackground(AppUtils.getImageFromURL("http://placehold.it/320x400"));
-			}
-		} catch (IOException exception) {
-			// do nothing
-		}
-		
-		new getContentTask().execute();
+		new loadContentTask().execute();
 	}
 }

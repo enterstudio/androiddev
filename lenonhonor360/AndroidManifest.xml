@@ -48,14 +48,6 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <activity
-            android:name=".ui.user.BlogDetailActivity"
-            android:configChanges="keyboardHidden|orientation|keyboard"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
     </application>
 
 </manifest>

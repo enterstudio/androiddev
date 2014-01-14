@@ -3,7 +3,7 @@
     xmlns:panel="http://schemas.android.com/apk/res/com.tihonchik.lh360"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
-    android:background="@color/lh360White"
+    android:background="@color/lh360Silver"
     android:layout_height="match_parent" >
 
     <LinearLayout
@@ -21,12 +21,12 @@
         </ScrollView>
     </LinearLayout>
 
-    <fragment
+    <!-- fragment
         android:id="@+id/header_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
-		<!-- android:name="com.tihonchik.app.ui.header.HeaderFragment" -->
+		android:name="com.tihonchik.app.ui.header.HeaderFragment" -->
     
 </RelativeLayout>
