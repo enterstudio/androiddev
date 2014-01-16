@@ -2,16 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lh360Silver"
+    android:background="@drawable/splashscreen"
     android:orientation="vertical" >
-
-    <ImageView
-        android:id="@+id/splash_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="100dp" 
-        android:src="@drawable/img320x240"/>
 
     <ProgressBar
         android:id="@+id/pb_splash_screen"
@@ -19,29 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="250dp"
         android:indeterminateOnly="true" />
-
-    <TextView
-        android:id="@+id/tv_loading_screen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="20dp"
-        android:text="@string/splash_screen"
-        android:textColor="@color/lh360Asbestos"
-        android:textSize="36dp"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/tv_loading_screen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="20dp"
-        android:text="@string/splash_screen_2"
-        android:textColor="@color/lh360Clouds"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-
 </LinearLayout>

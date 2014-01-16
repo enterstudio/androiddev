@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.tihonchik.lenonhonor360.AppConfig;
 import com.tihonchik.lenonhonor360.R;
@@ -17,7 +16,6 @@ public class SplashScreenActivity extends BaseActivity {
 	private long startTimestamp;
 
 	class loadContentTask extends AsyncTask<String, String, Boolean> {
-		TextView progressText;
 
 		@Override
 		protected Boolean doInBackground(String... args) {
@@ -28,14 +26,6 @@ public class SplashScreenActivity extends BaseActivity {
 				Log.d("LH360", " > Exception: " + exception);
 			}
 			return true;
-		}
-
-		@Override
-		protected void onProgressUpdate(final String... values) {
-			if (progressText == null) {
-				progressText = (TextView) findViewById(R.id.tv_loading_screen);
-			}
-			progressText.setText(values[0]);
 		}
 
 		@Override
