@@ -71,5 +71,13 @@
             android:id="@+id/row3"
             layout="@layout/table_row" />
     </TableLayout>
+    
+    <Button
+        android:id="@+id/btn_new_notification"
+        style="@style/BlueButton"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="5dp"
+        android:minWidth="10dp"
+        android:text="@string/read_more" />
 
 </LinearLayout>

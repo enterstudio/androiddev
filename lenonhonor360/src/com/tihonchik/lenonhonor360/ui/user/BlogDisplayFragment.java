@@ -3,6 +3,7 @@ package com.tihonchik.lenonhonor360.ui.user;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.notifications.NotifyService;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
 
@@ -54,6 +56,13 @@ public class BlogDisplayFragment extends BaseFragment {
 		}
 	};
 
+	OnClickListener mNotifcationListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			getActivity().startService(new Intent(getActivity(), NotifyService.class));
+		}
+	};
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -78,6 +87,11 @@ public class BlogDisplayFragment extends BaseFragment {
 		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
 		// b.setTypeface(tf);
 		newBlog.setOnClickListener(mBlogDetailListener);
+
+		Button newNotification = (Button) rootView
+				.findViewById(R.id.btn_new_notification);
+		newNotification.setOnClickListener(mNotifcationListener);
+
 		return rootView;
 	}
 
