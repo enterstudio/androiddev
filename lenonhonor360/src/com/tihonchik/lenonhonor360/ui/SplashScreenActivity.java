@@ -1,5 +1,7 @@
 package com.tihonchik.lenonhonor360.ui;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +11,7 @@ import android.util.Log;
 
 import com.tihonchik.lenonhonor360.AppConfig;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.services.BlogPullService;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 
 public class SplashScreenActivity extends BaseActivity {
@@ -72,6 +75,17 @@ public class SplashScreenActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setBackgroundDrawable(null);
-		new loadContentTask().execute();
+
+		Intent intent = new Intent(this, BlogPullService.class);
+        intent.putExtra("com.tihonchik.lenonhonor360.triggerTime", 3000l);
+        intent.putExtra(BlogPullService.PARAM_IN_MSG, "");
+//        startService(intent);
+
+        PendingIntent pendingIntent = PendingIntent.getService(this,  0,  intent, 0);
+        long trigger = System.currentTimeMillis() + (3000);
+        final AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
+
+        new loadContentTask().execute();
 	}
 }

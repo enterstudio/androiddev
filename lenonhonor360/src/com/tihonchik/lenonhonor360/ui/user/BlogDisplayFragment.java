@@ -23,7 +23,7 @@ import com.tihonchik.lenonhonor360.util.AppUtils;
 public class BlogDisplayFragment extends BaseFragment {
 
 	private ImageView _newBlogImage;
-
+	
 	class loadContentTask extends AsyncTask<String, String, Drawable> {
 		TextView progressText;
 
@@ -87,10 +87,6 @@ public class BlogDisplayFragment extends BaseFragment {
 		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
 		// b.setTypeface(tf);
 		newBlog.setOnClickListener(mBlogDetailListener);
-
-		Button newNotification = (Button) rootView
-				.findViewById(R.id.btn_new_notification);
-		newNotification.setOnClickListener(mNotifcationListener);
 
 		return rootView;
 	}

@@ -48,6 +48,11 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+
+        <service
+            android:name=".services.BlogPullService"
+            android:enabled="true" />
+        
     </application>
 
 </manifest>
