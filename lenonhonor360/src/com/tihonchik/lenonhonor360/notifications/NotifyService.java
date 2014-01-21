@@ -38,14 +38,14 @@ public class NotifyService extends Service {
 		intentFilter.addAction(ACTION);
 		registerReceiver(notifyServiceReceiver, intentFilter);
 
-		System.out.println("LH360 NOTIFICATION!!!");
-
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				new Intent(this, MainActivity.class), Intent.FLAG_ACTIVITY_NEW_TASK);
+				new Intent(this, MainActivity.class),
+				Intent.FLAG_ACTIVITY_NEW_TASK);
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 				this);
 		notification = builder.setContentIntent(contentIntent)
-				.setSmallIcon(R.drawable.notificationicon).setTicker("Notification!").setWhen(System.currentTimeMillis())
+				.setSmallIcon(R.drawable.notificationicon)
+				.setTicker("Notification!").setWhen(System.currentTimeMillis())
 				.setAutoCancel(true).setContentTitle("Notification!")
 				.setContentText("Exercise of Notification!").build();
 
