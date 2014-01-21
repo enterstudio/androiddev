@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,13 +82,17 @@ public class BlogDisplayFragment extends BaseFragment {
 		new loadContentTask().execute();
 
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
-				R.layout.activity_blog_display, container, false);
+				R.layout.blog_display, container, false);
 
 		_newBlogImage = (ImageView) rootView.findViewById(R.id.new_blog_image);
 		// tf = FontUtils.getEffraMedium();
 		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
 		// b.setTypeface(tf);
 		newBlog.setOnClickListener(mBlogDetailListener);
+		
+		TextView link = (TextView) rootView.findViewById(R.id.official_link);
+        link.setText(Html.fromHtml("<a href='fakehttp://lenonhonor360.com/'>lenonhonor360.com</a>"));
+        link.setMovementMethod(LinkMovementMethod.getInstance());
 
 		return rootView;
 	}

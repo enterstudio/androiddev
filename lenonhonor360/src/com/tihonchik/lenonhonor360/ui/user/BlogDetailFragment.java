@@ -25,7 +25,7 @@ public class BlogDetailFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
-				R.layout.activity_blog_detail, container, false);
+				R.layout.blog_detail, container, false);
 		return rootView;
 	}
 

@@ -48,6 +48,17 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <activity
+            android:name=".ui.user.WebViewActivity"
+            android:screenOrientation="portrait" 
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:exported="false">
+            <intent-filter>
+        		<action android:name="android.intent.action.VIEW" />
+        		<category android:name="android.intent.category.DEFAULT" />
+        		<data android:scheme="fakehttp" />
+    		</intent-filter>
+        </activity>
 
         <service
             android:name=".services.BlogPullService"
