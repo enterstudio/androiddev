@@ -6,13 +6,13 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.tihonchik.lenonhonor360.services.ResponseReceiver;
+import com.tihonchik.lenonhonor360.services.LaunchReceiver;
 import com.tihonchik.lenonhonor360.ui.BaseActivity;
 import com.tihonchik.lenonhonor360.R;
 
 public class MainActivity extends BaseActivity {
 
-	private ResponseReceiver receiver;
+	private LaunchReceiver receiver;
 	
 	@Override
 	protected Context getContextforBase() {
@@ -35,9 +35,9 @@ public class MainActivity extends BaseActivity {
 					.replace(R.id.body, f, "BlogDisplayFragment").commit();
 		}
 		
-        IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
+        IntentFilter filter = new IntentFilter(LaunchReceiver.ACTION_PULSE_ALARM);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
-        receiver = new ResponseReceiver();
+        receiver = new LaunchReceiver();
         registerReceiver(receiver, filter);
 	}
 

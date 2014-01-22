@@ -17,7 +17,7 @@ public class BlogPullService extends IntentService {
 	protected void onHandleIntent(Intent workIntent) {
 		Log.d("LH360", " > BlogPullServics checking-in...");
 		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
+		broadcastIntent.setAction(LaunchReceiver.ACTION_PULSE_ALARM);
 		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
 		broadcastIntent.putExtra(PARAM_OUT_MSG, "");
 		sendBroadcast(broadcastIntent);
