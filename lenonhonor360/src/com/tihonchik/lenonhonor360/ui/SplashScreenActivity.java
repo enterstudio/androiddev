@@ -1,5 +1,16 @@
 package com.tihonchik.lenonhonor360.ui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +21,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.tihonchik.lenonhonor360.AppConfig;
+import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
@@ -17,6 +29,7 @@ import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 public class SplashScreenActivity extends BaseActivity {
 	private long splashDelay = AppConfig.SPLASHSCREENDELAY;
 	private long startTimestamp;
+	private Pattern hrefPattern = Pattern.compile("<a style.*?>");
 
 	class loadContentTask extends AsyncTask<String, String, Boolean> {
 
@@ -24,9 +37,30 @@ public class SplashScreenActivity extends BaseActivity {
 		protected Boolean doInBackground(String... args) {
 			startTimestamp = System.currentTimeMillis();
 			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException exception) {
-				Log.d("LH360", " > Exception: " + exception);
+
+				URL url = new URL(AppDefines.LENONHONOR_APP_PHP_WEBSITE_URI);
+				URLConnection conn = url.openConnection();
+				InputStreamReader streamReader = new InputStreamReader(
+						conn.getInputStream());
+				BufferedReader br = new BufferedReader(streamReader);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+					sb.append("\n");
+				}
+
+				Matcher m = hrefPattern.matcher(sb.toString());
+				List<String> list = new ArrayList<String>();
+		        while(m.find()) {
+		            list.add(m.group(1));
+		        }
+				
+				//Thread.sleep(3000);
+			} catch (MalformedURLException exception) {
+				Log.d("LH360", " > MalformedURLException: " + exception);
+			} catch (IOException exception) {
+				Log.d("LH360", " > URISyntaxException: " + exception);
 			}
 			return true;
 		}
@@ -77,15 +111,17 @@ public class SplashScreenActivity extends BaseActivity {
 		getWindow().setBackgroundDrawable(null);
 
 		Intent intent = new Intent(this, BlogPullService.class);
-        intent.putExtra("com.tihonchik.lenonhonor360.triggerTime", 3000l);
-        intent.putExtra(BlogPullService.PARAM_IN_MSG, "");
-//        startService(intent);
+		intent.putExtra("com.tihonchik.lenonhonor360.triggerTime", 3000l);
+		intent.putExtra(BlogPullService.PARAM_IN_MSG, "");
+		// startService(intent);
 
-        PendingIntent pendingIntent = PendingIntent.getService(this,  0,  intent, 0);
-        long trigger = System.currentTimeMillis() + (3000);
-        final AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent,
+				0);
+		long trigger = System.currentTimeMillis() + (3000);
+		final AlarmManager alarmManager = (AlarmManager) getBaseContext()
+				.getSystemService(Context.ALARM_SERVICE);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
 
-        new loadContentTask().execute();
+		new loadContentTask().execute();
 	}
 }
