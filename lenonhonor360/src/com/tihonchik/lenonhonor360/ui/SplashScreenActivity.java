@@ -23,8 +23,10 @@ import android.util.Log;
 import com.tihonchik.lenonhonor360.AppConfig;
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
+import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 public class SplashScreenActivity extends BaseActivity {
 	private long splashDelay = AppConfig.SPLASHSCREENDELAY;
@@ -56,6 +58,14 @@ public class SplashScreenActivity extends BaseActivity {
 		            list.add(m.group(1));
 		        }
 				
+		        List<BlogEntry> entries = new ArrayList<BlogEntry>();
+		        
+		        
+		        int newestBlogId = BlogEntryUtils.getNewestBlogId();
+		        if( newestBlogId == -1) {
+		        	BlogEntryUtils.insertBlogEntries(entries);
+		        }
+		        
 				//Thread.sleep(3000);
 			} catch (MalformedURLException exception) {
 				Log.d("LH360", " > MalformedURLException: " + exception);
