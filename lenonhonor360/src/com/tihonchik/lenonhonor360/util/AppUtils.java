@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -40,5 +42,13 @@ public class AppUtils {
 			throws MalformedURLException, IOException {
 		return Drawable.createFromStream(
 				((InputStream) new URL(url).getContent()), "image");
+	}
+
+	public static String getCurrentTimeStamp() {
+		SimpleDateFormat sdfDate = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss.SSS");
+		Date now = new Date();
+		String strDate = sdfDate.format(now);
+		return strDate;
 	}
 }
