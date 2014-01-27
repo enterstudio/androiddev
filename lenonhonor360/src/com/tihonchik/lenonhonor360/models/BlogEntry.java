@@ -1,13 +1,22 @@
 package com.tihonchik.lenonhonor360.models;
 
+import com.tihonchik.lenonhonor360.util.AppUtils;
+
 public class BlogEntry {
-    private int id;
-    private String created;
-    private String title;
-    private String blog;
-    private String blogDate;
-    
-    public BlogEntry() {}
+	private int id;
+	private String created;
+	private String title;
+	private String blog;
+	private String blogDate;
+
+	public BlogEntry() {
+		this.created = AppUtils.getCurrentTimeStamp();
+	}
+
+	public BlogEntry(int id) {
+		this.id = id;
+		this.created = AppUtils.getCurrentTimeStamp();
+	}
 
 	public int getId() {
 		return id;

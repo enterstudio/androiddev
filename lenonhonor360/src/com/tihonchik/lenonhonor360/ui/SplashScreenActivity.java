@@ -30,31 +30,23 @@ import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 public class SplashScreenActivity extends BaseActivity {
 	private String loadType;
 	private int numberNewEntries;
-	private Pattern hrefPattern = Pattern.compile("<a style.*?>");
-	private Pattern idPattern = Pattern.compile("id=(\\d{1,})");
+	private Pattern hrefPattern = Pattern.compile("(?i)<a_style([^>]+)>(.+?)</a>");
+	private Pattern idPattern = Pattern.compile("(?i)id=(\\d{1,})");
+	private Pattern datePattern = Pattern.compile("(?i)<div_style=(\\\"color:#66[^>]+)>(.+?)</div>");
 
 	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
 
 		@Override
 		protected Boolean doInBackground(String... args) {
 			try {
-
-				URL url = new URL(AppDefines.LENONHONOR_APP_PHP_WEBSITE_URI);
-				URLConnection conn = url.openConnection();
-				InputStreamReader streamReader = new InputStreamReader(
-						conn.getInputStream());
-				BufferedReader br = new BufferedReader(streamReader);
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-				while ((line = br.readLine()) != null) {
-					sb.append(line);
-					sb.append("\n");
-				}
-
-				Matcher m = hrefPattern.matcher(sb.toString());
-				List<String> list = new ArrayList<String>();
+				String originalHtml = getHtml(AppDefines.LENONHONOR_APP_PHP_WEBSITE_URI);
+				String noWiteSpaceHtml = originalHtml.replaceAll("[\\n\\t]", "").replaceAll(" +", " ").replaceAll(" ", "_");
+				Matcher m = hrefPattern.matcher(noWiteSpaceHtml);
+				List<String> hrefList = new ArrayList<String>();
+				List<String> titleList = new ArrayList<String>();
 				while (m.find()) {
-					list.add(m.group(1));
+					hrefList.add(m.group(0));
+					titleList.add(m.group(2).replaceAll("_", " ").trim());
 				}
 
 				int lastWebBlogId = -1;
@@ -106,16 +98,34 @@ public class SplashScreenActivity extends BaseActivity {
 			finish();
 		}
 
-		private BlogEntry parseEntryWithId(int id) {
-			return null;
+		private BlogEntry parseEntryWithId(int id) throws IOException {
+			BlogEntry entry = new BlogEntry(id);
+			String entryHtml = getHtml(AppDefines.LENONHONOR_APP_PHP_ENTRY_URI + id);
+			
+			return entry;
 		}
 
-		private List<BlogEntry> parseAllEntries(int lastId) {
+		private List<BlogEntry> parseAllEntries(int lastId) throws IOException {
 			List<BlogEntry> entries = new ArrayList<BlogEntry>();
 			for (int i = 1; i <= lastId; i++) {
 				entries.add(parseEntryWithId(i));
 			}
 			return entries;
+		}
+		
+		private String getHtml(String uri) throws MalformedURLException, IOException {
+			URL url = new URL(uri);
+			URLConnection conn = url.openConnection();
+			InputStreamReader streamReader = new InputStreamReader(
+					conn.getInputStream());
+			BufferedReader br = new BufferedReader(streamReader);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+				sb.append("\n");
+			}
+			return sb.toString();
 		}
 	}
 

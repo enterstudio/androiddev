@@ -104,7 +104,7 @@ public class BlogDatabase extends SQLiteOpenHelper {
 		for (BlogEntry entry : blogEntries) {
 			try {
 				ContentValues values = new ContentValues();
-				values.put(KEY_CREATED, AppUtils.getCurrentTimeStamp());
+				values.put(KEY_CREATED, entry.getCreated());
 				values.put(KEY_TITLE, entry.getTitle());
 				values.put(KEY_BLOG, entry.getBlog());
 				values.put(KEY_BLOG_DATE, entry.getBlogDate());
