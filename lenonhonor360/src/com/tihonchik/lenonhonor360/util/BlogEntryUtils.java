@@ -18,4 +18,10 @@ public class BlogEntryUtils {
 				.getApplicationContext());
 		db.insertNewBlogEntries(entries);
 	}
+
+	public static List<BlogEntry> getAllBlogEntries() {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		return db.findAllBlogEntries();
+	}
 }

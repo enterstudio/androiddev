@@ -42,11 +42,11 @@ public class BlogDatabase extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 	}
 
-	public List<BlogEntry> findNBlogEntries(int numberOfEntries) {
-		return findAllBlogEntries(numberOfEntries);
+	public List<BlogEntry> findAllBlogEntries() {
+		return findNBlogEntries(0);
 	}
 
-	public List<BlogEntry> findAllBlogEntries(int numberOfEntries) {
+	public List<BlogEntry> findNBlogEntries(int numberOfEntries) {
 		List<BlogEntry> blogEntries = new ArrayList<BlogEntry>();
 		String selectQuery = "SELECT  * FROM " + TABLE_BLOG_ENTRIES
 				+ " ORDER BY " + KEY_CREATED + "ASC";

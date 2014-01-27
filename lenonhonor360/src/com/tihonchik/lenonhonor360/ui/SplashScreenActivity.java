@@ -17,27 +17,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
-import com.tihonchik.lenonhonor360.AppConfig;
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
+import com.tihonchik.lenonhonor360.models.LoadType;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 public class SplashScreenActivity extends BaseActivity {
-	private long splashDelay = AppConfig.SPLASHSCREENDELAY;
-	private long startTimestamp;
+	private String loadType;
+	private int numberNewEntries;
 	private Pattern hrefPattern = Pattern.compile("<a style.*?>");
+	private Pattern idPattern = Pattern.compile("id=(\\d{1,})");
 
-	class loadContentTask extends AsyncTask<String, String, Boolean> {
+	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
 
 		@Override
 		protected Boolean doInBackground(String... args) {
-			startTimestamp = System.currentTimeMillis();
 			try {
 
 				URL url = new URL(AppDefines.LENONHONOR_APP_PHP_WEBSITE_URI);
@@ -54,19 +53,40 @@ public class SplashScreenActivity extends BaseActivity {
 
 				Matcher m = hrefPattern.matcher(sb.toString());
 				List<String> list = new ArrayList<String>();
-		        while(m.find()) {
-		            list.add(m.group(1));
-		        }
-				
-		        List<BlogEntry> entries = new ArrayList<BlogEntry>();
-		        
-		        
-		        int newestBlogId = BlogEntryUtils.getNewestBlogId();
-		        if( newestBlogId == -1) {
-		        	BlogEntryUtils.insertBlogEntries(entries);
-		        }
-		        
-				//Thread.sleep(3000);
+				while (m.find()) {
+					list.add(m.group(1));
+				}
+
+				int lastWebBlogId = -1;
+				if (list.size() > 0) {
+					m = idPattern.matcher(list.get(0));
+					if (m.find()) {
+						lastWebBlogId = Integer.valueOf(m.group(1));
+					}
+				}
+
+				List<BlogEntry> entries = new ArrayList<BlogEntry>();
+				int lastDbBlogId = BlogEntryUtils.getNewestBlogId();
+				if (lastDbBlogId == -1 && lastWebBlogId == -1) {
+					showSingleErrorDialog("blogUnavailable");
+					loadType = LoadType.LOAD_NOTHING.getName();
+				} else if (lastDbBlogId != -1 && lastWebBlogId == -1) {
+					// Something went wrong with parsing, load all DB entries
+					loadType = LoadType.LOAD_DB.getName();
+				} else if (lastDbBlogId == -1 && lastWebBlogId != -1) {
+					// insert all entries, DB has nothing in it
+					entries = parseAllEntries(lastWebBlogId);
+					BlogEntryUtils.insertBlogEntries(entries);
+					loadType = LoadType.LOAD_WEB.getName();
+					numberNewEntries = entries.size();
+				} else if (lastDbBlogId != lastWebBlogId) {
+					// insert new web entries into DB
+					while( lastWebBlogId >= lastDbBlogId ) {
+						parseEntryWithId(lastWebBlogId);
+					}
+					loadType = LoadType.LOAD_NEW.getName();
+					numberNewEntries = lastWebBlogId - lastDbBlogId;
+				}
 			} catch (MalformedURLException exception) {
 				Log.d("LH360", " > MalformedURLException: " + exception);
 			} catch (IOException exception) {
@@ -78,30 +98,24 @@ public class SplashScreenActivity extends BaseActivity {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			super.onPostExecute(result);
+			Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			i.putExtra("laodType", loadType);
+			i.putExtra("numberNewEntries", numberNewEntries);
+			startActivity(i);
+			finish();
+		}
 
-			long timeAlreadySpent = System.currentTimeMillis() - startTimestamp;
-			splashDelay = splashDelay - timeAlreadySpent;
-			if (splashDelay < 0) {
-				splashDelay = 0;
-			}
-			if (splashDelay > AppConfig.SPLASHSCREENDELAY) {
-				splashDelay = AppConfig.SPLASHSCREENDELAY;
-			}
+		private BlogEntry parseEntryWithId(int id) {
+			return null;
+		}
 
-			if (result) {
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						Intent i = new Intent(SplashScreenActivity.this,
-								MainActivity.class);
-						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(i);
-						finish();
-					}
-				}, splashDelay);
-			} else {
-				showSingleErrorDialog("appUnavailable");
+		private List<BlogEntry> parseAllEntries(int lastId) {
+			List<BlogEntry> entries = new ArrayList<BlogEntry>();
+			for (int i = 1; i <= lastId; i++) {
+				entries.add(parseEntryWithId(i));
 			}
+			return entries;
 		}
 	}
 
@@ -132,6 +146,6 @@ public class SplashScreenActivity extends BaseActivity {
 				.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
 
-		new loadContentTask().execute();
+		new HtmlParserTask().execute();
 	}
 }
