@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tihonchik.lenonhonor360.models.BlogEntry;
-import com.tihonchik.lenonhonor360.util.AppUtils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,17 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class BlogDatabase extends SQLiteOpenHelper {
-
-	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_NAME = "blogDb";
-	private static final String TABLE_BLOG_ENTRIES = "blogEntries";
-
-	private static final String KEY_ID = "id";
-	private static final String KEY_CREATED = "created";
-	private static final String KEY_TITLE = "title";
-	private static final String KEY_BLOG = "bog";
-	private static final String KEY_BLOG_DATE = "date";
+public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 
 	public BlogDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,15 +20,15 @@ public class BlogDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_BLOG_ENTRIES
-				+ "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_CREATED
-				+ " TEXT," + KEY_TITLE + " TEXT," + KEY_BLOG + " TEXT,"
-				+ KEY_BLOG_DATE + " TEXT," + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		if (DATABASE_VERSION < newVersion) {
+			db.execSQL(DROP_TABLE);
+			onCreate(db);
+		}
 	}
 
 	public List<BlogEntry> findAllBlogEntries() {
@@ -48,8 +37,7 @@ public class BlogDatabase extends SQLiteOpenHelper {
 
 	public List<BlogEntry> findNBlogEntries(int numberOfEntries) {
 		List<BlogEntry> blogEntries = new ArrayList<BlogEntry>();
-		String selectQuery = "SELECT  * FROM " + TABLE_BLOG_ENTRIES
-				+ " ORDER BY " + KEY_CREATED + "ASC";
+		String selectQuery = SELECT_ENTRIES;
 
 		if (numberOfEntries != 0) {
 			selectQuery += " DESC Limit " + numberOfEntries;
@@ -79,11 +67,8 @@ public class BlogDatabase extends SQLiteOpenHelper {
 
 	public int getNewestBlogId() {
 		int blogId = -1;
-		String selectQuery = "SELECT " + KEY_ID + " FROM " + TABLE_BLOG_ENTRIES
-				+ " ORDER BY " + KEY_CREATED + "ASC DESC Limit 1";
-
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
+		Cursor cursor = db.rawQuery(GET_NEWEST_ID, null);
 
 		if (cursor.moveToFirst()) {
 			blogId = cursor.getInt(cursor.getColumnIndex(KEY_ID));
