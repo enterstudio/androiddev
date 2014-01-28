@@ -81,7 +81,21 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return blogId;
 	}
 
-	public List<String> getImageById(int id) {
+	public String getImageById(int id) {
+		String image = "";
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(GET_BLOG_IMAGE,
+				new String[] { Integer.toString(id) });
+
+		if (cursor.moveToFirst()) {
+			image = cursor.getString(cursor.getColumnIndex(KEY_IMAGE));
+		}
+		cursor.close();
+		db.close();
+		return image;
+	}
+
+	public List<String> getImagesById(int id) {
 		List<String> images = new ArrayList<String>();
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(GET_BLOG_IMAGES,
@@ -139,13 +153,5 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		db.setTransactionSuccessful();
 		db.endTransaction();
 		db.close();
-	}
-
-	public void recreateDb() {
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.execSQL(DROP_IMAGE_TABLE);
-		db.execSQL(DROP_BLOG_TABLE);
-		db.execSQL(CREATE_BLOG_TABLE);
-		db.execSQL(CREATE_IMAGES_TABLE);
 	}
 }

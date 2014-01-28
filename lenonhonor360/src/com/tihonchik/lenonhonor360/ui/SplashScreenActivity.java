@@ -21,8 +21,6 @@ import android.util.Log;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
-import com.tihonchik.lenonhonor360.app.LenonHonor360App;
-import com.tihonchik.lenonhonor360.db.BlogDatabase;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.models.LoadType;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
@@ -40,7 +38,7 @@ public class SplashScreenActivity extends BaseActivity {
 	private Pattern textWithNoImagePattern = Pattern
 			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</div>");
 	private Pattern textWithImagePattern = Pattern
-			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</p>_</div>");
+			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)(</p>_</div>|</span>_</div>)");
 	private Pattern paragraphPattern = Pattern.compile("(?i)<p>(.+?)</p>");
 	private Pattern imageSourcePattern = Pattern
 			.compile("(?i)<img_src=(\\\"([^\"]*)\\\"|'[^']*'|([^'\">\\s]+))");
@@ -62,11 +60,6 @@ public class SplashScreenActivity extends BaseActivity {
 					titleList.add(m.group(2).replaceAll("_", " ").trim());
 				}
 
-				// TODO: remove before launch
-				BlogDatabase db = new BlogDatabase(LenonHonor360App
-						.getInstance().getApplicationContext());
-				db.recreateDb();
-
 				int lastWebBlogId = -1;
 				if (hrefList.size() > 0) {
 					m = idPattern.matcher(hrefList.get(0));
@@ -86,16 +79,15 @@ public class SplashScreenActivity extends BaseActivity {
 				} else if (lastDbBlogId == -1 && lastWebBlogId != -1) {
 					// insert all entries, DB has nothing in it
 					entries = parseAllEntries(hrefList, titleList,
-							noWiteSpaceHtml);
+							noWiteSpaceHtml, hrefList.size());
 					BlogEntryUtils.insertBlogEntries(entries);
 					loadType = LoadType.LOAD_WEB.getName();
 					numberNewEntries = entries.size();
 				} else if (lastDbBlogId != lastWebBlogId) {
 					// insert new web entries into DB
-					while (lastWebBlogId > lastDbBlogId) {
-						parseEntryWithId(lastWebBlogId);
-						lastWebBlogId--;
-					}
+					entries = parseAllEntries(hrefList, titleList,
+							noWiteSpaceHtml, lastWebBlogId - lastDbBlogId);
+					BlogEntryUtils.insertBlogEntries(entries);
 					loadType = LoadType.LOAD_NEW.getName();
 					numberNewEntries = lastWebBlogId - lastDbBlogId;
 				}
@@ -147,7 +139,7 @@ public class SplashScreenActivity extends BaseActivity {
 		}
 
 		private List<BlogEntry> parseAllEntries(List<String> links,
-				List<String> titles, String html) throws IOException {
+				List<String> titles, String html, int upperLimit) throws IOException {
 			List<BlogEntry> entries = new ArrayList<BlogEntry>();
 			List<String> dates = new ArrayList<String>();
 			Matcher m = datePattern.matcher(html);
@@ -155,8 +147,8 @@ public class SplashScreenActivity extends BaseActivity {
 				dates.add(m.group(2).replaceAll("_", " ").trim());
 			}
 			int counter = 0;
-			for (String link : links) {
-				m = idPattern.matcher(link);
+			for (int i=0; i<upperLimit; i++) {
+				m = idPattern.matcher(links.get(i));
 				if (m.find()) {
 					int id = Integer.valueOf(m.group(1));
 					BlogEntry entry = new BlogEntry(id);
@@ -207,12 +199,12 @@ public class SplashScreenActivity extends BaseActivity {
 		intent.putExtra(BlogPullService.PARAM_IN_MSG, "");
 		// startService(intent);
 
-		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent,
+/*		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent,
 				0);
 		long trigger = System.currentTimeMillis() + (3000);
 		final AlarmManager alarmManager = (AlarmManager) getBaseContext()
 				.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);*/
 
 		new HtmlParserTask().execute();
 	}

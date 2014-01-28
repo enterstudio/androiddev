@@ -1,6 +1,7 @@
 package com.tihonchik.lenonhonor360.ui.user;
 
 import java.io.IOException;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -13,33 +14,42 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
+import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
+import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 public class BlogDisplayFragment extends BaseFragment {
 
 	private static final int LH360_NOTIFICATION_ID = 1;
+	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;
 	private NotificationManager notificationManager;
 	private Notification notification;
 	private ImageView _newBlogImage;
 
-	class loadContentTask extends AsyncTask<String, String, Drawable> {
+	class loadContentTask extends AsyncTask<String, Void, Drawable> {
 		TextView progressText;
 
 		@Override
 		protected Drawable doInBackground(String... args) {
 			try {
-				return AppUtils.getImageFromURL("http://placehold.it/320x240");
+				return AppUtils.getImageFromURL(args[0]);
 			} catch (IOException exception) {
 				return null;
 			}
@@ -48,8 +58,7 @@ public class BlogDisplayFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(Drawable result) {
 			if (result != null) {
-				int sdk = android.os.Build.VERSION.SDK_INT;
-				if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+				if (SDK_VERSION < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 					_newBlogImage.setBackgroundDrawable(result);
 				} else {
 					_newBlogImage.setBackground(result);
@@ -68,8 +77,6 @@ public class BlogDisplayFragment extends BaseFragment {
 	OnClickListener mNotifcationListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			// getActivity().startService(new Intent(getActivity(),
-			// NotifyService.class));
 			System.out.println("LH360 NOTIFICATION!!!");
 			notificationManager.notify(LH360_NOTIFICATION_ID, notification);
 		}
@@ -89,15 +96,80 @@ public class BlogDisplayFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		new loadContentTask().execute();
+		List<BlogEntry> entries = BlogEntryUtils.getAllBlogEntries();
+		if (entries == null || entries.size() == 0) {
+			return null;
+		}
+
+		String image = "http://placehold.it/320x240";
+		String blogImage = BlogEntryUtils.getImageById(entries.get(0).getId());
+		if (!"".equals(blogImage)) {
+			image = blogImage;
+		}
+
+		new loadContentTask().execute(image);
 
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
 				R.layout.blog_display, container, false);
 
+		/*
+		 * Setup new blog entry with image
+		 */
 		_newBlogImage = (ImageView) rootView.findViewById(R.id.new_blog_image);
-		// tf = FontUtils.getEffraMedium();
+		TextView newBlogTitle = (TextView) rootView
+				.findViewById(R.id.new_blog_title);
+		newBlogTitle.setText(entries.get(0).getTitle());
+		TextView newBlogText = (TextView) rootView
+				.findViewById(R.id.new_blog_text);
+		newBlogText.setText(entries.get(0).getBlog().replaceAll("<br>", " ")
+				.replaceAll(" +", " "));
+
+		/*
+		 * Setup up the table with older blog entries
+		 */
+		TableLayout tableLayout = (TableLayout) rootView
+				.findViewById(R.id.older_posts);
+		for (int i = 1; i < entries.size(); i++) {
+			TableRow row = new TableRow(getActivity());
+			row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT));
+			LinearLayout outerLayout = new LinearLayout(getActivity());
+			outerLayout.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			outerLayout.setOrientation(LinearLayout.HORIZONTAL);
+			ImageView rowImage = new ImageView(getActivity());
+			rowImage.setLayoutParams(new LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			rowImage.setImageResource(R.drawable.icon_bullet);
+			LinearLayout innerLayout = new LinearLayout(getActivity());
+			innerLayout.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			innerLayout.setOrientation(LinearLayout.VERTICAL);
+			TextView rowTitle = new TextView(getActivity());
+			rowTitle.setLayoutParams(new LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			rowTitle.setTextColor(R.color.lh360Clouds);
+			rowTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+			rowTitle.setText(entries.get(i).getTitle());
+			TextView rowText = new TextView(getActivity());
+			rowText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT));
+			rowText.setTextColor(R.color.lh360Black);
+			rowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+			rowText.setEllipsize(TruncateAt.END);
+			rowText.setMaxLines(2);
+			rowText.setText(entries.get(i).getBlog().replaceAll("<br>", " ")
+					.replaceAll(" +", " "));
+
+			innerLayout.addView(rowTitle);
+			innerLayout.addView(rowText);
+			outerLayout.addView(rowImage);
+			outerLayout.addView(innerLayout);
+			row.addView(outerLayout);
+			tableLayout.addView(row);
+		}
+
 		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
-		// b.setTypeface(tf);
 		newBlog.setOnClickListener(mBlogDetailListener);
 
 		Button newNotification = (Button) rootView

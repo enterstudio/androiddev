@@ -30,4 +30,10 @@ public class BlogEntryUtils {
 				.getApplicationContext());
 		db.insertNewImage(id, image);
 	}
+
+	public static String getImageById(int id) {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		return db.getImageById(id);
+	}
 }
