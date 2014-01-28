@@ -35,8 +35,12 @@ public class SplashScreenActivity extends BaseActivity {
 	private Pattern idPattern = Pattern.compile("(?i)id=(\\d{1,})");
 	private Pattern datePattern = Pattern
 			.compile("(?i)<div_style=(\\\"color:#66[^>]+)>(.+?)</div>");
-	private Pattern textPattern = Pattern
+	private Pattern textWithNoImagePattern = Pattern
 			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</div>");
+	private Pattern textWithImagePattern = Pattern
+			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</p>_</div>");
+	private Pattern paragraphPattern = Pattern
+			.compile("(?i)<p>(.+?)</p>");
 
 	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
 
@@ -111,9 +115,20 @@ public class SplashScreenActivity extends BaseActivity {
 					AppDefines.LENONHONOR_APP_PHP_ENTRY_URI + id)
 					.replaceAll("[\\n\\t]", "").replaceAll(" +", " ")
 					.replaceAll(" ", "_");
-			Matcher m = textPattern.matcher(entryHtml);
-			if (m.find()) {
-				blogText = m.group(2).replaceAll("_", " ").trim();
+			if (entryHtml.contains("<img_src")) {
+				Matcher m = textWithImagePattern.matcher(entryHtml);
+				if (m.find()) {
+					String paragraphedText = m.group(2);
+					m = paragraphPattern.matcher(paragraphedText);
+					while(m.find()) {
+						blogText += m.group(1).replaceAll("_", " ").trim();
+					}
+				}
+			} else {
+				Matcher m = textWithNoImagePattern.matcher(entryHtml);
+				if (m.find()) {
+					blogText = m.group(2).replaceAll("_", " ").trim();
+				}
 			}
 			return blogText;
 		}
