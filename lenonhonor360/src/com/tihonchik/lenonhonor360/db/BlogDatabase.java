@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tihonchik.lenonhonor360.models.BlogEntry;
+import com.tihonchik.lenonhonor360.util.AppUtils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,13 +21,15 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATE_CONTACTS_TABLE);
+		db.execSQL(CREATE_BLOG_TABLE);
+		db.execSQL(CREATE_IMAGES_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (DATABASE_VERSION < newVersion) {
-			db.execSQL(DROP_TABLE);
+			db.execSQL(DROP_IMAGE_TABLE);
+			db.execSQL(DROP_BLOG_TABLE);
 			onCreate(db);
 		}
 	}
@@ -49,11 +52,11 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				BlogEntry entry = new BlogEntry();
-				entry.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+				entry.setId(cursor.getInt(cursor.getColumnIndex(KEY_BLOG_ID)));
 				entry.setCreated(cursor.getString(cursor
-						.getColumnIndex(KEY_CREATED)));
+						.getColumnIndex(KEY_BLOG_CREATED)));
 				entry.setTitle(cursor.getString(cursor
-						.getColumnIndex(KEY_TITLE)));
+						.getColumnIndex(KEY_BLOG_TITLE)));
 				entry.setBlog(cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
 				entry.setBlogDate(cursor.getString(cursor
 						.getColumnIndex(KEY_BLOG_DATE)));
@@ -71,11 +74,27 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		Cursor cursor = db.rawQuery(GET_NEWEST_ID, null);
 
 		if (cursor.moveToFirst()) {
-			blogId = cursor.getInt(cursor.getColumnIndex(KEY_ID));
+			blogId = cursor.getInt(cursor.getColumnIndex(KEY_BLOG_ID));
 		}
 		cursor.close();
 		db.close();
 		return blogId;
+	}
+
+	public List<String> getImageById(int id) {
+		List<String> images = new ArrayList<String>();
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(GET_BLOG_IMAGES,
+				new String[] { Integer.toString(id) });
+
+		if (cursor.moveToFirst()) {
+			do {
+				images.add(cursor.getString(cursor.getColumnIndex(KEY_IMAGE)));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+		return images;
 	}
 
 	public void insertNewBlogEntries(List<BlogEntry> blogEntries) {
@@ -89,8 +108,8 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		for (BlogEntry entry : blogEntries) {
 			try {
 				ContentValues values = new ContentValues();
-				values.put(KEY_CREATED, entry.getCreated());
-				values.put(KEY_TITLE, entry.getTitle());
+				values.put(KEY_BLOG_CREATED, entry.getCreated());
+				values.put(KEY_BLOG_TITLE, entry.getTitle());
 				values.put(KEY_BLOG, entry.getBlog());
 				values.put(KEY_BLOG_DATE, entry.getBlogDate());
 				db.insert(TABLE_BLOG_ENTRIES, null, values);
@@ -101,5 +120,32 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		db.setTransactionSuccessful();
 		db.endTransaction();
 		db.close();
+	}
+
+	public void insertNewImage(int id, String image) {
+		if (id < 0 || image == null || "".equals(image)) {
+			return;
+		}
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_IMAGE_CREATED, AppUtils.getCurrentTimeStamp());
+		values.put(KEY_IMAGE, image);
+		values.put(KEY_BLOG_ID_FK, id);
+		db.insert(TABLE_IMAGES, null, values);
+
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();
+	}
+
+	public void recreateDb() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL(DROP_IMAGE_TABLE);
+		db.execSQL(DROP_BLOG_TABLE);
+		db.execSQL(CREATE_BLOG_TABLE);
+		db.execSQL(CREATE_IMAGES_TABLE);
 	}
 }

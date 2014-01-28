@@ -21,6 +21,8 @@ import android.util.Log;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.app.LenonHonor360App;
+import com.tihonchik.lenonhonor360.db.BlogDatabase;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.models.LoadType;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
@@ -39,8 +41,9 @@ public class SplashScreenActivity extends BaseActivity {
 			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</div>");
 	private Pattern textWithImagePattern = Pattern
 			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</p>_</div>");
-	private Pattern paragraphPattern = Pattern
-			.compile("(?i)<p>(.+?)</p>");
+	private Pattern paragraphPattern = Pattern.compile("(?i)<p>(.+?)</p>");
+	private Pattern imageSourcePattern = Pattern
+			.compile("(?i)<img_src=(\\\"([^\"]*)\\\"|'[^']*'|([^'\">\\s]+))");
 
 	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
 
@@ -58,6 +61,11 @@ public class SplashScreenActivity extends BaseActivity {
 					hrefList.add(m.group(0));
 					titleList.add(m.group(2).replaceAll("_", " ").trim());
 				}
+
+				// TODO: remove before launch
+				BlogDatabase db = new BlogDatabase(LenonHonor360App
+						.getInstance().getApplicationContext());
+				db.recreateDb();
 
 				int lastWebBlogId = -1;
 				if (hrefList.size() > 0) {
@@ -84,8 +92,9 @@ public class SplashScreenActivity extends BaseActivity {
 					numberNewEntries = entries.size();
 				} else if (lastDbBlogId != lastWebBlogId) {
 					// insert new web entries into DB
-					while (lastWebBlogId >= lastDbBlogId) {
+					while (lastWebBlogId > lastDbBlogId) {
 						parseEntryWithId(lastWebBlogId);
+						lastWebBlogId--;
 					}
 					loadType = LoadType.LOAD_NEW.getName();
 					numberNewEntries = lastWebBlogId - lastDbBlogId;
@@ -123,6 +132,10 @@ public class SplashScreenActivity extends BaseActivity {
 					while(m.find()) {
 						blogText += m.group(1).replaceAll("_", " ").trim();
 					}
+				}
+				m = imageSourcePattern.matcher(entryHtml);
+				while(m.find()) {
+					BlogEntryUtils.insertImage(id, m.group(2).trim());
 				}
 			} else {
 				Matcher m = textWithNoImagePattern.matcher(entryHtml);

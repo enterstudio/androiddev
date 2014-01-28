@@ -24,4 +24,10 @@ public class BlogEntryUtils {
 				.getApplicationContext());
 		return db.findAllBlogEntries();
 	}
+
+	public static void insertImage(int id, String image) {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		db.insertNewImage(id, image);
+	}
 }

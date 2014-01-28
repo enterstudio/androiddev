@@ -1,5 +1,8 @@
 package com.tihonchik.lenonhonor360.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.tihonchik.lenonhonor360.util.AppUtils;
 
 public class BlogEntry {
@@ -8,6 +11,7 @@ public class BlogEntry {
 	private String title;
 	private String blog;
 	private String blogDate;
+	private List<String> images = new ArrayList<String>();
 
 	public BlogEntry() {
 		this.created = AppUtils.getCurrentTimeStamp();
@@ -56,5 +60,13 @@ public class BlogEntry {
 
 	public void setBlogDate(String blogDate) {
 		this.blogDate = blogDate;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 }
