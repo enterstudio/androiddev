@@ -21,12 +21,12 @@
         </ScrollView>
     </LinearLayout>
 
-    <!-- fragment
-        android:id="@+id/header_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
-		android:name="com.tihonchik.app.ui.header.HeaderFragment" -->
+    <fragment android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:name="com.tihonchik.lenonhonor360.ui.header.HeaderFragment"
+              android:id="@+id/header_fragment"
+              android:layout_alignParentLeft="true" 
+              android:layout_alignParentTop="true"
+            />
     
 </RelativeLayout>
