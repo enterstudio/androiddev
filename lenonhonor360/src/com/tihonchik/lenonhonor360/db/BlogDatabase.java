@@ -122,6 +122,7 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		for (BlogEntry entry : blogEntries) {
 			try {
 				ContentValues values = new ContentValues();
+				values.put(KEY_BLOG_ID, entry.getId());
 				values.put(KEY_BLOG_CREATED, entry.getCreated());
 				values.put(KEY_BLOG_TITLE, entry.getTitle());
 				values.put(KEY_BLOG, entry.getBlog());

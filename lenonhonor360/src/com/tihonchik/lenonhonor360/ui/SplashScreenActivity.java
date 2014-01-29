@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -38,7 +36,7 @@ public class SplashScreenActivity extends BaseActivity {
 	private Pattern textWithNoImagePattern = Pattern
 			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)</div>");
 	private Pattern textWithImagePattern = Pattern
-			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)(</p>_</div>|</span>_</div>)");
+			.compile("(?i)<div_style=(\\\"color:#33[^>]+)>(.+?)(</p>_</div>|div>(.+?)_</div>)");
 	private Pattern paragraphPattern = Pattern.compile("(?i)<p>(.+?)</p>");
 	private Pattern imageSourcePattern = Pattern
 			.compile("(?i)<img_src=(\\\"([^\"]*)\\\"|'[^']*'|([^'\">\\s]+))");
@@ -87,7 +85,7 @@ public class SplashScreenActivity extends BaseActivity {
 					// insert new web entries into DB
 					entries = parseAllEntries(hrefList, titleList,
 							noWiteSpaceHtml, lastWebBlogId - lastDbBlogId);
-					BlogEntryUtils.insertBlogEntries(entries);
+					//BlogEntryUtils.insertBlogEntries(entries);
 					loadType = LoadType.LOAD_NEW.getName();
 					numberNewEntries = lastWebBlogId - lastDbBlogId;
 				}
@@ -120,9 +118,14 @@ public class SplashScreenActivity extends BaseActivity {
 				Matcher m = textWithImagePattern.matcher(entryHtml);
 				if (m.find()) {
 					String paragraphedText = m.group(2);
-					m = paragraphPattern.matcher(paragraphedText);
-					while(m.find()) {
-						blogText += m.group(1).replaceAll("_", " ").trim();
+					Matcher mP = paragraphPattern.matcher(paragraphedText);
+					int paragraphsFound = 0;
+					while(mP.find()) {
+						blogText += mP.group(1).replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("_", " ").trim();
+						paragraphsFound++;
+					}
+					if(paragraphsFound == 0) {
+						blogText = m.group(4).replaceAll("<div>", "").replaceAll("</div>", "").replaceAll("_", " ").trim();
 					}
 				}
 				m = imageSourcePattern.matcher(entryHtml);

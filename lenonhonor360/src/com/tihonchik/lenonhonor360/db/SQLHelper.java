@@ -35,12 +35,12 @@ public interface SQLHelper {
 			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC ";
 
 	public static final String GET_NEWEST_ID = "SELECT " + KEY_BLOG_ID
-			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_CREATED
+			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID
 			+ " DESC Limit 1";
 
 	public static final String GET_BLOG_IMAGE = "SELECT " + KEY_IMAGE
 			+ " FROM " + TABLE_IMAGES + " WHERE " + KEY_BLOG_ID_FK
-			+ " = ? ORDER BY " + KEY_IMAGE_CREATED + " DESC Limit 1";
+			+ " = ? ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
 
 	public static final String GET_BLOG_IMAGES = "SELECT " + KEY_IMAGE
 			+ " FROM " + TABLE_IMAGES + " WHERE " + KEY_BLOG_ID_FK + " = ? ";
