@@ -32,7 +32,7 @@ public interface SQLHelper {
 			+ TABLE_BLOG_ENTRIES + " (" + KEY_BLOG_ID + "))";
 
 	public static final String SELECT_ENTRIES = "SELECT * FROM "
-			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC";
+			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC ";
 
 	public static final String GET_NEWEST_ID = "SELECT " + KEY_BLOG_ID
 			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_CREATED

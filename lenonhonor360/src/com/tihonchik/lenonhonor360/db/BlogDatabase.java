@@ -43,7 +43,7 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		String selectQuery = SELECT_ENTRIES;
 
 		if (numberOfEntries != 0) {
-			selectQuery += " DESC Limit " + numberOfEntries;
+			selectQuery += " Limit " + numberOfEntries;
 		}
 
 		SQLiteDatabase db = this.getWritableDatabase();
