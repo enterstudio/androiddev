@@ -1,7 +1,6 @@
 package com.tihonchik.lenonhonor360.ui.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -27,6 +26,7 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -152,26 +152,36 @@ public class BlogDisplayFragment extends BaseFragment {
 			rowTitle.setTextColor(R.color.lh360Clouds);
 			rowTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			rowTitle.setText(entries.get(i).getTitle());
+			
+			RelativeLayout relativeLayout = new RelativeLayout(getActivity());
+			relativeLayout.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			
 			TextView rowText = new TextView(getActivity());
-			rowText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT));
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT);
+			params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			rowText.setLayoutParams(params);
 			rowText.setTextColor(R.color.lh360Black);
 			rowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 			rowText.setEllipsize(TruncateAt.END);
-			// rowText.setMaxLines(2);
+			rowText.setSingleLine(true);
 			rowText.setText(entries.get(i).getBlog().replaceAll("<br>", " ")
 					.replaceAll(" +", " "));
 
 			ImageView readMoreImage = new ImageView(getActivity());
-			readMoreImage.setLayoutParams(new LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT);
+			params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			readMoreImage.setLayoutParams(params);
 			readMoreImage.setImageResource(R.drawable.read_more);
 
+			relativeLayout.addView(rowText);
+			relativeLayout.addView(readMoreImage);
 			innerLayout.addView(rowTitle);
-			innerLayout.addView(rowText);
+			innerLayout.addView(relativeLayout);
 			outerLayout.addView(rowImage);
 			outerLayout.addView(innerLayout);
-			outerLayout.addView(readMoreImage);
 			row.addView(outerLayout);
 			mBlogDetailListener = new BlogDetailOnClickListener(entries.get(i));
 			row.setOnClickListener(mBlogDetailListener);

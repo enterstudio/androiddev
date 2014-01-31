@@ -27,7 +27,7 @@
         android:layout_alignParentTop="true"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="5dp" >
+        android:paddingTop="7dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,6 +41,7 @@
                 android:layout_centerVertical="true"
                 android:clickable="true"
                 android:contentDescription="@string/blank"
+                android:paddingRight="10dp"
                 android:src="@drawable/homeicon" />
 
             <View
