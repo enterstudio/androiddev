@@ -1,11 +1,15 @@
 package com.tihonchik.lenonhonor360.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tihonchik.lenonhonor360.util.AppUtils;
 
-public class BlogEntry {
+public class BlogEntry implements Serializable {
+	
+    private static final long serialVersionUID = -2163051469151804394L;
+
 	private int id;
 	private String created;
 	private String title;

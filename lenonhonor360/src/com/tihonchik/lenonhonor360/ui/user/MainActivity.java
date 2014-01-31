@@ -5,15 +5,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
+import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.services.LaunchReceiver;
 import com.tihonchik.lenonhonor360.ui.BaseActivity;
+import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 
 public class MainActivity extends BaseActivity {
 
 	private LaunchReceiver receiver;
-	
+
 	@Override
 	protected Context getContextforBase() {
 		return MainActivity.this;
@@ -34,11 +37,12 @@ public class MainActivity extends BaseActivity {
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.body, f, "BlogDisplayFragment").commit();
 		}
-		
-        IntentFilter filter = new IntentFilter(LaunchReceiver.ACTION_PULSE_ALARM);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        receiver = new LaunchReceiver();
-        registerReceiver(receiver, filter);
+
+		IntentFilter filter = new IntentFilter(
+				LaunchReceiver.ACTION_PULSE_ALARM);
+		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		receiver = new LaunchReceiver();
+		registerReceiver(receiver, filter);
 	}
 
 	@Override

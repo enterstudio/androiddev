@@ -1,6 +1,7 @@
 package com.tihonchik.lenonhonor360.ui.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.text.TextUtils.TruncateAt;
@@ -29,6 +31,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
@@ -37,12 +40,12 @@ import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 public class BlogDisplayFragment extends BaseFragment {
 
-	private static final int LH360_NOTIFICATION_ID = 1;
 	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;
 	private NotificationManager notificationManager;
 	private Notification notification;
 	private ImageView _newBlogImage;
-
+	List<BlogEntry> entries = new ArrayList<BlogEntry>();
+	
 	class loadContentTask extends AsyncTask<String, Void, Drawable> {
 		TextView progressText;
 
@@ -55,6 +58,7 @@ public class BlogDisplayFragment extends BaseFragment {
 			}
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		protected void onPostExecute(Drawable result) {
 			if (result != null) {
@@ -70,7 +74,15 @@ public class BlogDisplayFragment extends BaseFragment {
 	OnClickListener mBlogDetailListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-
+			Bundle args = new Bundle();
+			args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, entries.get(0));
+			Fragment blogDisplayFragment = new BlogDetailFragment();
+			blogDisplayFragment.setArguments(args);
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.body, blogDisplayFragment,
+							AppDefines.TAG_BLOG_DETAIL)
+					.addToBackStack(AppDefines.TAG_BLOG_DETAIL).commit();
 		}
 	};
 
@@ -78,7 +90,8 @@ public class BlogDisplayFragment extends BaseFragment {
 		@Override
 		public void onClick(View v) {
 			System.out.println("LH360 NOTIFICATION!!!");
-			notificationManager.notify(LH360_NOTIFICATION_ID, notification);
+			notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
+					notification);
 		}
 	};
 

@@ -8,25 +8,26 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp" >
 
-    <Button
-        android:id="@+id/btn_login"
-        style="@style/BlueButton"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="315dp"
-        android:minWidth="10dp"
-        android:text="Notifications" />
-
-    <TextView
-        android:id="@+id/rowText"
+    <ImageView
+        android:id="@+id/detail_blog_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="Lorem ipsum dolor sit amet, sale adipisci ius an. Deleniti gubergren sit ad. Purto posse paulo qui in. Oportere ocurreret adolescens his id.
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="25dp" />
 
-Consulatu democritum at ius, no malis liber ceteros pri. Ut iudico fabellas partiendo est, pro debet graece singulis ei. Verear recteque accusamus duo ea, ne mazim verear voluptatibus usu. Nec quas possim an, no evertitur sententiae pri. Esse vocibus duo ne. In sint adhuc partem duo, mutat virtute luptatum mea ad, sit te solet mollis. Vitae quaerendum mediocritatem sea te.
+    <TextView
+        android:id="@+id/detail_blog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blog_title"
+        android:textColor="@color/lh360Clouds"
+        android:textSize="20sp" />
 
-At his etiam dissentiunt accommodare, ut regione fuisset detraxit eos. Perfecto consequat qui an. Ferri malis sit ad. Id sea ceteros dolores patrioque, vim mollis vituperata referrentur ne, cu sit nonumes democritum consectetuer."
+    <TextView
+        android:id="@+id/detail_blog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:textColor="@color/lh360Black"
         android:textSize="16sp" />
 
