@@ -44,8 +44,7 @@ public class BlogDisplayFragment extends BaseFragment {
 	private NotificationManager notificationManager;
 	private Notification notification;
 	private ImageView _newBlogImage;
-	List<BlogEntry> entries = new ArrayList<BlogEntry>();
-	
+
 	class loadContentTask extends AsyncTask<String, Void, Drawable> {
 		TextView progressText;
 
@@ -70,21 +69,6 @@ public class BlogDisplayFragment extends BaseFragment {
 			}
 		}
 	}
-
-	OnClickListener mBlogDetailListener = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Bundle args = new Bundle();
-			args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, entries.get(0));
-			Fragment blogDisplayFragment = new BlogDetailFragment();
-			blogDisplayFragment.setArguments(args);
-			getFragmentManager()
-					.beginTransaction()
-					.replace(R.id.body, blogDisplayFragment,
-							AppDefines.TAG_BLOG_DETAIL)
-					.addToBackStack(AppDefines.TAG_BLOG_DETAIL).commit();
-		}
-	};
 
 	OnClickListener mNotifcationListener = new OnClickListener() {
 		@Override
@@ -137,6 +121,10 @@ public class BlogDisplayFragment extends BaseFragment {
 		newBlogText.setText(entries.get(0).getBlog().replaceAll("<br>", " ")
 				.replaceAll(" +", " "));
 
+		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
+		BlogDetailOnClickListener mBlogDetailListener = new BlogDetailOnClickListener(entries.get(0));
+		newBlog.setOnClickListener(mBlogDetailListener);
+
 		/*
 		 * Setup up the table with older blog entries
 		 */
@@ -170,20 +158,25 @@ public class BlogDisplayFragment extends BaseFragment {
 			rowText.setTextColor(R.color.lh360Black);
 			rowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 			rowText.setEllipsize(TruncateAt.END);
-			rowText.setMaxLines(2);
+			// rowText.setMaxLines(2);
 			rowText.setText(entries.get(i).getBlog().replaceAll("<br>", " ")
 					.replaceAll(" +", " "));
+
+			ImageView readMoreImage = new ImageView(getActivity());
+			readMoreImage.setLayoutParams(new LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			readMoreImage.setImageResource(R.drawable.read_more);
 
 			innerLayout.addView(rowTitle);
 			innerLayout.addView(rowText);
 			outerLayout.addView(rowImage);
 			outerLayout.addView(innerLayout);
+			outerLayout.addView(readMoreImage);
 			row.addView(outerLayout);
+			mBlogDetailListener = new BlogDetailOnClickListener(entries.get(i));
+			row.setOnClickListener(mBlogDetailListener);
 			tableLayout.addView(row);
 		}
-
-		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
-		newBlog.setOnClickListener(mBlogDetailListener);
 
 		Button newNotification = (Button) rootView
 				.findViewById(R.id.btn_new_notification);
@@ -224,4 +217,25 @@ public class BlogDisplayFragment extends BaseFragment {
 			return;
 		}
 	}
+
+	public class BlogDetailOnClickListener implements OnClickListener {
+		BlogEntry blog = null;
+
+		public BlogDetailOnClickListener(BlogEntry blog) {
+			this.blog = blog;
+		}
+
+		@Override
+		public void onClick(View v) {
+			Bundle args = new Bundle();
+			args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
+			Fragment blogDisplayFragment = new BlogDetailFragment();
+			blogDisplayFragment.setArguments(args);
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.body, blogDisplayFragment,
+							AppDefines.TAG_BLOG_DETAIL)
+					.addToBackStack(AppDefines.TAG_BLOG_DETAIL).commit();
+		}
+	};
 }
