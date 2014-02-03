@@ -5,21 +5,15 @@ import android.content.Intent;
 import android.util.Log;
 
 public class BlogPullService extends IntentService {
-	public static final String PARAM_IN_MSG = "IN_MSG";
-    public static final String PARAM_OUT_MSG = "OUT_MSG";
 
-	public BlogPullService() {
-		super("BlogPullService");
-		Log.d("LH360", " > BlogPullServics started...");
-	}
-
-	@Override
-	protected void onHandleIntent(Intent workIntent) {
-		Log.d("LH360", " > BlogPullServics checking-in...");
-		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(LaunchReceiver.ACTION_PULSE_ALARM);
-		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-		broadcastIntent.putExtra(PARAM_OUT_MSG, "");
-		sendBroadcast(broadcastIntent);
-	}
+    public BlogPullService() {
+        super("BlogPullService");
+     }
+	
+    
+    @Override
+    protected void onHandleIntent(Intent intent) {
+       //TODO: call to HTML, send notification
+		Log.d("LH360", " > BlogPullService onHandleIntent...");
+    }
 }

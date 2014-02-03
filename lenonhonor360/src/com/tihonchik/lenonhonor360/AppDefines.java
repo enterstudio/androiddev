@@ -11,4 +11,5 @@ public class AppDefines {
     public static final int LH360_NOTIFICATION_ID = 1;
 	public static final String TAG_BLOG_DETAIL = "BlogDetailFragment";
 	public static final String TAG_BLOG_DISPLAY_DETAIL = "BlogDisplayFragment_BlogDetail";
+    public static final int SERVICE_NOTIFICATION_INTERVAL = 5000;
 }

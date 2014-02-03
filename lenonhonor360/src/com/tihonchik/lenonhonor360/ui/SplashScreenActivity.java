@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,6 +24,7 @@ import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.models.LoadType;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
+import com.tihonchik.lenonhonor360.services.LaunchReceiver;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
@@ -85,7 +88,7 @@ public class SplashScreenActivity extends BaseActivity {
 					// insert new web entries into DB
 					entries = parseAllEntries(hrefList, titleList,
 							noWiteSpaceHtml, lastWebBlogId - lastDbBlogId);
-					//BlogEntryUtils.insertBlogEntries(entries);
+					// BlogEntryUtils.insertBlogEntries(entries);
 					loadType = LoadType.LOAD_NEW.getName();
 					numberNewEntries = lastWebBlogId - lastDbBlogId;
 				}
@@ -120,16 +123,20 @@ public class SplashScreenActivity extends BaseActivity {
 					String paragraphedText = m.group(2);
 					Matcher mP = paragraphPattern.matcher(paragraphedText);
 					int paragraphsFound = 0;
-					while(mP.find()) {
-						blogText += mP.group(1).replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("_", " ").trim();
+					while (mP.find()) {
+						blogText += mP.group(1).replaceAll("<p>", "")
+								.replaceAll("</p>", "").replaceAll("_", " ")
+								.trim();
 						paragraphsFound++;
 					}
-					if(paragraphsFound == 0) {
-						blogText = m.group(4).replaceAll("<div>", "").replaceAll("</div>", "").replaceAll("_", " ").trim();
+					if (paragraphsFound == 0) {
+						blogText = m.group(4).replaceAll("<div>", "")
+								.replaceAll("</div>", "").replaceAll("_", " ")
+								.trim();
 					}
 				}
 				m = imageSourcePattern.matcher(entryHtml);
-				while(m.find()) {
+				while (m.find()) {
 					BlogEntryUtils.insertImage(id, m.group(2).trim());
 				}
 			} else {
@@ -142,7 +149,8 @@ public class SplashScreenActivity extends BaseActivity {
 		}
 
 		private List<BlogEntry> parseAllEntries(List<String> links,
-				List<String> titles, String html, int upperLimit) throws IOException {
+				List<String> titles, String html, int upperLimit)
+				throws IOException {
 			List<BlogEntry> entries = new ArrayList<BlogEntry>();
 			List<String> dates = new ArrayList<String>();
 			Matcher m = datePattern.matcher(html);
@@ -150,7 +158,7 @@ public class SplashScreenActivity extends BaseActivity {
 				dates.add(m.group(2).replaceAll("_", " ").trim());
 			}
 			int counter = 0;
-			for (int i=0; i<upperLimit; i++) {
+			for (int i = 0; i < upperLimit; i++) {
 				m = idPattern.matcher(links.get(i));
 				if (m.find()) {
 					int id = Integer.valueOf(m.group(1));
@@ -197,17 +205,17 @@ public class SplashScreenActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		getWindow().setBackgroundDrawable(null);
 
-		Intent intent = new Intent(this, BlogPullService.class);
-		intent.putExtra("com.tihonchik.lenonhonor360.triggerTime", 3000l);
-		intent.putExtra(BlogPullService.PARAM_IN_MSG, "");
-		// startService(intent);
+		Intent intent = new Intent(getApplicationContext(),
+				BlogPullService.class);
+		final PendingIntent pendingIntent = PendingIntent.getService(this,
+				LaunchReceiver.REQUEST_CODE, intent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 
-/*		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent,
-				0);
-		long trigger = System.currentTimeMillis() + (3000);
-		final AlarmManager alarmManager = (AlarmManager) getBaseContext()
+		AlarmManager alarmManager = (AlarmManager) this
 				.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);*/
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+				System.currentTimeMillis(),
+				AppDefines.SERVICE_NOTIFICATION_INTERVAL, pendingIntent);
 
 		new HtmlParserTask().execute();
 	}

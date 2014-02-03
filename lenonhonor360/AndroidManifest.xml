@@ -37,6 +37,7 @@
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -50,20 +51,26 @@
         </activity>
         <activity
             android:name=".ui.user.WebViewActivity"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
-        		<action android:name="android.intent.action.VIEW" />
-        		<category android:name="android.intent.category.DEFAULT" />
-        		<data android:scheme="fakehttp" />
-    		</intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="fakehttp" />
+            </intent-filter>
         </activity>
-        
+
+        <receiver
+            android:name="LaunchReceiver"
+            android:process=":remote" >
+        </receiver>
+
         <service
             android:name=".services.BlogPullService"
-            android:enabled="true" />
-        
+            android:exported="false" />
     </application>
 
 </manifest>

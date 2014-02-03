@@ -6,7 +6,8 @@ import android.content.Intent;
 
 public class LaunchReceiver extends BroadcastReceiver {
 	public static final String ACTION_PULSE_ALARM = "com.tihonchik.lenonhonor360.ACTION_PULSE_ALARM";
-
+	public static final int REQUEST_CODE = 696696;
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		System.out.println("LH360 - onReceive()... start service...");
