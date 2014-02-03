@@ -4,19 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
-import android.text.Html;
 import android.text.TextUtils.TruncateAt;
-import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +33,6 @@ import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 public class BlogDisplayFragment extends BaseFragment {
 
 	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;
-	private NotificationManager notificationManager;
-	private Notification notification;
 	private ImageView _newBlogImage;
 
 	class loadContentTask extends AsyncTask<String, Void, Drawable> {
@@ -69,15 +59,6 @@ public class BlogDisplayFragment extends BaseFragment {
 			}
 		}
 	}
-
-	OnClickListener mNotifcationListener = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			System.out.println("LH360 NOTIFICATION!!!");
-			notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
-					notification);
-		}
-	};
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -187,29 +168,6 @@ public class BlogDisplayFragment extends BaseFragment {
 			row.setOnClickListener(mBlogDetailListener);
 			tableLayout.addView(row);
 		}
-
-		Button newNotification = (Button) rootView
-				.findViewById(R.id.btn_new_notification);
-		newNotification.setOnClickListener(mNotifcationListener);
-
-		TextView link = (TextView) rootView.findViewById(R.id.official_link);
-		link.setText(Html
-				.fromHtml("<a href='fakehttp://lenonhonor360.com/'>lenonhonor360.com</a>"));
-		link.setMovementMethod(LinkMovementMethod.getInstance());
-
-		PendingIntent contentIntent = PendingIntent.getActivity(getActivity(),
-				0, new Intent(getActivity(), MainActivity.class),
-				Intent.FLAG_ACTIVITY_NEW_TASK);
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				getActivity());
-		notificationManager = (NotificationManager) getActivity()
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		notification = builder.setContentIntent(contentIntent)
-				.setSmallIcon(R.drawable.notificationicon)
-				.setTicker("Notification!").setWhen(System.currentTimeMillis())
-				.setAutoCancel(true).setContentTitle("Notification!")
-				.setContentText("LenonHonor360 Notification!").build();
-
 		return rootView;
 	}
 
