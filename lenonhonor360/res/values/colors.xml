@@ -8,5 +8,7 @@
     <color name="lh360Asbestos">#7f8c8d</color>
     <color name="lh360Carrot">#e67e22</color>
     <color name="lh360Orange">#f39c12</color>
-    <color name="lh360DardGrey">#333333</color>
+    <color name="lh360DardGrey">#12151a</color>
+    <color name="lh360Grey">#e7ebee</color>
+    <color name="lh360LightBlue">#30acc6</color>
 </resources>

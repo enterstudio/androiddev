@@ -51,4 +51,8 @@ public class AppUtils {
 		String strDate = sdfDate.format(now);
 		return strDate;
 	}
+	
+	public static String getFormattedLink(String link) {
+		return "<a href='fakehttp://" + link + "/'>" + link + "</a>";
+	}
 }

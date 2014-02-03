@@ -59,7 +59,7 @@
         		<data android:scheme="fakehttp" />
     		</intent-filter>
         </activity>
-
+        
         <service
             android:name=".services.BlogPullService"
             android:enabled="true" />
