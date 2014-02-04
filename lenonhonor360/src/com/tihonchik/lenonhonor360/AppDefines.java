@@ -12,4 +12,6 @@ public class AppDefines {
 	public static final String TAG_BLOG_DETAIL = "BlogDetailFragment";
 	public static final String TAG_BLOG_DISPLAY_DETAIL = "BlogDisplayFragment_BlogDetail";
     public static final int SERVICE_NOTIFICATION_INTERVAL = 10000;
+    public static final String BLOG_UNAVAILABLE = "blogUnavailable";
+    public static final String ISSUE_NOTIFICAION = "issueNotification";
 }

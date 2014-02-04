@@ -1,7 +1,11 @@
 package com.tihonchik.lenonhonor360.services;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.parser.HtmlParser;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -22,9 +26,16 @@ public class BlogPullService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		// TODO: call to HTML, send notification
-		sendNotification();
 		Log.d("LH360", " > BlogPullService onHandleIntent...");
+		try {
+			if (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
+				sendNotification();
+			}
+		} catch (MalformedURLException exception) {
+			Log.d("LH360", " > MalformedURLException: " + exception);
+		} catch (IOException exception) {
+			Log.d("LH360", " > URISyntaxException: " + exception);
+		}
 	}
 
 	private void sendNotification() {
@@ -33,7 +44,7 @@ public class BlogPullService extends IntentService {
 				.setSmallIcon(R.drawable.notificationicon)
 				.setTicker("Notification!").setWhen(System.currentTimeMillis())
 				.setAutoCancel(true).setContentTitle("Notification!")
-				// .setDefaults(Notification.DEFAULT_ALL)
+				.setDefaults(Notification.DEFAULT_ALL)
 				.setContentText("LenonHonor360 Notification!").build();
 
 		notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
