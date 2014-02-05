@@ -72,4 +72,8 @@ public class AppUtils {
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue,
 				metrics);
 	}
+
+	public static boolean safeEmpty(String value) {
+		return (value == null || "".equals(value));
+	}
 }

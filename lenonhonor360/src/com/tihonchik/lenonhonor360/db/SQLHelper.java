@@ -38,6 +38,10 @@ public interface SQLHelper {
 			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID
 			+ " DESC Limit 1";
 
+	public static final String GET_NEWEST_BLOG_INFO = "SELECT "
+			+ KEY_BLOG_TITLE + ", " + KEY_BLOG + " FROM " + TABLE_BLOG_ENTRIES
+			+ " ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
+
 	public static final String GET_BLOG_IMAGE = "SELECT " + KEY_IMAGE
 			+ " FROM " + TABLE_IMAGES + " WHERE " + KEY_BLOG_ID_FK
 			+ " = ? ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";

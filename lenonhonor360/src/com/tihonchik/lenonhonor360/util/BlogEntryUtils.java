@@ -1,6 +1,7 @@
 package com.tihonchik.lenonhonor360.util;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tihonchik.lenonhonor360.app.LenonHonor360App;
 import com.tihonchik.lenonhonor360.db.BlogDatabase;
@@ -35,5 +36,11 @@ public class BlogEntryUtils {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
 		return db.getImageById(id);
+	}
+
+	public static Map<String, String> getNewestBlogInfo() {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		return db.getNewestBlogInfo();
 	}
 }

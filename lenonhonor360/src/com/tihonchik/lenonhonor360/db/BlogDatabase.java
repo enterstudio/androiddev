@@ -1,7 +1,9 @@
 package com.tihonchik.lenonhonor360.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -95,6 +97,21 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return image;
 	}
 
+	public Map<String, String> getNewestBlogInfo() {
+		Map<String, String> info = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(GET_NEWEST_BLOG_INFO, null);
+
+		if (cursor.moveToFirst()) {
+			info = new HashMap<String, String>();
+			info.put("title", cursor.getString(cursor.getColumnIndex(KEY_BLOG_TITLE)));
+			info.put("blog", cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
+		}
+		cursor.close();
+		db.close();
+		return info;
+	}
+	
 	public List<String> getImagesById(int id) {
 		List<String> images = new ArrayList<String>();
 		SQLiteDatabase db = this.getWritableDatabase();

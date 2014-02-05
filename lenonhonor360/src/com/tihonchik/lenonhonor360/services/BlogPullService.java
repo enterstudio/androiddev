@@ -2,10 +2,13 @@ package com.tihonchik.lenonhonor360.services;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Map;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.parser.HtmlParser;
+import com.tihonchik.lenonhonor360.util.AppUtils;
+import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -39,14 +42,27 @@ public class BlogPullService extends IntentService {
 	}
 
 	private void sendNotification() {
-		
+		Map<String, String> info = BlogEntryUtils.getNewestBlogInfo();
+		String title = info.get("title");
+		String text = info.get("blog");
+		if (AppUtils.safeEmpty(title) && AppUtils.safeEmpty(text)) {
+			return;
+		} else {
+			if (AppUtils.safeEmpty(title)) {
+				title = "New Blog!";
+			}
+			if (AppUtils.safeEmpty(text)) {
+				text = "";
+			} else if (text.length() > 150) {
+				text = text.substring(0, 147) + "...";
+			}
+		}
 		lh360notification = new NotificationCompat.Builder(
 				getApplicationContext())
-				.setSmallIcon(R.drawable.notificationicon)
-				.setTicker("Notification!").setWhen(System.currentTimeMillis())
-				.setAutoCancel(true).setContentTitle("Notification!")
-				.setDefaults(Notification.DEFAULT_ALL)
-				.setContentText("LenonHonor360 Notification!").build();
+				.setSmallIcon(R.drawable.notificationicon).setTicker(title)
+				.setWhen(System.currentTimeMillis()).setAutoCancel(true)
+				.setContentTitle(title).setDefaults(Notification.DEFAULT_ALL)
+				.setContentText(text).build();
 
 		notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
 				lh360notification);
