@@ -39,6 +39,7 @@ public class BlogPullService extends IntentService {
 	}
 
 	private void sendNotification() {
+		
 		lh360notification = new NotificationCompat.Builder(
 				getApplicationContext())
 				.setSmallIcon(R.drawable.notificationicon)

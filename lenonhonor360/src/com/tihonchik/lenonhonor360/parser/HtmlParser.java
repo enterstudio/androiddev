@@ -54,7 +54,7 @@ public class HtmlParser implements HtmlPatterns {
 			// insert new web entries into DB
 			entries = parseAllEntries(hrefList, titleList, noWiteSpaceHtml,
 					lastWebBlogId - lastDbBlogId);
-			// BlogEntryUtils.insertBlogEntries(entries);
+			BlogEntryUtils.insertBlogEntries(entries);
 			responseValue = AppDefines.ISSUE_NOTIFICAION;
 		}
 		return responseValue;

@@ -8,22 +8,33 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.tihonchik.lenonhonor360.app.LenonHonor360App;
 
 public class AppUtils {
-
+	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;
 	private static int mScreenWidth;
 	private static int mScreenHeight;
 
+	@SuppressWarnings("deprecation")
 	public static void initializeLenonHonorApp(Context context) {
 		Display display = ((WindowManager) LenonHonor360App.getAppContext()
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		mScreenWidth = display.getWidth();
-		mScreenHeight = display.getHeight();
+		if (SDK_VERSION < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			mScreenWidth = display.getWidth();
+			mScreenHeight = display.getHeight();
+		} else {
+			Point size = new Point();
+			display.getSize(size);
+			mScreenWidth = size.x;
+			mScreenHeight = size.y;
+		}
 	}
 
 	public static int getPopupHeight() {
@@ -51,8 +62,14 @@ public class AppUtils {
 		String strDate = sdfDate.format(now);
 		return strDate;
 	}
-	
+
 	public static String getFormattedLink(String link) {
 		return "<a href='fakehttp://" + link + "/'>" + link + "</a>";
+	}
+
+	public static float dipToPixels(Context context, int dipValue) {
+		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue,
+				metrics);
 	}
 }

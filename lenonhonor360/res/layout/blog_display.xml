@@ -8,19 +8,24 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp" >
 
-    <ImageView
+    <com.tihonchik.lenonhonor360.custom.ResizableImageView
         android:id="@+id/new_blog_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="25dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:maxHeight="280dp"
+        android:maxWidth="320dp"
+        android:minHeight="280dp"
+        android:minWidth="200dp" />
 
     <TextView
         android:id="@+id/new_blog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/blog_title"
-        android:textColor="@color/lh360Clouds"
+        android:textColor="@color/lh360DardGrey"
+        android:layout_marginTop="5dp"
         android:textSize="20sp" />
 
     <TextView
@@ -53,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/older_blogs"
-        android:textColor="@color/lh360Asbestos"
+        android:textColor="@color/lh360DardGrey"
         android:textSize="26sp"
         android:textStyle="bold|italic" />
 
