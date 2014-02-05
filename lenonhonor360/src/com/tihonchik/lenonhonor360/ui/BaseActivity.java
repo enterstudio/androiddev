@@ -1,11 +1,14 @@
 package com.tihonchik.lenonhonor360.ui;
 
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.services.LaunchReceiver;
 import com.tihonchik.lenonhonor360.ui.BaseFragment.BaseCallbacks;
 import com.tihonchik.lenonhonor360.util.AppUtils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +26,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected Dialog mDialog = null;
 	private Context mContext = null;
 
+	private LaunchReceiver receiver;
+
 	public BaseActivity() {
 	}
 
@@ -39,12 +44,23 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 		setContentView(getContentLayoutId());
 		mContext = getContextforBase();
+
+		if (receiver == null) {
+			IntentFilter filter = new IntentFilter(
+					LaunchReceiver.ACTION_PULSE_ALARM);
+			filter.addCategory(Intent.CATEGORY_DEFAULT);
+			receiver = new LaunchReceiver();
+			registerReceiver(receiver, filter);
+		}
 	}
 
 	@Override
 	protected void onDestroy() {
 		Log.v("LH360", "A onDestroy " + this.getClass().getName());
 		super.onDestroy();
+		if (receiver != null) {
+			unregisterReceiver(receiver);
+		}
 	}
 
 	@Override
