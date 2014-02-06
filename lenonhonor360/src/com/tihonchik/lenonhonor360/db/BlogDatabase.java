@@ -104,14 +104,15 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 
 		if (cursor.moveToFirst()) {
 			info = new HashMap<String, String>();
-			info.put("title", cursor.getString(cursor.getColumnIndex(KEY_BLOG_TITLE)));
+			info.put("title",
+					cursor.getString(cursor.getColumnIndex(KEY_BLOG_TITLE)));
 			info.put("blog", cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
 		}
 		cursor.close();
 		db.close();
 		return info;
 	}
-	
+
 	public List<String> getImagesById(int id) {
 		List<String> images = new ArrayList<String>();
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -126,6 +127,19 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		cursor.close();
 		db.close();
 		return images;
+	}
+
+	public void deleteBlogEntry(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			db.delete(TABLE_BLOG_ENTRIES, KEY_BLOG_ID + "=" + id, null);
+		} catch (Exception e) {
+			Log.e("LH360", e.getLocalizedMessage(), e);
+		}
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();
 	}
 
 	public void insertNewBlogEntries(List<BlogEntry> blogEntries) {
