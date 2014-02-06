@@ -62,7 +62,7 @@ public class SplashScreenActivity extends BaseActivity {
 		Intent intent = new Intent(getApplicationContext(),
 				BlogPullService.class);
 		final PendingIntent pendingIntent = PendingIntent.getService(this,
-				LaunchReceiver.REQUEST_CODE, intent,
+				AppDefines.BROADCAST_REQUEST_CODE, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 
 		AlarmManager alarmManager = (AlarmManager) this

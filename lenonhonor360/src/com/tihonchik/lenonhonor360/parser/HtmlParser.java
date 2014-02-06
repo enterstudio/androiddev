@@ -58,9 +58,10 @@ public class HtmlParser implements HtmlPatterns {
 			responseValue = AppDefines.ISSUE_NOTIFICAION;
 		} else if (lastWebBlogId < lastDbBlogId) {
 			// entry got deleted from the blog, remove from DB
-			entries = parseAllEntries(hrefList, titleList, noWiteSpaceHtml,
-					lastWebBlogId - lastDbBlogId);
-			BlogEntryUtils.insertBlogEntries(entries);
+			while(lastDbBlogId>lastWebBlogId) {
+				BlogEntryUtils.deleteBlogEntry(lastDbBlogId);
+				lastDbBlogId--;
+			}
 		} 
 		return responseValue;
 	}

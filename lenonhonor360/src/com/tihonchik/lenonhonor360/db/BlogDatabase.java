@@ -97,20 +97,19 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return image;
 	}
 
-	public Map<String, String> getNewestBlogInfo() {
-		Map<String, String> info = null;
+	public BlogEntry getNewestBlog() {
+		BlogEntry blog = null;
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(GET_NEWEST_BLOG_INFO, null);
+		Cursor cursor = db.rawQuery(GET_NEWEST_BLOG, null);
 
 		if (cursor.moveToFirst()) {
-			info = new HashMap<String, String>();
-			info.put("title",
-					cursor.getString(cursor.getColumnIndex(KEY_BLOG_TITLE)));
-			info.put("blog", cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
+			blog = new BlogEntry(cursor.getInt(cursor.getColumnIndex(KEY_BLOG_ID)));
+			blog.setTitle(cursor.getString(cursor.getColumnIndex(KEY_BLOG_TITLE)));
+			blog.setBlog(cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
 		}
 		cursor.close();
 		db.close();
-		return info;
+		return blog;
 	}
 
 	public List<String> getImagesById(int id) {

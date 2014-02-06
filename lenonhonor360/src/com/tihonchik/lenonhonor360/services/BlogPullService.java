@@ -2,19 +2,22 @@ package com.tihonchik.lenonhonor360.services;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Map;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.parser.HtmlParser;
+import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 import com.tihonchik.lenonhonor360.util.AppUtils;
 import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -42,9 +45,9 @@ public class BlogPullService extends IntentService {
 	}
 
 	private void sendNotification() {
-		Map<String, String> info = BlogEntryUtils.getNewestBlogInfo();
-		String title = info.get("title");
-		String text = info.get("blog");
+		BlogEntry blog = BlogEntryUtils.getNewestBlog();
+		String title = blog.getTitle();
+		String text = blog.getBlog();
 		if (AppUtils.safeEmpty(title) && AppUtils.safeEmpty(text)) {
 			return;
 		} else {
@@ -57,12 +60,21 @@ public class BlogPullService extends IntentService {
 				text = text.substring(0, 147) + "...";
 			}
 		}
+
+		Bundle args = new Bundle();
+		args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
+
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtras(args);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this,
+				AppDefines.BROADCAST_REQUEST_CODE, intent, 0);
+
 		lh360notification = new NotificationCompat.Builder(
 				getApplicationContext())
 				.setSmallIcon(R.drawable.notificationicon).setTicker(title)
 				.setWhen(System.currentTimeMillis()).setAutoCancel(true)
 				.setContentTitle(title).setDefaults(Notification.DEFAULT_ALL)
-				.setContentText(text).build();
+				.setContentText(text).setContentIntent(pendingIntent).build();
 
 		notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
 				lh360notification);

@@ -14,4 +14,5 @@ public class AppDefines {
     public static final int SERVICE_NOTIFICATION_INTERVAL = 10000;
     public static final String BLOG_UNAVAILABLE = "blogUnavailable";
     public static final String ISSUE_NOTIFICAION = "issueNotification";
+	public static final int BROADCAST_REQUEST_CODE = 696696;
 }
