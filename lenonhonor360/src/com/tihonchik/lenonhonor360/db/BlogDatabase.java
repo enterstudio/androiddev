@@ -83,6 +83,15 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return blogId;
 	}
 
+	public int getDbBlogCount() {
+		int blogCount = -1;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(TOTAL_BLOG_COUNT, null);
+		blogCount = cursor.getCount();
+		cursor.close();
+		return blogCount;
+	}
+
 	public String getImageById(int id) {
 		String image = "";
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -103,8 +112,10 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		Cursor cursor = db.rawQuery(GET_NEWEST_BLOG, null);
 
 		if (cursor.moveToFirst()) {
-			blog = new BlogEntry(cursor.getInt(cursor.getColumnIndex(KEY_BLOG_ID)));
-			blog.setTitle(cursor.getString(cursor.getColumnIndex(KEY_BLOG_TITLE)));
+			blog = new BlogEntry(cursor.getInt(cursor
+					.getColumnIndex(KEY_BLOG_ID)));
+			blog.setTitle(cursor.getString(cursor
+					.getColumnIndex(KEY_BLOG_TITLE)));
 			blog.setBlog(cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
 		}
 		cursor.close();

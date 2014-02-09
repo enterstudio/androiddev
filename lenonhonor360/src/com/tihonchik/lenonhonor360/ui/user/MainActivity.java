@@ -1,13 +1,10 @@
 package com.tihonchik.lenonhonor360.ui.user;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.tihonchik.lenonhonor360.ui.BaseActivity;
-import com.tihonchik.lenonhonor360.util.AppUtils;
-import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 
@@ -31,12 +28,12 @@ public class MainActivity extends BaseActivity {
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
-				Fragment blogDisplayFragment = new BlogDetailFragment();
-				blogDisplayFragment.setArguments(args);
+				extras.getSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL);
+				Fragment blogDetailFragment = new BlogDetailFragment();
+				blogDetailFragment.setArguments(extras);
 				getSupportFragmentManager()
 						.beginTransaction()
-						.replace(R.id.body, blogDisplayFragment,
+						.replace(R.id.body, blogDetailFragment,
 								AppDefines.TAG_BLOG_DETAIL).commit();
 			} else {
 				Fragment f = new BlogDisplayFragment();

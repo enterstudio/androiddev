@@ -61,11 +61,11 @@ public class BlogPullService extends IntentService {
 			}
 		}
 
-		Bundle args = new Bundle();
-		args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
+		Bundle extras = new Bundle();
+		extras.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
 
 		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtras(args);
+		intent.putExtras(extras);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this,
 				AppDefines.BROADCAST_REQUEST_CODE, intent, 0);
 

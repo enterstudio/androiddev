@@ -38,6 +38,8 @@ public interface SQLHelper {
 			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID
 			+ " DESC Limit 1";
 
+    public static final String TOTAL_BLOG_COUNT = "SELECT * FROM " + TABLE_BLOG_ENTRIES;
+	
 	public static final String GET_NEWEST_BLOG = "SELECT * FROM "
 			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
 

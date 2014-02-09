@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
+import android.util.Log;
+
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 
 public class HtmlParser implements HtmlPatterns {
-	
+
 	public static String parseBlog() throws MalformedURLException, IOException {
 		String originalHtml = getHtml(AppDefines.LENONHONOR_APP_PHP_WEBSITE_URI);
 		String noWiteSpaceHtml = originalHtml.replaceAll("[\\n\\t]", "")
@@ -39,30 +41,37 @@ public class HtmlParser implements HtmlPatterns {
 		String responseValue = null;
 		List<BlogEntry> entries = new ArrayList<BlogEntry>();
 		int lastDbBlogId = BlogEntryUtils.getNewestBlogId();
+		Log.d("LH360", "START: BLOG:" + lastDbBlogId + " WEB:" + lastWebBlogId);
 		if (lastDbBlogId == -1 && lastWebBlogId == -1) {
 			responseValue = AppDefines.BLOG_UNAVAILABLE;
 		} else if (lastDbBlogId != -1 && lastWebBlogId == -1) {
 			// Something went wrong with parsing, load all DB entries
 			// Do nothing, as if there are no updates
 		} else if (lastDbBlogId == -1 && lastWebBlogId != -1) {
+			Log.d("LH360", "EmptyDB");
 			// insert all entries, DB has nothing in it
 			entries = parseAllEntries(hrefList, titleList, noWiteSpaceHtml,
-					hrefList.size());
+					lastDbBlogId);
 			BlogEntryUtils.insertBlogEntries(entries);
 			responseValue = AppDefines.ISSUE_NOTIFICAION;
-		} else if (lastDbBlogId != lastWebBlogId) {
-			// insert new web entries into DB
-			entries = parseAllEntries(hrefList, titleList, noWiteSpaceHtml,
-					lastWebBlogId - lastDbBlogId);
-			BlogEntryUtils.insertBlogEntries(entries);
-			responseValue = AppDefines.ISSUE_NOTIFICAION;
-		} else if (lastWebBlogId < lastDbBlogId) {
-			// entry got deleted from the blog, remove from DB
-			while(lastDbBlogId>lastWebBlogId) {
-				BlogEntryUtils.deleteBlogEntry(lastDbBlogId);
-				lastDbBlogId--;
+		} else {
+			if (lastWebBlogId > lastDbBlogId) {
+				Log.d("LH360", "WEB:" + lastWebBlogId + " DB:" + lastDbBlogId
+						+ " DIFF:" + (lastWebBlogId - lastDbBlogId));
+				// insert new web entries into DB
+				entries = parseAllEntries(hrefList, titleList, noWiteSpaceHtml,
+						lastDbBlogId);
+				BlogEntryUtils.insertBlogEntries(entries);
+				responseValue = AppDefines.ISSUE_NOTIFICAION;
+			} else if (lastWebBlogId < lastDbBlogId) {
+				Log.d("LH360", "DELETE????");
+				// entry got deleted from the blog, remove from DB
+				while (lastDbBlogId > lastWebBlogId) {
+					BlogEntryUtils.deleteBlogEntry(lastDbBlogId);
+					lastDbBlogId--;
+				}
 			}
-		} 
+		}
 		return responseValue;
 	}
 
@@ -102,7 +111,7 @@ public class HtmlParser implements HtmlPatterns {
 	}
 
 	private static List<BlogEntry> parseAllEntries(List<String> links,
-			List<String> titles, String html, int upperLimit)
+			List<String> titles, String html, int lastDbBlogId)
 			throws IOException {
 		List<BlogEntry> entries = new ArrayList<BlogEntry>();
 		List<String> dates = new ArrayList<String>();
@@ -111,15 +120,19 @@ public class HtmlParser implements HtmlPatterns {
 			dates.add(m.group(2).replaceAll("_", " ").trim());
 		}
 		int counter = 0;
-		for (int i = 0; i < upperLimit; i++) {
+		for (int i = 0; i < titles.size(); i++) {
 			m = idPattern.matcher(links.get(i));
 			if (m.find()) {
 				int id = Integer.valueOf(m.group(1));
-				BlogEntry entry = new BlogEntry(id);
-				entry.setBlogDate(dates.get(counter));
-				entry.setTitle(titles.get(counter));
-				entry.setBlog(parseEntryWithId(id));
-				entries.add(entry);
+				if (id > lastDbBlogId) {
+					BlogEntry entry = new BlogEntry(id);
+					entry.setBlogDate(dates.get(counter));
+					entry.setTitle(titles.get(counter));
+					entry.setBlog(parseEntryWithId(id));
+					entries.add(entry);
+				} else if (id == lastDbBlogId) {
+					break;
+				}
 			}
 			counter++;
 		}

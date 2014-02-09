@@ -13,6 +13,12 @@ public class BlogEntryUtils {
 		return db.getNewestBlogId();
 	}
 
+	public static int getDbBlogCount() {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		return db.getDbBlogCount();
+	}
+
 	public static void deleteBlogEntry(int id) {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
