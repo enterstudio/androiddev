@@ -46,38 +46,41 @@ public class BlogPullService extends IntentService {
 
 	private void sendNotification() {
 		BlogEntry blog = BlogEntryUtils.getNewestBlog();
-		String title = blog.getTitle();
-		String text = blog.getBlog();
-		if (AppUtils.safeEmpty(title) && AppUtils.safeEmpty(text)) {
-			return;
-		} else {
-			if (AppUtils.safeEmpty(title)) {
-				title = "New Blog!";
+		if (blog != null) {
+			String title = blog.getTitle();
+			String text = blog.getBlog();
+			if (AppUtils.safeEmpty(title) && AppUtils.safeEmpty(text)) {
+				return;
+			} else {
+				if (AppUtils.safeEmpty(title)) {
+					title = "New Blog!";
+				}
+				if (AppUtils.safeEmpty(text)) {
+					text = "";
+				} else if (text.length() > 150) {
+					text = text.substring(0, 147) + "...";
+				}
 			}
-			if (AppUtils.safeEmpty(text)) {
-				text = "";
-			} else if (text.length() > 150) {
-				text = text.substring(0, 147) + "...";
-			}
+
+			Bundle extras = new Bundle();
+			extras.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
+
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.putExtras(extras);
+			PendingIntent pendingIntent = PendingIntent.getActivity(this,
+					AppDefines.BROADCAST_REQUEST_CODE, intent, 0);
+
+			lh360notification = new NotificationCompat.Builder(
+					getApplicationContext())
+					.setSmallIcon(R.drawable.notificationicon).setTicker(title)
+					.setWhen(System.currentTimeMillis()).setAutoCancel(true)
+					.setContentTitle(title)
+					.setDefaults(Notification.DEFAULT_ALL).setContentText(text)
+					.setContentIntent(pendingIntent).build();
+
+			notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
+					lh360notification);
 		}
-
-		Bundle extras = new Bundle();
-		extras.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
-
-		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtras(extras);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this,
-				AppDefines.BROADCAST_REQUEST_CODE, intent, 0);
-
-		lh360notification = new NotificationCompat.Builder(
-				getApplicationContext())
-				.setSmallIcon(R.drawable.notificationicon).setTicker(title)
-				.setWhen(System.currentTimeMillis()).setAutoCancel(true)
-				.setContentTitle(title).setDefaults(Notification.DEFAULT_ALL)
-				.setContentText(text).setContentIntent(pendingIntent).build();
-
-		notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
-				lh360notification);
 	}
 
 	@Override

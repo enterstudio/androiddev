@@ -1,13 +1,14 @@
 package com.tihonchik.lenonhonor360.db;
 
 public interface SQLHelper {
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	public static final String DATABASE_NAME = "blogDb";
 	public static final String TABLE_BLOG_ENTRIES = "blogEntries";
 	public static final String TABLE_IMAGES = "blogImages";
 
 	/* BLOG ENTRIES table */
-	public static final String KEY_BLOG_ID = "id";
+	public static final String KEY_ID = "id";
+	public static final String KEY_BLOG_ID = "blogId";
 	public static final String KEY_BLOG_CREATED = "created";
 	public static final String KEY_BLOG_TITLE = "title";
 	public static final String KEY_BLOG = "blog";
@@ -20,9 +21,11 @@ public interface SQLHelper {
 	public static final String KEY_BLOG_ID_FK = "blogIdFk";
 
 	public static final String CREATE_BLOG_TABLE = "CREATE TABLE "
-			+ TABLE_BLOG_ENTRIES + "(" + KEY_BLOG_ID + " INTEGER PRIMARY KEY, "
-			+ KEY_BLOG_CREATED + " TEXT, " + KEY_BLOG_TITLE + " TEXT, "
-			+ KEY_BLOG + " TEXT, " + KEY_BLOG_DATE + " TEXT)";
+			+ TABLE_BLOG_ENTRIES + "(" + KEY_ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_BLOG_ID
+			+ " INTEGER NOT NULL, " + KEY_BLOG_CREATED + " TEXT, "
+			+ KEY_BLOG_TITLE + " TEXT, " + KEY_BLOG + " TEXT, " + KEY_BLOG_DATE
+			+ " TEXT)";
 
 	public static final String CREATE_IMAGES_TABLE = "CREATE TABLE "
 			+ TABLE_IMAGES + "(" + KEY_IMAGE_ID
@@ -38,8 +41,9 @@ public interface SQLHelper {
 			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID
 			+ " DESC Limit 1";
 
-    public static final String TOTAL_BLOG_COUNT = "SELECT * FROM " + TABLE_BLOG_ENTRIES;
-	
+	public static final String TOTAL_BLOG_COUNT = "SELECT * FROM "
+			+ TABLE_BLOG_ENTRIES;
+
 	public static final String GET_NEWEST_BLOG = "SELECT * FROM "
 			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
 
