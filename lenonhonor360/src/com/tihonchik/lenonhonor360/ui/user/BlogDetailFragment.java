@@ -10,11 +10,11 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.custom.ResizableImageView;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -22,7 +22,7 @@ import com.tihonchik.lenonhonor360.util.AppUtils;
 public class BlogDetailFragment extends BaseFragment {
 
 	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;
-	private ImageView _blogImage;
+	private ResizableImageView _blogImage;
 
 	class loadImageTask extends AsyncTask<String, Void, Drawable> {
 
@@ -66,12 +66,15 @@ public class BlogDetailFragment extends BaseFragment {
 		BlogEntry blogEntry = (BlogEntry) args
 				.getSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL);
 
-//		new loadImageTask().execute(blogEntry.getImages().get(0));
+		if (blogEntry.getImages() != null && blogEntry.getImages().size() > 0) {
+			new loadImageTask().execute(blogEntry.getImages().get(0));
+		}
 
 		ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.blog_detail,
 				container, false);
 
-		_blogImage = (ImageView) rootView.findViewById(R.id.detail_blog_image);
+		_blogImage = (ResizableImageView) rootView
+				.findViewById(R.id.detail_blog_image);
 		TextView blogTitle = (TextView) rootView
 				.findViewById(R.id.detail_blog_title);
 		blogTitle.setText(blogEntry.getTitle());

@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
+import com.tihonchik.lenonhonor360.custom.ResizableImageView;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -33,7 +34,7 @@ import com.tihonchik.lenonhonor360.util.BlogEntryUtils;
 public class BlogDisplayFragment extends BaseFragment {
 
 	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;
-	private ImageView _newBlogImage;
+	private ResizableImageView _newBlogImage;
 
 	class loadContentTask extends AsyncTask<String, Void, Drawable> {
 		TextView progressText;
@@ -80,9 +81,8 @@ public class BlogDisplayFragment extends BaseFragment {
 		}
 
 		String image = "http://placehold.it/320x240";
-		String blogImage = BlogEntryUtils.getImageById(entries.get(0).getId());
-		if (!"".equals(blogImage)) {
-			image = blogImage;
+		if (entries.get(0).getImages()!= null && !"".equals(entries.get(0).getImages().size() > 0)) {
+			image = entries.get(0).getImages().get(0);
 		}
 
 		new loadContentTask().execute(image);
@@ -93,7 +93,7 @@ public class BlogDisplayFragment extends BaseFragment {
 		/*
 		 * Setup new blog entry with image
 		 */
-		_newBlogImage = (ImageView) rootView.findViewById(R.id.new_blog_image);
+		_newBlogImage = (ResizableImageView) rootView.findViewById(R.id.new_blog_image);
 		TextView newBlogTitle = (TextView) rootView
 				.findViewById(R.id.new_blog_title);
 		newBlogTitle.setText(entries.get(0).getTitle());

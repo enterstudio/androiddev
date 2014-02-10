@@ -99,7 +99,6 @@ public class HtmlParser implements HtmlPatterns {
 			Log.d("LH360", "DB ID:" + dbId);
 			if (!blogIds.contains(dbId)) {
 				BlogEntryUtils.deleteBlogEntry(dbId);
-				BlogEntryUtils.deleteBlogEntryImages(dbId);
 			}
 		}
 	}

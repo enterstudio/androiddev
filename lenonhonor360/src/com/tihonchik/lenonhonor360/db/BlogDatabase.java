@@ -96,20 +96,6 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return blogId;
 	}
 
-	public String getImageById(int id) {
-		String image = "";
-		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(GET_BLOG_IMAGE,
-				new String[] { Integer.toString(id) });
-
-		if (cursor.moveToFirst()) {
-			image = cursor.getString(cursor.getColumnIndex(KEY_IMAGE));
-		}
-		cursor.close();
-		db.close();
-		return image;
-	}
-
 	public BlogEntry getNewestBlog() {
 		BlogEntry blog = null;
 		SQLiteDatabase db = this.getWritableDatabase();

@@ -15,7 +15,6 @@ import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.parser.HtmlParser;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
-import com.tihonchik.lenonhonor360.services.LaunchReceiver;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 
 public class SplashScreenActivity extends BaseActivity {

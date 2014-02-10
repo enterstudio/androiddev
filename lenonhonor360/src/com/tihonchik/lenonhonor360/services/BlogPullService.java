@@ -17,6 +17,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -33,16 +34,16 @@ public class BlogPullService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.d("LH360", " > BlogPullService onHandleIntent...");
-		try {
-			if (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
-				sendNotification();
-			}
-		} catch (MalformedURLException exception) {
-			Log.d("LH360", " > MalformedURLException: " + exception);
-		} catch (IOException exception) {
-			Log.d("LH360", " > URISyntaxException: " + exception);
-		}
-	}
+		sendNotification();
+
+		/*
+		 * try { if
+		 * (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
+		 * sendNotification(); } } catch (MalformedURLException exception) {
+		 * Log.d("LH360", " > MalformedURLException: " + exception); } catch
+		 * (IOException exception) { Log.d("LH360", " > URISyntaxException: " +
+		 * exception); }
+		 */}
 
 	private void sendNotification() {
 		BlogEntry blog = BlogEntryUtils.getNewestBlog();
@@ -62,16 +63,12 @@ public class BlogPullService extends IntentService {
 				}
 			}
 
-			Bundle extras = new Bundle();
-			extras.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
-
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.putExtras(extras);
 			PendingIntent pendingIntent = PendingIntent.getActivity(this,
-					AppDefines.BROADCAST_REQUEST_CODE, intent, 0);
+					AppDefines.BROADCAST_REQUEST_CODE, new Intent(this,
+							MainActivity.class),
+					PendingIntent.FLAG_UPDATE_CURRENT);
 
-			lh360notification = new NotificationCompat.Builder(
-					getApplicationContext())
+			lh360notification = new NotificationCompat.Builder(this)
 					.setSmallIcon(R.drawable.notificationicon).setTicker(title)
 					.setWhen(System.currentTimeMillis()).setAutoCancel(true)
 					.setContentTitle(title)

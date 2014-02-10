@@ -8,12 +8,16 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp" >
 
-    <ImageView
+    <com.tihonchik.lenonhonor360.custom.ResizableImageView
         android:id="@+id/detail_blog_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="25dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:maxHeight="280dp"
+        android:maxWidth="320dp"
+        android:minHeight="280dp"
+        android:minWidth="200dp" />
 
     <TextView
         android:id="@+id/detail_blog_title"

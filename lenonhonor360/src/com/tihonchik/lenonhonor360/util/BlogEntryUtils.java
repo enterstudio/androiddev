@@ -17,8 +17,9 @@ public class BlogEntryUtils {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
 		db.deleteBlogEntry(id);
+		db.deleteBlogEntryImages(id);
 	}
-	
+
 	public static void deleteBlogEntryImages(int id) {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
@@ -34,7 +35,11 @@ public class BlogEntryUtils {
 	public static List<BlogEntry> getAllBlogEntries() {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
-		return db.findAllBlogEntries();
+		List<BlogEntry> entries = db.findAllBlogEntries();
+		for (BlogEntry entry : entries) {
+			entry.setImages(db.getImagesById(entry.getId()));
+		}
+		return entries;
 	}
 
 	public static List<Integer> getAllBlogIds() {
@@ -42,17 +47,11 @@ public class BlogEntryUtils {
 				.getApplicationContext());
 		return db.findAllBlogIds();
 	}
-	
+
 	public static void insertImage(int id, String image) {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
 		db.insertNewImage(id, image);
-	}
-
-	public static String getImageById(int id) {
-		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
-				.getApplicationContext());
-		return db.getImageById(id);
 	}
 
 	public static BlogEntry getNewestBlog() {
