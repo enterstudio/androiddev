@@ -13,16 +13,16 @@ public class BlogEntryUtils {
 		return db.getNewestBlogId();
 	}
 
-	public static int getDbBlogCount() {
-		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
-				.getApplicationContext());
-		return db.getDbBlogCount();
-	}
-
 	public static void deleteBlogEntry(int id) {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());
 		db.deleteBlogEntry(id);
+	}
+	
+	public static void deleteBlogEntryImages(int id) {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		db.deleteBlogEntryImages(id);
 	}
 
 	public static void insertBlogEntries(List<BlogEntry> entries) {
@@ -37,6 +37,12 @@ public class BlogEntryUtils {
 		return db.findAllBlogEntries();
 	}
 
+	public static List<Integer> getAllBlogIds() {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		return db.findAllBlogIds();
+	}
+	
 	public static void insertImage(int id, String image) {
 		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
 				.getApplicationContext());

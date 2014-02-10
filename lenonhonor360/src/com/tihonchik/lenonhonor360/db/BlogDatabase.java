@@ -1,9 +1,7 @@
 package com.tihonchik.lenonhonor360.db;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -70,6 +68,21 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return blogEntries;
 	}
 
+	public List<Integer> findAllBlogIds() {
+		List<Integer> ids = new ArrayList<Integer>();
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(GET_BLOG_IDS, null);
+
+		if (cursor.moveToFirst()) {
+			do {
+				ids.add(cursor.getInt(cursor.getColumnIndex(KEY_BLOG_ID)));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+		return ids;
+	}
+
 	public int getNewestBlogId() {
 		int blogId = -1;
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -81,15 +94,6 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		cursor.close();
 		db.close();
 		return blogId;
-	}
-
-	public int getDbBlogCount() {
-		int blogCount = -1;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery(TOTAL_BLOG_COUNT, null);
-		blogCount = cursor.getCount();
-		cursor.close();
-		return blogCount;
 	}
 
 	public String getImageById(int id) {
@@ -152,6 +156,19 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		db.close();
 	}
 
+	public void deleteBlogEntryImages(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			db.delete(TABLE_IMAGES, KEY_BLOG_ID_FK + "=" + id, null);
+		} catch (Exception e) {
+			Log.e("LH360", e.getLocalizedMessage(), e);
+		}
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();
+	}
+	
 	public void insertNewBlogEntries(List<BlogEntry> blogEntries) {
 		if (blogEntries == null || blogEntries.size() == 0) {
 			return;

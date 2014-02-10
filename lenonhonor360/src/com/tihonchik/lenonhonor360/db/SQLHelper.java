@@ -41,15 +41,15 @@ public interface SQLHelper {
 			+ " FROM " + TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID
 			+ " DESC Limit 1";
 
-	public static final String TOTAL_BLOG_COUNT = "SELECT * FROM "
-			+ TABLE_BLOG_ENTRIES;
+	public static final String GET_BLOG_IDS = "SELECT " + KEY_BLOG_ID
+			+ " FROM " + TABLE_BLOG_ENTRIES;
 
 	public static final String GET_NEWEST_BLOG = "SELECT * FROM "
 			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
 
 	public static final String GET_BLOG_IMAGE = "SELECT " + KEY_IMAGE
 			+ " FROM " + TABLE_IMAGES + " WHERE " + KEY_BLOG_ID_FK
-			+ " = ? ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
+			+ " = ? ORDER BY " + KEY_BLOG_ID_FK + " DESC Limit 1";
 
 	public static final String GET_BLOG_IMAGES = "SELECT " + KEY_IMAGE
 			+ " FROM " + TABLE_IMAGES + " WHERE " + KEY_BLOG_ID_FK + " = ? ";
