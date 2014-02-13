@@ -63,9 +63,11 @@ public class BlogPullService extends IntentService {
 				}
 			}
 
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.putExtra(AppDefines.BLOG_ID_KEY, String.valueOf(blog.getId()));
+
 			PendingIntent pendingIntent = PendingIntent.getActivity(this,
-					AppDefines.BROADCAST_REQUEST_CODE, new Intent(this,
-							MainActivity.class),
+					AppDefines.BROADCAST_REQUEST_CODE, intent,
 					PendingIntent.FLAG_UPDATE_CURRENT);
 
 			lh360notification = new NotificationCompat.Builder(this)

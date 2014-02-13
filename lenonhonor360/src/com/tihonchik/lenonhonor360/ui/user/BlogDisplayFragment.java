@@ -7,13 +7,11 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils.TruncateAt;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,9 +21,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.custom.ResizableImageView;
+import com.tihonchik.lenonhonor360.listeners.BlogDetailOnClickListener;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -103,7 +101,7 @@ public class BlogDisplayFragment extends BaseFragment {
 				.replaceAll(" +", " "));
 
 		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
-		BlogDetailOnClickListener mBlogDetailListener = new BlogDetailOnClickListener(entries.get(0));
+		BlogDetailOnClickListener mBlogDetailListener = new BlogDetailOnClickListener(getActivity(), entries.get(0));
 		newBlog.setOnClickListener(mBlogDetailListener);
 
 		/*
@@ -164,7 +162,7 @@ public class BlogDisplayFragment extends BaseFragment {
 			outerLayout.addView(rowImage);
 			outerLayout.addView(innerLayout);
 			row.addView(outerLayout);
-			mBlogDetailListener = new BlogDetailOnClickListener(entries.get(i));
+			mBlogDetailListener = new BlogDetailOnClickListener(getActivity(), entries.get(i));
 			row.setOnClickListener(mBlogDetailListener);
 			tableLayout.addView(row);
 		}
@@ -185,25 +183,4 @@ public class BlogDisplayFragment extends BaseFragment {
 			return;
 		}
 	}
-
-	public class BlogDetailOnClickListener implements OnClickListener {
-		BlogEntry blog = null;
-
-		public BlogDetailOnClickListener(BlogEntry blog) {
-			this.blog = blog;
-		}
-
-		@Override
-		public void onClick(View v) {
-			Bundle args = new Bundle();
-			args.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL, blog);
-			Fragment blogDisplayFragment = new BlogDetailFragment();
-			blogDisplayFragment.setArguments(args);
-			getFragmentManager()
-					.beginTransaction()
-					.replace(R.id.body, blogDisplayFragment,
-							AppDefines.TAG_BLOG_DETAIL)
-					.addToBackStack(AppDefines.TAG_BLOG_DETAIL).commit();
-		}
-	};
 }

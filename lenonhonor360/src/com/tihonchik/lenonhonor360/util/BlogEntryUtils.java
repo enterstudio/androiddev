@@ -59,4 +59,12 @@ public class BlogEntryUtils {
 				.getApplicationContext());
 		return db.getNewestBlog();
 	}
+
+	public static BlogEntry getBLogById(int id) {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		BlogEntry blog = db.getBlogById(id);
+		blog.setImages(db.getImagesById(id));
+		return blog;
+	}
 }

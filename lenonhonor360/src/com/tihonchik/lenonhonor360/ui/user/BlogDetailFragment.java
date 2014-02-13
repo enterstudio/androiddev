@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.custom.ResizableImageView;
+import com.tihonchik.lenonhonor360.listeners.BaseBackPressedListener;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -61,6 +62,10 @@ public class BlogDetailFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
+		((MainActivity) getActivity())
+				.setOnBackPressedListener(new BaseBackPressedListener(
+						getActivity()));
 
 		Bundle args = getArguments();
 		BlogEntry blogEntry = (BlogEntry) args

@@ -96,6 +96,24 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return blogId;
 	}
 
+	public BlogEntry getBlogById(int id) {
+		BlogEntry blog = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(GET_BLOG_BY_ID,
+				new String[] { Integer.toString(id) });
+
+		if (cursor.moveToFirst()) {
+			blog = new BlogEntry(cursor.getInt(cursor
+					.getColumnIndex(KEY_BLOG_ID)));
+			blog.setTitle(cursor.getString(cursor
+					.getColumnIndex(KEY_BLOG_TITLE)));
+			blog.setBlog(cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
+		}
+		cursor.close();
+		db.close();
+		return blog;
+	}
+
 	public BlogEntry getNewestBlog() {
 		BlogEntry blog = null;
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -154,7 +172,7 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		db.endTransaction();
 		db.close();
 	}
-	
+
 	public void insertNewBlogEntries(List<BlogEntry> blogEntries) {
 		if (blogEntries == null || blogEntries.size() == 0) {
 			return;

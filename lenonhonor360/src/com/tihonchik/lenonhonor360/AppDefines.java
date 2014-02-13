@@ -17,4 +17,5 @@ public class AppDefines {
     public static final String ISSUE_NOTIFICAION = "issueNotification";
     public static final String NEW_BLOG_IS_AVAILABLE = "newBlogIsAvailable";
 	public static final int BROADCAST_REQUEST_CODE = 696696;
+	public static final String BLOG_ID_KEY = "blogId";
 }
