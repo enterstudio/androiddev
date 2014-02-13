@@ -39,7 +39,7 @@ public class ResizableImageView extends ImageView {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		Drawable drawable = getDrawable();
+		Drawable drawable = getBackground();
 		if (drawable != null) {
 
 			int wMode = MeasureSpec.getMode(widthMeasureSpec);

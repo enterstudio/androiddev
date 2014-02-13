@@ -17,8 +17,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -34,16 +32,16 @@ public class BlogPullService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.d("LH360", " > BlogPullService onHandleIntent...");
-		sendNotification();
-
-		/*
-		 * try { if
-		 * (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
-		 * sendNotification(); } } catch (MalformedURLException exception) {
-		 * Log.d("LH360", " > MalformedURLException: " + exception); } catch
-		 * (IOException exception) { Log.d("LH360", " > URISyntaxException: " +
-		 * exception); }
-		 */}
+		try {
+			if (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
+				sendNotification();
+			}
+		} catch (MalformedURLException exception) {
+			Log.d("LH360", " > MalformedURLException: " + exception);
+		} catch (IOException exception) {
+			Log.d("LH360", " > URISyntaxException: " + exception);
+		}
+	}
 
 	private void sendNotification() {
 		BlogEntry blog = BlogEntryUtils.getNewestBlog();
@@ -64,7 +62,8 @@ public class BlogPullService extends IntentService {
 			}
 
 			Intent intent = new Intent(this, MainActivity.class);
-			intent.putExtra(AppDefines.BLOG_ID_KEY, String.valueOf(blog.getId()));
+			intent.putExtra(AppDefines.BLOG_ID_KEY,
+					String.valueOf(blog.getId()));
 
 			PendingIntent pendingIntent = PendingIntent.getActivity(this,
 					AppDefines.BROADCAST_REQUEST_CODE, intent,

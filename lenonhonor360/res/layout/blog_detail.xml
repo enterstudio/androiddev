@@ -12,10 +12,9 @@
         android:id="@+id/detail_blog_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
-        android:maxHeight="280dp"
-        android:maxWidth="320dp"
+        android:maxHeight="360dp"
+        android:maxWidth="420dp"
         android:minHeight="280dp"
         android:minWidth="200dp" />
 
