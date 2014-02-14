@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils.TruncateAt;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +20,6 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -79,7 +82,8 @@ public class BlogDisplayFragment extends BaseFragment {
 		}
 
 		String image = "http://placehold.it/320x240";
-		if (entries.get(0).getImages()!= null && !"".equals(entries.get(0).getImages().size() > 0)) {
+		if (entries.get(0).getImages() != null
+				&& !"".equals(entries.get(0).getImages().size() > 0)) {
 			image = entries.get(0).getImages().get(0);
 		}
 
@@ -91,9 +95,12 @@ public class BlogDisplayFragment extends BaseFragment {
 		/*
 		 * Setup new blog entry with image
 		 */
-		_newBlogImage = (ResizableImageView) rootView.findViewById(R.id.new_blog_image);
+		_newBlogImage = (ResizableImageView) rootView
+				.findViewById(R.id.new_blog_image);
 		TextView newBlogTitle = (TextView) rootView
 				.findViewById(R.id.new_blog_title);
+		newBlogTitle.setTextColor(R.color.lh360Clouds);
+		newBlogTitle.setTypeface(null, Typeface.BOLD);
 		newBlogTitle.setText(entries.get(0).getTitle());
 		TextView newBlogText = (TextView) rootView
 				.findViewById(R.id.new_blog_text);
@@ -101,7 +108,8 @@ public class BlogDisplayFragment extends BaseFragment {
 				.replaceAll(" +", " "));
 
 		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
-		BlogDetailOnClickListener mBlogDetailListener = new BlogDetailOnClickListener(getActivity(), entries.get(0));
+		BlogDetailOnClickListener mBlogDetailListener = new BlogDetailOnClickListener(
+				getActivity(), entries.get(0));
 		newBlog.setOnClickListener(mBlogDetailListener);
 
 		/*
@@ -109,62 +117,63 @@ public class BlogDisplayFragment extends BaseFragment {
 		 */
 		TableLayout tableLayout = (TableLayout) rootView
 				.findViewById(R.id.older_posts);
+
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		double blogTextWidthPercentage = size.x * 0.75;
+
 		for (int i = 1; i < entries.size(); i++) {
-			TableRow row = new TableRow(getActivity());
-			row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			LinearLayout outerLayout = new LinearLayout(getActivity());
-			outerLayout.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			outerLayout.setOrientation(LinearLayout.HORIZONTAL);
-			ImageView rowImage = new ImageView(getActivity());
-			rowImage.setLayoutParams(new LayoutParams(
+
+			TableRow tableRow = new TableRow(getActivity());
+			tableRow.setLayoutParams(new LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			rowImage.setImageResource(R.drawable.icon_bullet);
+			tableRow.setGravity(Gravity.CENTER_VERTICAL);
+			ImageView bulletImage = new ImageView(getActivity());
+			bulletImage.setLayoutParams(new LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+			bulletImage.setImageResource(R.drawable.icon_bullet);
+			tableRow.addView(bulletImage);
+
 			LinearLayout innerLayout = new LinearLayout(getActivity());
 			innerLayout.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 2f));
 			innerLayout.setOrientation(LinearLayout.VERTICAL);
+
 			TextView rowTitle = new TextView(getActivity());
 			rowTitle.setLayoutParams(new LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
 			rowTitle.setTextColor(R.color.lh360Clouds);
-			rowTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+			rowTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+			rowTitle.setTypeface(null, Typeface.BOLD);
+			rowTitle.setEllipsize(TruncateAt.END);
+			rowTitle.setWidth((int) blogTextWidthPercentage);
 			rowTitle.setText(entries.get(i).getTitle());
-			
-			RelativeLayout relativeLayout = new RelativeLayout(getActivity());
-			relativeLayout.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			
+
 			TextView rowText = new TextView(getActivity());
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT);
-			params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-			rowText.setLayoutParams(params);
-			rowText.setTextColor(R.color.lh360Black);
-			rowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+			rowText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 1f));
+			rowText.setTextColor(R.color.lh360Clouds);
+			rowText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 			rowText.setEllipsize(TruncateAt.END);
-			rowText.setSingleLine(true);
-			rowText.setText(entries.get(i).getBlog().replaceAll("<br>", " ")
-					.replaceAll(" +", " "));
+			rowText.setMaxLines(1);
+			rowText.setWidth((int) blogTextWidthPercentage);
+			rowText.setText(entries.get(i).getBlog());
 
-			ImageView readMoreImage = new ImageView(getActivity());
-			params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT);
-			params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-			readMoreImage.setLayoutParams(params);
-			readMoreImage.setImageResource(R.drawable.read_more);
-
-			relativeLayout.addView(rowText);
-			relativeLayout.addView(readMoreImage);
 			innerLayout.addView(rowTitle);
-			innerLayout.addView(relativeLayout);
-			outerLayout.addView(rowImage);
-			outerLayout.addView(innerLayout);
-			row.addView(outerLayout);
-			mBlogDetailListener = new BlogDetailOnClickListener(getActivity(), entries.get(i));
-			row.setOnClickListener(mBlogDetailListener);
-			tableLayout.addView(row);
+			innerLayout.addView(rowText);
+			tableRow.addView(innerLayout);
+
+			ImageView readMore = new ImageView(getActivity());
+			readMore.setLayoutParams(new LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+			readMore.setImageResource(R.drawable.read_more);
+			mBlogDetailListener = new BlogDetailOnClickListener(getActivity(),
+					entries.get(i));
+			readMore.setOnClickListener(mBlogDetailListener);
+			tableRow.addView(readMore);
+
+			tableLayout.addView(tableRow);
 		}
 		return rootView;
 	}
