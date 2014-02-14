@@ -37,22 +37,25 @@ public class MainActivity extends BaseActivity {
 	public void onNewIntent(Intent intent) {
 
 		Bundle extras = intent.getExtras();
-		int blogId = Integer.valueOf(extras.getString(AppDefines.BLOG_ID_KEY));
+		if (extras != null) {
+			int blogId = Integer.valueOf(extras
+					.getString(AppDefines.BLOG_ID_KEY));
 
-		Log.d("LH360", "BLOG ID: " + blogId);
+			Log.d("LH360", "BLOG ID: " + blogId);
 
-		if (blogId > 0) {
-			Bundle arguments = new Bundle();
-			arguments.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL,
-					BlogEntryUtils.getBLogById(blogId));
+			if (blogId > 0) {
+				Bundle arguments = new Bundle();
+				arguments.putSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL,
+						BlogEntryUtils.getBLogById(blogId));
 
-			Fragment blogDetailFragment = new BlogDetailFragment();
-			blogDetailFragment.setArguments(arguments);
+				Fragment blogDetailFragment = new BlogDetailFragment();
+				blogDetailFragment.setArguments(arguments);
 
-			getSupportFragmentManager()
-					.beginTransaction()
-					.replace(R.id.body, blogDetailFragment,
-							AppDefines.TAG_BLOG_DETAIL).commit();
+				getSupportFragmentManager()
+						.beginTransaction()
+						.replace(R.id.body, blogDetailFragment,
+								AppDefines.TAG_BLOG_DETAIL).commit();
+			}
 		}
 	}
 
