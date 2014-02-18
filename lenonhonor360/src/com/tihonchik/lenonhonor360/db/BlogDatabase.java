@@ -199,6 +199,25 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		db.close();
 	}
 
+	public void insertNewBlogEntry(BlogEntry entry) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			ContentValues values = new ContentValues();
+			values.put(KEY_BLOG_ID, entry.getId());
+			values.put(KEY_BLOG_CREATED, entry.getCreated());
+			values.put(KEY_BLOG_TITLE, entry.getTitle());
+			values.put(KEY_BLOG, entry.getBlog());
+			values.put(KEY_BLOG_DATE, entry.getBlogDate());
+			db.insert(TABLE_BLOG_ENTRIES, null, values);
+		} catch (Exception e) {
+			Log.e("LH360", e.getLocalizedMessage(), e);
+		}
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();
+	}
+
 	public void insertNewImage(int id, String image) {
 		if (id < 0 || image == null || "".equals(image)) {
 			return;

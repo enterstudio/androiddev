@@ -79,6 +79,10 @@ public class HtmlParser implements HtmlPatterns {
 					"WEB SIZE:" + hrefList.size() + " DB SIZE:" + ids.size());
 			if (ids.size() > hrefList.size()) {
 				removeDeletedBlogs(hrefList, ids);
+			} else if (ids.size() < hrefList.size()) {
+				entries = parseMissingEntries(hrefList, titleList,
+						noWiteSpaceHtml);
+				addMissingBlogs(entries, ids);
 			}
 		}
 		return responseValue;
@@ -99,6 +103,16 @@ public class HtmlParser implements HtmlPatterns {
 			Log.d("LH360", "DB ID:" + dbId);
 			if (!blogIds.contains(dbId)) {
 				BlogEntryUtils.deleteBlogEntry(dbId);
+			}
+		}
+	}
+
+	private static void addMissingBlogs(List<BlogEntry> entries,
+			List<Integer> dbIds) {
+		for (int i = 0; i < entries.size(); i++) {
+			if (!dbIds.contains(entries.get(i).getId())) {
+				Log.d("LH360", "INSERT BLOG ID:" + entries.get(i).getId());
+				BlogEntryUtils.insertBlogEntry(entries.get(i));
 			}
 		}
 	}
@@ -161,6 +175,28 @@ public class HtmlParser implements HtmlPatterns {
 				} else if (id == lastDbBlogId) {
 					break;
 				}
+			}
+		}
+		return entries;
+	}
+
+	private static List<BlogEntry> parseMissingEntries(List<String> links,
+			List<String> titles, String html) throws IOException {
+		List<BlogEntry> entries = new ArrayList<BlogEntry>();
+		List<String> dates = new ArrayList<String>();
+		Matcher m = datePattern.matcher(html);
+		while (m.find()) {
+			dates.add(m.group(2).replaceAll("_", " ").trim());
+		}
+		for (int i = 0; i < titles.size(); i++) {
+			m = idPattern.matcher(links.get(i));
+			if (m.find()) {
+				int id = Integer.valueOf(m.group(1));
+				BlogEntry entry = new BlogEntry(id);
+				entry.setBlogDate(dates.get(i));
+				entry.setTitle(titles.get(i));
+				entry.setBlog(parseEntryWithId(id));
+				entries.add(entry);
 			}
 		}
 		return entries;
