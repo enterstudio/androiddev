@@ -1,9 +1,12 @@
 package com.tihonchik.lenonhonor360.app;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 
 import com.testflightapp.lib.TestFlight;
 import com.tihonchik.lenonhonor360.BuildConfig;
+import com.tihonchik.lenonhonor360.parser.HtmlParser;
 
 import android.app.Application;
 import android.content.Context;
@@ -11,6 +14,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.Log;
 import android.webkit.CookieManager;
@@ -29,7 +33,8 @@ public class LenonHonor360App extends Application {
 
 	@Override
 	public void onCreate() {
-		Log.i("LenonHonor360", "Welcome to the Lenon Honor 360 Android Application.");
+		Log.i("LenonHonor360",
+				"Welcome to the Lenon Honor 360 Android Application.");
 
 		if (BuildConfig.DEBUG) {
 			// Enable strict mode - No I/O on main thread
@@ -43,7 +48,7 @@ public class LenonHonor360App extends Application {
 
 		LenonHonor360App.mContext = getApplicationContext();
 		LenonHonor360App.defaultInstance = this;
-        // AppUtils.initializeLenonHonorApp(mContext);
+		// AppUtils.initializeLenonHonorApp(mContext);
 		// AppState.getInstance().initialize(mContext);
 		CookieSyncManager.createInstance(mContext);
 		CookieManager.getInstance().setAcceptCookie(true);
@@ -51,7 +56,8 @@ public class LenonHonor360App extends Application {
 		// Gather up the version numbers
 		try {
 			mPackageName = getPackageName();
-			PackageInfo info = getPackageManager().getPackageInfo(mPackageName, 0);
+			PackageInfo info = getPackageManager().getPackageInfo(mPackageName,
+					0);
 			mVersionNumber = info.versionName;
 			if (BuildConfig.DEBUG) {
 				mVersionNumber += ".debug";
@@ -71,6 +77,7 @@ public class LenonHonor360App extends Application {
 									.maxMemory() / 1048576.0));
 		}
 		TestFlight.takeOff(this, "b92686fa-ebf1-4c82-ae6f-81d82ed6c3cb");
+		new HtmlParserTask().execute();
 	}
 
 	public static LenonHonor360App getInstance() {
@@ -107,5 +114,20 @@ public class LenonHonor360App extends Application {
 
 	public String getUserAgent() {
 		return mUserAgent;
+	}
+
+	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(String... args) {
+			try {
+				HtmlParser.parseBlog();
+			} catch (MalformedURLException exception) {
+				Log.d("LH360", " > MalformedURLException: " + exception);
+			} catch (IOException exception) {
+				Log.d("LH360", " > URISyntaxException: " + exception);
+			}
+			return true;
+		}
 	}
 }
