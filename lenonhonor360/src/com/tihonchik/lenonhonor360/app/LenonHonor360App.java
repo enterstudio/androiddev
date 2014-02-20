@@ -77,7 +77,6 @@ public class LenonHonor360App extends Application {
 									.maxMemory() / 1048576.0));
 		}
 		TestFlight.takeOff(this, "b92686fa-ebf1-4c82-ae6f-81d82ed6c3cb");
-		new HtmlParserTask().execute();
 	}
 
 	public static LenonHonor360App getInstance() {
@@ -114,20 +113,5 @@ public class LenonHonor360App extends Application {
 
 	public String getUserAgent() {
 		return mUserAgent;
-	}
-
-	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
-
-		@Override
-		protected Boolean doInBackground(String... args) {
-			try {
-				HtmlParser.parseBlog();
-			} catch (MalformedURLException exception) {
-				Log.d("LH360", " > MalformedURLException: " + exception);
-			} catch (IOException exception) {
-				Log.d("LH360", " > URISyntaxException: " + exception);
-			}
-			return true;
-		}
 	}
 }
