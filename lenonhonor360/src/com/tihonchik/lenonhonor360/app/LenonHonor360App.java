@@ -1,12 +1,9 @@
 package com.tihonchik.lenonhonor360.app;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 
 import com.testflightapp.lib.TestFlight;
 import com.tihonchik.lenonhonor360.BuildConfig;
-import com.tihonchik.lenonhonor360.parser.HtmlParser;
 
 import android.app.Application;
 import android.content.Context;
@@ -14,7 +11,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.Log;
 import android.webkit.CookieManager;
