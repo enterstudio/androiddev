@@ -76,4 +76,8 @@ public class BlogEntryUtils {
 			db.insertNewImage(entry.getId(), image);
 		}
 	}
+
+	public static String replaceHTMLTags(String text) {
+		return text.replaceAll("\\<[^>]*>", "");
+	}
 }

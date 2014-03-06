@@ -83,9 +83,13 @@ public class BlogDetailFragment extends BaseFragment {
 		TextView blogTitle = (TextView) rootView
 				.findViewById(R.id.detail_blog_title);
 		blogTitle.setText(blogEntry.getTitle());
+		blogTitle.setTextColor(R.color.lh360Clouds);
 		TextView blogText = (TextView) rootView
 				.findViewById(R.id.detail_blog_text);
-		blogText.setText(Html.fromHtml(blogEntry.getBlog()));
+		blogText.setText(Html.fromHtml(blogEntry.getBlog()
+				.replaceAll("<b>", "").replaceAll("</b>", "")
+				.replaceAll("<i>", "").replaceAll("</i>", "")
+				.replaceAll("<u>", "").replaceAll("</u>", "")));
 
 		return rootView;
 	}

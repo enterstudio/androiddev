@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableRow.LayoutParams;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -104,10 +103,11 @@ public class BlogDisplayFragment extends BaseFragment {
 		newBlogTitle.setText(entries.get(0).getTitle());
 		TextView newBlogText = (TextView) rootView
 				.findViewById(R.id.new_blog_text);
-		newBlogText.setText(entries.get(0).getBlog().replaceAll("<br>", " ")
-				.replaceAll(" +", " "));
+		newBlogText.setText(BlogEntryUtils.replaceHTMLTags(entries.get(0)
+				.getBlog().replaceAll("<br>", " ").replaceAll(" +", " ")));
 
-		Button newBlog = (Button) rootView.findViewById(R.id.btn_new_blog);
+		ImageView newBlog = (ImageView) rootView
+				.findViewById(R.id.btn_new_blog);
 		BlogDetailOnClickListener mBlogDetailListener = new BlogDetailOnClickListener(
 				getActivity(), entries.get(0));
 		newBlog.setOnClickListener(mBlogDetailListener);
@@ -158,7 +158,8 @@ public class BlogDisplayFragment extends BaseFragment {
 			rowText.setEllipsize(TruncateAt.END);
 			rowText.setMaxLines(1);
 			rowText.setWidth((int) blogTextWidthPercentage);
-			rowText.setText(entries.get(i).getBlog());
+			rowText.setText(BlogEntryUtils.replaceHTMLTags(entries.get(i)
+					.getBlog()));
 
 			innerLayout.addView(rowTitle);
 			innerLayout.addView(rowText);

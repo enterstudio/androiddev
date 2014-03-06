@@ -38,13 +38,16 @@
         android:textColor="@color/lh360Black"
         android:textSize="16sp" />
 
-    <Button
+    <ImageView
         android:id="@+id/btn_new_blog"
-        style="@style/BlueButton"
-        android:layout_marginLeft="230dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:minWidth="10dp"
-        android:text="@string/read_more" />
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:contentDescription="@string/blank"
+        android:src="@drawable/read_more_big" />
 
     <View
         android:layout_width="fill_parent"
@@ -65,7 +68,7 @@
     <ScrollView
         android:id="@+id/tableScroller"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent" >
 
         <TableLayout
             android:id="@+id/older_posts"
