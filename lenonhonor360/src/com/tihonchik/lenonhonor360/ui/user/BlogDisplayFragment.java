@@ -80,8 +80,9 @@ public class BlogDisplayFragment extends BaseFragment {
 			return null;
 		}
 
-		String image = "http://placehold.it/320x240";
+		String image = "http://placehold.it/320x240&text=NO%20IMAGE";
 		if (entries.get(0).getImages() != null
+				&& entries.get(0).getImages().size() > 0
 				&& !"".equals(entries.get(0).getImages().size() > 0)) {
 			image = entries.get(0).getImages().get(0);
 		}
