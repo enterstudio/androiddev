@@ -22,7 +22,6 @@ import android.util.Log;
 
 public class BlogPullService extends IntentService {
 
-	private boolean sendNotification = false;
 	NotificationManager notificationManager;
 	Notification lh360notification;
 
@@ -35,10 +34,7 @@ public class BlogPullService extends IntentService {
 		Log.d("LH360", " > BlogPullService onHandleIntent...");
 		try {
 			if (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
-				if (sendNotification) {
-					sendNotification();
-				}
-				sendNotification = true;
+				sendNotification();
 			}
 		} catch (MalformedURLException exception) {
 			Log.d("LH360", " > MalformedURLException: " + exception);
