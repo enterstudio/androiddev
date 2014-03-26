@@ -2,6 +2,8 @@ package com.tihonchik.lenonhonor360.app;
 
 import java.text.DecimalFormat;
 
+import com.apphance.android.Apphance;
+import com.apphance.android.common.Configuration;
 import com.tihonchik.lenonhonor360.BuildConfig;
 
 import android.app.Application;
@@ -71,6 +73,11 @@ public class LenonHonor360App extends Application {
 							+ new DecimalFormat().format(Runtime.getRuntime()
 									.maxMemory() / 1048576.0));
 		}
+
+		Configuration configuration = new Configuration.Builder(this)
+				.withAPIKey("6a72a2d7131b3efa183d12ec774d34bb1f49d763").build();
+
+		Apphance.startNewSession(LenonHonor360App.this, configuration);
 	}
 
 	public static LenonHonor360App getInstance() {
