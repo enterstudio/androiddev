@@ -47,17 +47,11 @@ public class BlogPullService extends IntentService {
 		BlogEntry blog = BlogEntryUtils.getNewestBlog();
 		if (blog != null) {
 			String title = blog.getTitle();
-			String text = blog.getBlog();
-			if (AppUtils.safeEmpty(title) && AppUtils.safeEmpty(text)) {
+			if (AppUtils.safeEmpty(title)) {
 				return;
 			} else {
 				if (AppUtils.safeEmpty(title)) {
-					title = "New Blog!";
-				}
-				if (AppUtils.safeEmpty(text)) {
-					text = "";
-				} else if (text.length() > 150) {
-					text = text.substring(0, 147) + "...";
+					title = "Lenon Honor 360 - New Blog!";
 				}
 			}
 
@@ -73,7 +67,7 @@ public class BlogPullService extends IntentService {
 					.setSmallIcon(R.drawable.notificationicon).setTicker(title)
 					.setWhen(System.currentTimeMillis()).setAutoCancel(true)
 					.setContentTitle(title)
-					.setDefaults(Notification.DEFAULT_ALL).setContentText(text)
+					.setDefaults(Notification.DEFAULT_ALL)
 					.setContentIntent(pendingIntent).build();
 
 			notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,
