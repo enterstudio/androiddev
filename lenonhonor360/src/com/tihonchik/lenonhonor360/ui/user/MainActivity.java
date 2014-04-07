@@ -51,10 +51,15 @@ public class MainActivity extends BaseActivity {
 				Fragment blogDetailFragment = new BlogDetailFragment();
 				blogDetailFragment.setArguments(arguments);
 
+				/*
+				 * Looks like maybe Activity goes to background, and we try to perform a transaction - Mike T., 4/7/2014 
+				 * Post with proposed solution: 
+				 * http://stackoverflow.com/questions/7469082/getting-exception-illegalstateexception-can-not-perform-this-action-after-onsa/10261438#10261438
+				 */
 				getSupportFragmentManager()
 						.beginTransaction()
 						.replace(R.id.body, blogDetailFragment,
-								AppDefines.TAG_BLOG_DETAIL).commit();
+								AppDefines.TAG_BLOG_DETAIL).commitAllowingStateLoss();
 			}
 		}
 	}
