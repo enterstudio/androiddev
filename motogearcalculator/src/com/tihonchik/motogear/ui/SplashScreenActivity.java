@@ -3,8 +3,6 @@ package com.tihonchik.motogear.ui;
 import com.tihonchik.motogear.R;
 import com.tihonchik.motogear.ui.user.MainActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -49,5 +47,7 @@ public class SplashScreenActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setBackgroundDrawable(null);
+		
+		new StartAppTask().execute();
 	}
 }

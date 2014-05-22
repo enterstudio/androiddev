@@ -18,7 +18,7 @@ import android.webkit.CookieSyncManager;
 
 public class MotoGearCalculatorApp extends Application {
 
-	private static final String TAG = "LH360-LenonHonorApp";
+	private static final String TAG = "MGC-MotoGearCalculatorApp";
 	private static Context mContext;
 	public static MotoGearCalculatorApp defaultInstance;
 
@@ -44,8 +44,6 @@ public class MotoGearCalculatorApp extends Application {
 
 		MotoGearCalculatorApp.mContext = getApplicationContext();
 		MotoGearCalculatorApp.defaultInstance = this;
-		// AppUtils.initializeLenonHonorApp(mContext);
-		// AppState.getInstance().initialize(mContext);
 		CookieSyncManager.createInstance(mContext);
 		CookieManager.getInstance().setAcceptCookie(true);
 

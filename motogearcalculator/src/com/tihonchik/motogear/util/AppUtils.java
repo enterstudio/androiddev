@@ -23,7 +23,7 @@ public class AppUtils {
 	private static int mScreenHeight;
 
 	@SuppressWarnings("deprecation")
-	public static void initializeLenonHonorApp(Context context) {
+	public static void initializeMotoGearCalculatorApp(Context context) {
 		Display display = ((WindowManager) MotoGearCalculatorApp
 				.getAppContext().getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
