@@ -62,6 +62,7 @@
                 android:layout_alignParentRight="true"
                 android:clickable="true"
                 android:contentDescription="@string/blank"
+                android:paddingRight="7dp"
                 android:src="@drawable/web" />
 
             <ImageView

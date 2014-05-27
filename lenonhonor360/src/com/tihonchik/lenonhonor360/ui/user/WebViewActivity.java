@@ -1,7 +1,9 @@
 package com.tihonchik.lenonhonor360.ui.user;
 
+import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.ui.BaseActivity;
+import com.tihonchik.lenonhonor360.util.AppUtils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,10 +17,14 @@ public class WebViewActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webview);
 
-		String url = "http://www.google.com";
+		String url = AppDefines.LENONHONOR_360_WEBSITE_URI;
 
 		if (savedInstanceState == null) {
-			url = getIntent().getDataString().replace("fakehttp://", "http://");
+			Bundle extras = getIntent().getExtras();
+			String mode = extras.getString(AppDefines.WEBVIEW_MODE);
+			if(!AppUtils.safeEmpty(mode) && !AppDefines.YES.equals(mode)) {
+				url = getIntent().getDataString().replace("fakehttp://", "http://");
+			}
 		}
 
 		webView = (WebView) findViewById(R.id.webViewActivity);

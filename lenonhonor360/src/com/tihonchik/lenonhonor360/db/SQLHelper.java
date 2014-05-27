@@ -47,6 +47,9 @@ public interface SQLHelper {
 	public static final String GET_NEWEST_BLOG = "SELECT * FROM "
 			+ TABLE_BLOG_ENTRIES + " ORDER BY " + KEY_BLOG_ID + " DESC Limit 1";
 
+	public static final String GET_BLOG_BY_ID = "SELECT * FROM "
+			+ TABLE_BLOG_ENTRIES + " WHERE " + KEY_BLOG_ID + " = ? ";
+	
 	public static final String GET_BLOG_IMAGES = "SELECT " + KEY_IMAGE
 			+ " FROM " + TABLE_IMAGES + " WHERE " + KEY_BLOG_ID_FK + " = ? ";
 

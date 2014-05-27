@@ -59,4 +59,25 @@ public class BlogEntryUtils {
 				.getApplicationContext());
 		return db.getNewestBlog();
 	}
+
+	public static BlogEntry getBLogById(int id) {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		BlogEntry blog = db.getBlogById(id);
+		blog.setImages(db.getImagesById(id));
+		return blog;
+	}
+
+	public static void insertBlogEntry(BlogEntry entry) {
+		BlogDatabase db = new BlogDatabase(LenonHonor360App.getInstance()
+				.getApplicationContext());
+		db.insertNewBlogEntry(entry);
+		for (String image : entry.getImages()) {
+			db.insertNewImage(entry.getId(), image);
+		}
+	}
+
+	public static String replaceHTMLTags(String text) {
+		return text.replaceAll("\\<[^>]*>", "");
+	}
 }

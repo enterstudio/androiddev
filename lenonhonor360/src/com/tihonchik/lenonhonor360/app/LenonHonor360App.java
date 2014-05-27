@@ -2,7 +2,8 @@ package com.tihonchik.lenonhonor360.app;
 
 import java.text.DecimalFormat;
 
-import com.testflightapp.lib.TestFlight;
+import com.apphance.android.Apphance;
+import com.apphance.android.common.Configuration;
 import com.tihonchik.lenonhonor360.BuildConfig;
 
 import android.app.Application;
@@ -29,7 +30,8 @@ public class LenonHonor360App extends Application {
 
 	@Override
 	public void onCreate() {
-		Log.i("LenonHonor360", "Welcome to the Lenon Honor 360 Android Application.");
+		Log.i("LenonHonor360",
+				"Welcome to the Lenon Honor 360 Android Application.");
 
 		if (BuildConfig.DEBUG) {
 			// Enable strict mode - No I/O on main thread
@@ -43,7 +45,7 @@ public class LenonHonor360App extends Application {
 
 		LenonHonor360App.mContext = getApplicationContext();
 		LenonHonor360App.defaultInstance = this;
-        // AppUtils.initializeLenonHonorApp(mContext);
+		// AppUtils.initializeLenonHonorApp(mContext);
 		// AppState.getInstance().initialize(mContext);
 		CookieSyncManager.createInstance(mContext);
 		CookieManager.getInstance().setAcceptCookie(true);
@@ -51,7 +53,8 @@ public class LenonHonor360App extends Application {
 		// Gather up the version numbers
 		try {
 			mPackageName = getPackageName();
-			PackageInfo info = getPackageManager().getPackageInfo(mPackageName, 0);
+			PackageInfo info = getPackageManager().getPackageInfo(mPackageName,
+					0);
 			mVersionNumber = info.versionName;
 			if (BuildConfig.DEBUG) {
 				mVersionNumber += ".debug";
@@ -70,7 +73,11 @@ public class LenonHonor360App extends Application {
 							+ new DecimalFormat().format(Runtime.getRuntime()
 									.maxMemory() / 1048576.0));
 		}
-		TestFlight.takeOff(this, "b92686fa-ebf1-4c82-ae6f-81d82ed6c3cb");
+
+		Configuration configuration = new Configuration.Builder(this)
+				.withAPIKey("6a72a2d7131b3efa183d12ec774d34bb1f49d763").build();
+
+		Apphance.startNewSession(LenonHonor360App.this, configuration);
 	}
 
 	public static LenonHonor360App getInstance() {

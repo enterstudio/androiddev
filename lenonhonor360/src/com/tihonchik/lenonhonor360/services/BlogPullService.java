@@ -17,8 +17,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -34,45 +32,42 @@ public class BlogPullService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.d("LH360", " > BlogPullService onHandleIntent...");
-		sendNotification();
-
-		/*
-		 * try { if
-		 * (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
-		 * sendNotification(); } } catch (MalformedURLException exception) {
-		 * Log.d("LH360", " > MalformedURLException: " + exception); } catch
-		 * (IOException exception) { Log.d("LH360", " > URISyntaxException: " +
-		 * exception); }
-		 */}
+		try {
+			if (AppDefines.ISSUE_NOTIFICAION.equals(HtmlParser.parseBlog())) {
+				sendNotification();
+			}
+		} catch (MalformedURLException exception) {
+			Log.d("LH360", " > MalformedURLException: " + exception);
+		} catch (IOException exception) {
+			Log.d("LH360", " > URISyntaxException: " + exception);
+		}
+	}
 
 	private void sendNotification() {
 		BlogEntry blog = BlogEntryUtils.getNewestBlog();
 		if (blog != null) {
 			String title = blog.getTitle();
-			String text = blog.getBlog();
-			if (AppUtils.safeEmpty(title) && AppUtils.safeEmpty(text)) {
+			if (AppUtils.safeEmpty(title)) {
 				return;
 			} else {
 				if (AppUtils.safeEmpty(title)) {
-					title = "New Blog!";
-				}
-				if (AppUtils.safeEmpty(text)) {
-					text = "";
-				} else if (text.length() > 150) {
-					text = text.substring(0, 147) + "...";
+					title = "Lenon Honor 360 - New Blog!";
 				}
 			}
 
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.putExtra(AppDefines.BLOG_ID_KEY,
+					String.valueOf(blog.getId()));
+
 			PendingIntent pendingIntent = PendingIntent.getActivity(this,
-					AppDefines.BROADCAST_REQUEST_CODE, new Intent(this,
-							MainActivity.class),
+					AppDefines.BROADCAST_REQUEST_CODE, intent,
 					PendingIntent.FLAG_UPDATE_CURRENT);
 
 			lh360notification = new NotificationCompat.Builder(this)
 					.setSmallIcon(R.drawable.notificationicon).setTicker(title)
 					.setWhen(System.currentTimeMillis()).setAutoCancel(true)
 					.setContentTitle(title)
-					.setDefaults(Notification.DEFAULT_ALL).setContentText(text)
+					.setDefaults(Notification.DEFAULT_ALL)
 					.setContentIntent(pendingIntent).build();
 
 			notificationManager.notify(AppDefines.LH360_NOTIFICATION_ID,

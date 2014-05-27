@@ -1,8 +1,5 @@
 package com.tihonchik.lenonhonor360.ui;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,22 +10,19 @@ import android.util.Log;
 
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
-import com.tihonchik.lenonhonor360.parser.HtmlParser;
 import com.tihonchik.lenonhonor360.services.BlogPullService;
 import com.tihonchik.lenonhonor360.ui.user.MainActivity;
 
 public class SplashScreenActivity extends BaseActivity {
 
-	class HtmlParserTask extends AsyncTask<String, String, Boolean> {
+	class StartAppTask extends AsyncTask<String, String, Boolean> {
 
 		@Override
 		protected Boolean doInBackground(String... args) {
 			try {
-				HtmlParser.parseBlog();
-			} catch (MalformedURLException exception) {
-				Log.d("LH360", " > MalformedURLException: " + exception);
-			} catch (IOException exception) {
-				Log.d("LH360", " > URISyntaxException: " + exception);
+				Thread.sleep(5000);
+			} catch (InterruptedException exception) {
+				Log.d("LH360", " > InterruptedException: " + exception);
 			}
 			return true;
 		}
@@ -69,7 +63,6 @@ public class SplashScreenActivity extends BaseActivity {
 		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
 				System.currentTimeMillis(),
 				AppDefines.SERVICE_NOTIFICATION_INTERVAL, pendingIntent);
-
-		new HtmlParserTask().execute();
+		new StartAppTask().execute();
 	}
 }

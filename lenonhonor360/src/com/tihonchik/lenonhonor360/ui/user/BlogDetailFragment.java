@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.tihonchik.lenonhonor360.AppDefines;
 import com.tihonchik.lenonhonor360.R;
 import com.tihonchik.lenonhonor360.custom.ResizableImageView;
+import com.tihonchik.lenonhonor360.listeners.BaseBackPressedListener;
 import com.tihonchik.lenonhonor360.models.BlogEntry;
 import com.tihonchik.lenonhonor360.ui.BaseFragment;
 import com.tihonchik.lenonhonor360.util.AppUtils;
@@ -62,6 +63,10 @@ public class BlogDetailFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		((MainActivity) getActivity())
+				.setOnBackPressedListener(new BaseBackPressedListener(
+						getActivity()));
+
 		Bundle args = getArguments();
 		BlogEntry blogEntry = (BlogEntry) args
 				.getSerializable(AppDefines.TAG_BLOG_DISPLAY_DETAIL);
@@ -78,9 +83,13 @@ public class BlogDetailFragment extends BaseFragment {
 		TextView blogTitle = (TextView) rootView
 				.findViewById(R.id.detail_blog_title);
 		blogTitle.setText(blogEntry.getTitle());
+		blogTitle.setTextColor(R.color.lh360Clouds);
 		TextView blogText = (TextView) rootView
 				.findViewById(R.id.detail_blog_text);
-		blogText.setText(Html.fromHtml(blogEntry.getBlog()));
+		blogText.setText(Html.fromHtml(blogEntry.getBlog()
+				.replaceAll("<b>", "").replaceAll("</b>", "")
+				.replaceAll("<i>", "").replaceAll("</i>", "")
+				.replaceAll("<u>", "").replaceAll("</u>", "")));
 
 		return rootView;
 	}

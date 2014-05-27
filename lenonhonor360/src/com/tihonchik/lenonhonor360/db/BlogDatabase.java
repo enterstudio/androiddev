@@ -96,6 +96,24 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		return blogId;
 	}
 
+	public BlogEntry getBlogById(int id) {
+		BlogEntry blog = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(GET_BLOG_BY_ID,
+				new String[] { Integer.toString(id) });
+
+		if (cursor.moveToFirst()) {
+			blog = new BlogEntry(cursor.getInt(cursor
+					.getColumnIndex(KEY_BLOG_ID)));
+			blog.setTitle(cursor.getString(cursor
+					.getColumnIndex(KEY_BLOG_TITLE)));
+			blog.setBlog(cursor.getString(cursor.getColumnIndex(KEY_BLOG)));
+		}
+		cursor.close();
+		db.close();
+		return blog;
+	}
+
 	public BlogEntry getNewestBlog() {
 		BlogEntry blog = null;
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -154,7 +172,7 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 		db.endTransaction();
 		db.close();
 	}
-	
+
 	public void insertNewBlogEntries(List<BlogEntry> blogEntries) {
 		if (blogEntries == null || blogEntries.size() == 0) {
 			return;
@@ -175,6 +193,25 @@ public class BlogDatabase extends SQLiteOpenHelper implements SQLHelper {
 			} catch (Exception e) {
 				Log.e("LH360", e.getLocalizedMessage(), e);
 			}
+		}
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();
+	}
+
+	public void insertNewBlogEntry(BlogEntry entry) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			ContentValues values = new ContentValues();
+			values.put(KEY_BLOG_ID, entry.getId());
+			values.put(KEY_BLOG_CREATED, entry.getCreated());
+			values.put(KEY_BLOG_TITLE, entry.getTitle());
+			values.put(KEY_BLOG, entry.getBlog());
+			values.put(KEY_BLOG_DATE, entry.getBlogDate());
+			db.insert(TABLE_BLOG_ENTRIES, null, values);
+		} catch (Exception e) {
+			Log.e("LH360", e.getLocalizedMessage(), e);
 		}
 		db.setTransactionSuccessful();
 		db.endTransaction();
