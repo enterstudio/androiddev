@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lh360Grey"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/header_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/header" />
+
+    <TextView
+        android:id="@+id/about_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/lh360Black"
+        android:textSize="16sp" 
+        android:text="@string/about"/>
+
+</LinearLayout><!-- From: file:/C:/dev_git/androiddev/lenonhonor360/app/src/main/res/layout/about_fragment.xml -->

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lh360Grey"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp" >
+
+    <com.tihonchik.lenonhonor360.custom.ResizableImageView
+        android:id="@+id/detail_blog_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:maxHeight="360dp"
+        android:maxWidth="420dp"
+        android:minHeight="280dp"
+        android:minWidth="200dp" />
+
+    <TextView
+        android:id="@+id/detail_blog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blog_title"
+        android:textColor="@color/lh360Clouds"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/detail_blog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/lh360Black"
+        android:textSize="16sp" />
+
+</LinearLayout><!-- From: file:/C:/dev_git/androiddev/lenonhonor360/app/src/main/res/layout/blog_detail.xml -->

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res" >
+            <file
+                name="app_dialog_bg"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable\app_dialog_bg.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="draw_blue_button"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable\draw_blue_button.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="draw_blue_button_color"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable\draw_blue_button_color.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="btn_blue"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\btn_blue.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_blue_active"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\btn_blue_active.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_blue_disabled"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\btn_blue_disabled.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="header"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\header.jpg"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="homeicon"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\homeicon.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="icon_bullet"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\icon_bullet.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher_default"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\ic_launcher_default.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="info"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\info.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="notificationicon"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\notificationicon.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="read_more"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\read_more.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="read_more_big"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\read_more_big.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="splashscreen"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\splashscreen.jpg"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="web"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-hdpi\web.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="splashscreen"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-ldpi\splashscreen.jpg"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher_default"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-mdpi\ic_launcher_default.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="splashscreen"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-mdpi\splashscreen.jpg"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher_default"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-xhdpi\ic_launcher_default.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="splashscreen"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-xhdpi\splashscreen.jpg"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher_default"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\drawable-xxhdpi\ic_launcher_default.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="about_fragment"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\about_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_webview"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\activity_webview.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="base_panel_layout"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\base_panel_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="blog_detail"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\blog_detail.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="blog_display"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\blog_display.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="header_fragment"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\header_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="splash_screen"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\layout\splash_screen.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="main"
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\menu\main.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values\colors.xml"
+                qualifiers="" >
+                <color name="lh360Asbestos" >#7f8c8d
+                </color>
+                <color name="lh360LightBlue" >#30acc6
+                </color>
+                <color name="lh360Silver" >#bdc3c7
+                </color>
+                <color name="lh360Grey" >#e7ebee
+                </color>
+                <color name="lh360Carrot" >#e67e22
+                </color>
+                <color name="lh360DardGrey" >#12151a
+                </color>
+                <color name="lh360Orange" >#f39c12
+                </color>
+                <color name="lh360Concrete" >#95a5a6
+                </color>
+                <color name="lh360Clouds" >#ecf0f1
+                </color>
+                <color name="lh360White" >#FFFFFF
+                </color>
+                <color name="lh360Black" >#000000
+                </color>
+            </file>
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values\dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+            </file>
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values\strings.xml"
+                qualifiers="" >
+                <string name="splash_screen" >Splash Screen
+                </string>
+                <string name="blog_title" >Blog Title
+                </string>
+                <string name="action_settings" >Settings
+                </string>
+                <string name="app_name" >Lenon Honor 360
+                </string>
+                <string name="read_more" >Read more...
+                </string>
+                <string name="older_blogs" >Older Blogs
+                </string>
+                <string name="blank" ></string>
+                <string name="about" >Lenon Honor is a writer, musician, video producer, talk show host, counselor, lecturer, motivational speaker, and media analyst. His website [link1] provides a wealth of information and inspiration in regards to manhood, fatherhood, marriage, children, family, and personal growth. His website [link2] explores the various means through which the psychological condition of the human species is manipulated through mass media.  His website [link3] is a resource for anyone who is actively pursuing their own personal growth and empowerment.
+                </string>
+            </file>
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values\styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="LH360DialogTheme"
+                    parent="@android:style/Theme.Dialog" >
+                    <item name="android:windowBackground">
+@drawable/app_dialog_bg
+                    </item>
+                    <item name="android:windowIsFloating">
+true
+                    </item>
+                    <item name="android:windowNoTitle">
+true
+                    </item>
+                </style>
+
+                <style name="BlueButton" >
+                    <item name="android:layout_width">
+match_parent
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                    <item name="android:textAllCaps">
+false
+                    </item>
+                    <item name="android:clickable">
+true
+                    </item>
+                    <item name="android:focusable">
+true
+                    </item>
+                    <item name="android:contentDescription">
+@string/blank
+                    </item>
+                    <item name="android:background">
+@drawable/draw_blue_button
+                    </item>
+                    <item name="android:textColor">
+@drawable/draw_blue_button_color
+                    </item>
+                    <item name="android:textSize">
+14sp
+                    </item>
+                    <item name="android:shadowColor">
+#006991
+                    </item>
+                    <item name="android:shadowDx">
+1
+                    </item>
+                    <item name="android:shadowDy">
+1
+                    </item>
+                    <item name="android:textIsSelectable">
+false
+                    </item>
+                </style>
+
+                <style name="ScrollViewStyle" >
+                    <item name="android:layout_width">
+match_parent
+                    </item>
+                    <item name="android:layout_height">
+match_parent
+                    </item>
+                    <item name="android:scrollbars">
+none
+                    </item>
+                    <item name="android:orientation">
+vertical
+                    </item>
+                    <item name="android:cacheColorHint">
+@android:color/transparent
+                    </item>
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="android:Theme.Light" />
+            </file>
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values-sw720dp-land\dimens.xml"
+                qualifiers="sw720dp-land" >
+                <dimen name="activity_horizontal_margin" >128dp
+                </dimen>
+            </file>
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values-v11\styles.xml"
+                qualifiers="v11" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!-- API 11 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                path="C:\dev_git\androiddev\lenonhonor360\app\src\main\res\values-v14\styles.xml"
+                qualifiers="v14" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- API 14 theme customizations can go here. -->
+                </style>
+            </file>
+        </source>
+        <source path="C:\dev_git\androiddev\lenonhonor360\app\build\res\rs\debug" />
+        <source path="C:\dev_git\androiddev\lenonhonor360\app\build\res\generated\debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\dev_git\androiddev\lenonhonor360\app\src\debug\res" />
+    </dataSet>
+
+</merger>

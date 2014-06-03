@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\dev_git\androiddev\lenonhonor360\app\build\pre-dexed\debug\apphance-prod-1.9.13-61a438d50480759be1d48c92c29d31a90b48610a.jar"
+        jar="C:\dev_git\androiddev\lenonhonor360\app\libs\apphance-prod-1.9.13.jar"
+        jumboMode="false"
+        revision="19.0.3"
+        sha1="b07a20fa68a5cdad91f62ffe3010967819f11371"/>
+    <item
+        dex="C:\dev_git\androiddev\lenonhonor360\app\build\pre-dexed\debug\android-support-v4-1fdd579d1e266301af8c1934bbb2d63c321c6c95.jar"
+        jar="C:\dev_git\androiddev\lenonhonor360\app\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="19.0.3"
+        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
+    <item
+        dex="C:\dev_git\androiddev\lenonhonor360\app\build\pre-dexed\debug\support-v4-19.1.0-1d4748c89f0544dfaaf5777d5e0f243a2550d376.jar"
+        jar="C:\_framework\adt-bundle-windows-x86_64-20130729\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.0.3"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+
+</pre-dex-items>
