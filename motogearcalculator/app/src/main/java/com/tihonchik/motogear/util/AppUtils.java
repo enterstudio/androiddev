@@ -15,7 +15,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.tihonchik.motogear.app.MotoGearCalculatorApp;
+import com.tihonchik.motogear.MotoGearCalculatorApp;
 
 public class AppUtils {
 	private static final int SDK_VERSION = android.os.Build.VERSION.SDK_INT;

@@ -43,54 +43,49 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setContentView(getContentLayoutId());
 
-		if (savedInstanceState == null) {
-			Fragment f = new CustomSetupFragment();
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.body, f, "BlogDisplayFragment").commit();
-		}
+        mTitle = mDrawerTitle = getTitle();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-		mMenuItems[0] = "Pick Motorcycle";
-		mMenuItems[1] = "Custom Parameters";
+        mMenuItems[0] = "Pick Motorcycle";
+        mMenuItems[1] = "Custom Parameters";
 
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mMenuItems));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setHomeButtonEnabled(true);
+
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
 				R.string.drawer_open, R.string.drawer_close) {
 
 			/** Called when a drawer has settled in a completely closed state. */
 			public void onDrawerClosed(View view) {
-				super.onDrawerClosed(view);
 				getActionBar().setTitle(mTitle);
-				invalidateOptionsMenu(); // creates call to
-											// onPrepareOptionsMenu()
+				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
 
 			/** Called when a drawer has settled in a completely open state. */
 			public void onDrawerOpened(View drawerView) {
-				super.onDrawerOpened(drawerView);
 				getActionBar().setTitle(mDrawerTitle);
-				invalidateOptionsMenu(); // creates call to
-											// onPrepareOptionsMenu()
+				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
 		};
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mMenuItems));
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-		mTitle = mDrawerTitle = getTitle();
-
+        if (savedInstanceState == null) {
+            Fragment f = new CustomSetupFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, f, "CustomSetupFragment").commit();
+        }
 	}
 
 	@Override
-	public void onNewIntent(Intent intent) {
-	}
+	public void onNewIntent(Intent intent) {}
 
 	@Override
 	public void onPause() {

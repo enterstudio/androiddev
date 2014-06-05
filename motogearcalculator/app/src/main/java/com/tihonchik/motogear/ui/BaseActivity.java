@@ -3,7 +3,6 @@ package com.tihonchik.motogear.ui;
 import com.tihonchik.motogear.R;
 import com.tihonchik.motogear.ui.BaseFragment.BaseCallbacks;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,10 +14,6 @@ import android.webkit.CookieSyncManager;
 public abstract class BaseActivity extends FragmentActivity implements
 		BaseCallbacks {
 
-	public static final int RESULT_LOGOUT = 1001;
-	public static final int RESULT_HOME = 1002;
-
-	protected Dialog mDialog = null;
 	private Context mContext = null;
 
 	public BaseActivity() {
@@ -73,7 +68,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 			Fragment f = (Fragment) targetFragment.newInstance();
 			if (b != null)
 				f.setArguments(b);
-			fm.beginTransaction().replace(R.id.body, f, "").commit();
+			fm.beginTransaction().replace(R.id.content_frame, f, "").commit();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

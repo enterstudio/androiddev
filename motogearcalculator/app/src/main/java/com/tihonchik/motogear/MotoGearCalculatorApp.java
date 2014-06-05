@@ -1,14 +1,11 @@
-package com.tihonchik.motogear.app;
+package com.tihonchik.motogear;
 
 import java.text.DecimalFormat;
-
-import com.tihonchik.motogear.BuildConfig;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.StrictMode;

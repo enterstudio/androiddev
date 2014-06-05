@@ -17,7 +17,7 @@
         android:targetSdkVersion="19" />
 
     <application
-        android:name=".app.MotoGearCalculatorApp"
+        android:name=".MotoGearCalculatorApp"
         android:allowBackup="true"
         android:allowClearUserData="true"
         android:hardwareAccelerated="true"
